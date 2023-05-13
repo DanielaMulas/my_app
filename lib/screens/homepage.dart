@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     print('${HomePage.routeDisplayName} built');
-
+  
     return Scaffold(
       appBar: AppBar(
         title: Text(HomePage.routeDisplayName),
