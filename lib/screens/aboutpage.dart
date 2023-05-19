@@ -56,7 +56,7 @@ class AboutPage extends StatelessWidget {
 
                   // Developer 2
                   DeveloperCard(
-                    name: 'Paola',
+                    name: 'Paola Righetto',
                     bio: 'Write a short bio of the developer',
                     linkedinUrl: Uri.parse('https://www.linkedin.com/developer2'),
                   ),
