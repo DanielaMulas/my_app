@@ -6,9 +6,7 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false, // the screen does not close automatically when the back button is pressed
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
             child: Icon(Icons.arrow_back_ios), // the default arrow icon button has been changed to one having more style
@@ -74,8 +72,7 @@ class AboutPage extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    ); // WillPopScope give us control over the back button action
+      );// WillPopScope give us control over the back button action
   }
 }
 
