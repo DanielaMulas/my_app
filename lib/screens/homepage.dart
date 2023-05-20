@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/aboutuspage.dart';
 
 class HomePage extends StatelessWidget{
@@ -32,21 +33,31 @@ class HomePage extends StatelessWidget{
         selectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 14),
         //unselectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 14),
         backgroundColor: Colors.pink,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white),
+            icon: IconButton(
+              icon: const Icon(Icons.home, color: Colors.white),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+              },
+            ),
             label: "Home",      
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.event_available, color: Colors.white),
             label: 'Events',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart, color: Colors.white),
             label: 'Stats',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.white),
+            icon: IconButton(
+              icon: const Icon(Icons.person, color: Colors.white),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Profile()));
+              },
+            ),
             label: 'Profile',
           ),
         ],
@@ -80,7 +91,7 @@ class HomePage extends StatelessWidget{
 
     );
   }
-   void _toAboutUsPage(BuildContext context){
+  void _toAboutUsPage(BuildContext context){
     //Pop
     Navigator.pop(context);
     //Push HomePage
