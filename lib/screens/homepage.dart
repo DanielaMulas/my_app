@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget{
         selectedItemColor: Colors.black,             
         selectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 14),
         //unselectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 14),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.green,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: IconButton(
