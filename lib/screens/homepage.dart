@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:my_app/screens/profilepage.dart';
-import 'package:my_app/screens/aboutuspage.dart';
 
 class HomePage extends StatelessWidget{
   HomePage({Key? key}) : super(key: key);
@@ -70,15 +69,15 @@ class HomePage extends StatelessWidget{
               title: const Text('Menu', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               leading: const Icon(Icons.menu),
             ),
-              ListTile(
+            ListTile(
               title: const Text('Profile'),
               trailing: const Icon(Icons.account_circle_outlined),
               onTap:(){}
             ),
             ListTile(
-              title: const Text('About Us'),
+              title: const Text('Contact Us'),
               trailing: const Icon(Icons.question_mark_outlined),
-              onTap: () => _toAboutUsPage(context),
+              onTap: (){},
             ),
             ListTile(
               title: const Text('Log Out'),
@@ -90,11 +89,5 @@ class HomePage extends StatelessWidget{
       ),
 
     );
-  }
-  void _toAboutUsPage(BuildContext context){
-    //Pop
-    Navigator.pop(context);
-    //Push HomePage
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutUsPage()));
   }
 }
