@@ -70,16 +70,6 @@ class HomePage extends StatelessWidget{
               leading: const Icon(Icons.menu),
             ),
             ListTile(
-              title: const Text('Profile'),
-              trailing: const Icon(Icons.account_circle_outlined),
-              onTap:(){}
-            ),
-            ListTile(
-              title: const Text('Contact Us'),
-              trailing: const Icon(Icons.question_mark_outlined),
-              onTap: (){},
-            ),
-            ListTile(
               title: const Text('Log Out'),
               trailing: const Icon(Icons.logout_outlined),
               onTap:(){}
