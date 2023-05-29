@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/screens/profilepage.dart';
 
 class HomePage extends StatelessWidget{
@@ -82,7 +83,8 @@ class HomePage extends StatelessWidget{
             ListTile(
               title: const Text('Log Out'),
               trailing: const Icon(Icons.logout_outlined),
-              onTap:(){}
+              onTap:(){},
+            
             ),
           ],
         ),
