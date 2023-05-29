@@ -4,6 +4,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:my_app/screens/homepage.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/models/userprofile.dart';
+import 'package:my_app/widgets/bottomnavbar.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
     String enteredPassword = _passwordController.text;
 
     if (enteredUsername == _user.username && enteredPassword == _user.password) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar()));
       _errorMessage = '';
     } else {
       _errorMessage = 'Invalid username or password';
