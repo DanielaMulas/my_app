@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:my_app/utils/shared_preferences.dart';
+
 
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
 
-  static const route = 'user';
-  static const routename = 'UserPage';
+  static const route = '/profilepage/';
+  static const routename = 'ProfilePage';
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -46,7 +49,7 @@ class _ProfileState extends State<Profile>{
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios), color: Colors.black,
             onPressed: () {
-              Navigator.pop(context, MaterialPageRoute(builder: (context) => HomePage()));
+              Navigator.pop(context);
             },
           ),
           //centerTitle: true,
@@ -58,8 +61,11 @@ class _ProfileState extends State<Profile>{
           child: Column(
             children: [
               Center(
+                child: ClipOval(
                   child: CircleAvatar(
-                      radius: 70, child: Image.asset('assets/avatar.png'))),
+                      radius: 60, child: Image.asset('assets/avatar_green_pic.png')
+                  ),
+                )),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Form(
@@ -67,17 +73,15 @@ class _ProfileState extends State<Profile>{
                   child: Column(
                     children: [
                       
-
+                      //Children per inserimento name
                       const SizedBox(height: 20),
                       SizedBox(
-                        //width: 400,
+                        width: 400,
                         child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your name';
-                              } /*else if ( ) {
-                                return 'Please enter an integer valid number';
-                              }*/
+                              }
                               return null;
                             },
                             controller: nameController,
@@ -139,19 +143,19 @@ class _ProfileState extends State<Profile>{
                         ],
                       ),
 
-                      //Secondo children:
+                      //Children per inserimento età:
                       const SizedBox(height: 20),
                       SizedBox(
                         width: 400,
                         child: TextFormField(
-                            validator: (value) {
+                            /*validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your age';
                               } else if (int.tryParse(value) == null) {
                                 return 'Please enter an integer valid number';
                               }
                               return null;
-                            },
+                            },*/
                         controller: ageController,
                         enabled: true,
                         decoration: const InputDecoration(
@@ -169,58 +173,60 @@ class _ProfileState extends State<Profile>{
                       const SizedBox(height: 20),
                       SizedBox(
                         width: 400,
-                        child: TextFormField(                            
-                            onTap:() {
-                               showCountryPicker(
-                                context: context,
-                                countryListTheme: CountryListThemeData(
-                                  flagSize: 25,
-                                  backgroundColor: Colors.white,
-                                  textStyle: TextStyle(fontSize: 16, color: Colors.blueGrey),
-                                  bottomSheetHeight: 500, // Optional. Country list modal height
-                                  //Optional. Sets the border radius for the bottomsheet.
-                                    borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    topRight: Radius.circular(20.0),
-                                  ),
-                                  //Optional. Styles the search field.
-                                  inputDecoration: InputDecoration(
-                                    labelText: 'Search',
-                                    hintText: 'Start typing to search',
-                                    prefixIcon: const Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: const Color(0xFF8C98A8).withOpacity(0.2),
-                                      ),
-                                    ),                                    
-                                  ),
+                        child: TextFormField(   
+                          controller: countryController,                         
+                          onTap:() {
+                            showCountryPicker(
+                              context: context,  
+                              onSelect: (Country country)  {                                  
+                                setState(() {
+                                  chosenCountry=country;
+                                  countryController.text=chosenCountry!.displayNameNoCountryCode;
+                                });
+                              },                            
+                              countryListTheme: CountryListThemeData(
+                                flagSize: 25,
+                                backgroundColor: Colors.white,
+                                textStyle: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                                bottomSheetHeight: 500, // Optional. Country list modal height
+                                //Optional. Sets the border radius for the bottomsheet.
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.0),
+                                  topRight: Radius.circular(20.0),
                                 ),
-                                onSelect: (Country country)  {                                  
-                                   setState(() {chosenCountry=country;});                                
-                                  //print('Selected country: ${country.displayName}');
-                                },                                
-                              );
-                              
-                            }, //fine OnTap
-                            
-                            
-                            //WRONG!!!!!!!!!                        
+                                //Optional. Styles the search field.
+                                inputDecoration: InputDecoration(
+                                  labelText: 'Search',
+                                  hintText: 'Start typing to search',
+                                  prefixIcon: const Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: const Color(0xFF8C98A8).withOpacity(0.2),
+                                    ),
+                                  ),   
+                                ),
+                              ), 
+                            );                            
+                          }, //fine OnTap
+                          
+                                                 
                             /*validator: (countryChosen) {
                               if (countryChosen == null || countryChosen.isEmpty) {
                                 return 'Please select your country';
                               } else
                                 return countryChosen;
-                            },
-                            controller: countryController,*/
-                            decoration: const InputDecoration(
-                                icon: Icon(MdiIcons.earth, color: Color.fromARGB(255, 21, 120, 25)),
-                                border: UnderlineInputBorder(),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color.fromARGB(255, 21, 120, 25))),
-                                labelText: 'Country',
-                                labelStyle: TextStyle(color: Color.fromARGB(255, 21, 120, 25), fontWeight: FontWeight.bold)
-                                )),
+                            },*/
+                          
+                          decoration: const InputDecoration(
+                            icon: Icon(MdiIcons.earth, color: Color.fromARGB(255, 21, 120, 25)),
+                            border: UnderlineInputBorder(),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2, color: Color.fromARGB(255, 21, 120, 25))),
+                              labelText: 'Country',
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 21, 120, 25), fontWeight: FontWeight.bold)
+                          ),
+                        ),
                       ),
                       
                       //children per inserimento città
@@ -228,14 +234,12 @@ class _ProfileState extends State<Profile>{
                       SizedBox(
                         //width: 400,
                         child: TextFormField(
-                            validator: (value) {
+                            /*validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your city';
-                              } /*else if () {
-                                return 'Please enter an integer valid number';
-                              }*/
+                              } 
                               return null;
-                            },
+                            },*/
                             controller: cityController,
                             enabled: true,
                             decoration: const InputDecoration(
@@ -258,9 +262,9 @@ class _ProfileState extends State<Profile>{
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your email';
-                              } /*else if ( ) {
-                                return 'Please enter an integer valid number';
-                              }*/
+                              } else if (!value.contains('@') ) {
+                                return 'Please enter a valid email address';
+                              }
                               return null;
                             },
                             controller: emailController,
@@ -282,14 +286,14 @@ class _ProfileState extends State<Profile>{
                       SizedBox(
                         //width: 400,
                         child: TextFormField(
-                            validator: (value) {
+                            /*validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your email';
+                                return 'Please enter your phone number';
                               } else if (int.tryParse(value) == null) {
                                 return 'Please enter an integer valid number';
                               }
                               return null;
-                            },
+                            },*/
                             controller: phoneController,
                             enabled: true,
                             keyboardType: TextInputType.number,
@@ -355,10 +359,19 @@ class _ProfileState extends State<Profile>{
                         children: [
                           ElevatedButton(
                               onPressed: () async {
-                                if (_formKey.currentState!.validate()) {}
+                                if (_formKey.currentState!.validate()) {
+                                  var prefs = Provider.of<Preferences>(context, listen: false);
+                                  prefs.name=nameController.text;
+                                  prefs.email=emailController.text;
+                                  prefs.age=ageController.text;
+                                  prefs.city=cityController.text;
+                                  prefs.country=countryController.text;
+                                  prefs.phone=countryController.text;
+                                  Navigator.pop(context);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF83AA99),
+                                  backgroundColor: Color.fromARGB(255, 33, 163, 57),
                                   shape: const CircleBorder()),
                               child: const Icon(Icons.check)),
                         ],
