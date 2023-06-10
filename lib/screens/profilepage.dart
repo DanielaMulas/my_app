@@ -397,7 +397,6 @@ class _ProfileState extends State<Profile>{
                           ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  //String name=nameController.text;
                                   final profileData=await SharedPreferences.getInstance();
                                   await profileData.setString('name', nameController.text);
                                   //await ProfileData.setInt('gender', RadioVal);
@@ -406,6 +405,7 @@ class _ProfileState extends State<Profile>{
                                   await profileData.setString('city', cityController.text);
                                   await profileData.setString('email', emailController.text);
                                   await profileData.setString('phone', phoneController.text);
+
 
                                                                 
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));

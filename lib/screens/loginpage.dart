@@ -5,7 +5,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,12 +27,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (enteredUsername == _user.username && enteredPassword == _user.password) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar()));
-<<<<<<< Updated upstream
-=======
-      final pref = await SharedPreferences.getInstance();
+      /*final pref = await SharedPreferences.getInstance();
       pref.setString('username',enteredUsername);
-      pref.setString('password',enteredPassword);
->>>>>>> Stashed changes
+      pref.setString('password',enteredPassword);*/
       _errorMessage = '';
     } else {
       _errorMessage = 'Invalid username or password';
