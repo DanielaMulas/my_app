@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:my_app/screens/homepage.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -27,10 +28,11 @@ class _LoginPageState extends State<LoginPage> {
     };
   }
 
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String _errorMessage = '';
+  //final _formKey = GlobalKey<FormState>();
 
   final UserProfile _user = UserProfile();
 
@@ -54,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
+
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -66,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
+            //key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -77,17 +81,37 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(height: 20.0),
-                TextField(
+                TextFormField(
                   controller: _usernameController,
+                  /*validator: (val) {
+                    if(val==null || val.isEmpty) {
+                      return 'Insert username';
+                    }
+                    else if (val != _user.username) 
+                    {
+                      return 'Wrong username';
+                    }
+                    return null;
+                  },*/
                   decoration: InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                   ),
                 ),
                 SizedBox(height: 20.0),
-                TextField(
+                TextFormField(
                   controller: _passwordController,
                   obscureText: true,
+                  /*validator: (val) {
+                    if(val==null || val.isEmpty) {
+                      return 'Insert password';
+                    }
+                    else if (val != _user.username) 
+                    {
+                      return 'Wrong password';
+                    }
+                    return null;
+                  },*/
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
@@ -96,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20.0),
                 ElevatedButton(
                   onPressed: _login,
+                  
                   child: Text('Login'),
                 ),
                 SizedBox(height: 10.0),

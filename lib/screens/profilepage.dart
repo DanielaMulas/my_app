@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:my_app/utils/shared_preferences.dart';
+import 'package:my_app/screens/homepage.dart';
+import 'package:my_app/widgets/bottomnavbar.dart';
+//import 'package:provider/provider.dart';
+//import 'package:my_app/utils/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -20,9 +23,10 @@ class Profile extends StatefulWidget {
 
 
 class _ProfileState extends State<Profile>{ 
+  
   final _formKey = GlobalKey<FormState>();
-
-  int? RadioVal;
+  
+  int ? RadioVal;
 
   final TextEditingController ageController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
@@ -30,10 +34,23 @@ class _ProfileState extends State<Profile>{
   final TextEditingController countryController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  
   Country ? chosenCountry;
-
   CountryCode? countryCode;
   final countryPicker= const FlCountryCodePicker();
+  
+  void _retrieveVar() async {
+    final profileData= await SharedPreferences.getInstance();
+    profileData.getString('name');
+    profileData.getString('age');
+    profileData.getString('country');
+    profileData.getString('city');
+    profileData.getString('email');
+    profileData.getString('phone');
+    setState(() {
+
+    });
+  }
   
 
   @override
@@ -49,7 +66,7 @@ class _ProfileState extends State<Profile>{
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios), color: Colors.black,
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
             },
           ),
           //centerTitle: true,
@@ -57,7 +74,7 @@ class _ProfileState extends State<Profile>{
               const Text('Profile Information', style: TextStyle(color: Colors.black)),
         ),
 
-        body: SingleChildScrollView(
+        body: SingleChildScrollView(          
           child: Column(
             children: [
               Center(
@@ -73,6 +90,20 @@ class _ProfileState extends State<Profile>{
                   child: Column(
                     children: [
                       
+                      Row(                                  
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ElevatedButton(
+                              onPressed: ()  {
+                                _retrieveVar();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color.fromARGB(255, 33, 163, 57),
+                                  shape: const CircleBorder()),
+                              child: const Icon(Icons.autorenew)),
+                        ],
+                      ),
+
                       //Children per inserimento name
                       const SizedBox(height: 20),
                       SizedBox(
@@ -84,8 +115,12 @@ class _ProfileState extends State<Profile>{
                               }
                               return null;
                             },
-                            controller: nameController,
+                            
+                            controller: nameController, 
                             enabled: true,
+                            //initialValue: ProfileData.getString('name'),
+                          
+                            keyboardType: TextInputType.name,
                             decoration: const InputDecoration(
                                 icon: Icon(Icons.person, color: Color.fromARGB(255, 21, 120, 25)),
                                 border: UnderlineInputBorder(),
@@ -97,7 +132,7 @@ class _ProfileState extends State<Profile>{
                                 )),
                       ),
 
-                      
+                      //children per inserimento gender
                       const SizedBox(height: 20),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -148,25 +183,26 @@ class _ProfileState extends State<Profile>{
                       SizedBox(
                         width: 400,
                         child: TextFormField(
-                            /*validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your age';
-                              } else if (int.tryParse(value) == null) {
-                                return 'Please enter an integer valid number';
-                              }
-                              return null;
-                            },*/
-                        controller: ageController,
-                        enabled: true,
-                        decoration: const InputDecoration(
-                                icon: Icon(MdiIcons.counter, color: Color.fromARGB(255, 21, 120, 25)),
-                                border: UnderlineInputBorder(),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Color.fromARGB(255, 21, 120, 25))),
-                                labelText: 'Age',
-                                labelStyle: TextStyle(color: Color.fromARGB(255, 21, 120, 25), fontWeight: FontWeight.bold))),
-                      ),
+                          /*validator: (value) {
+                          if (value == null || value.isEmpty) {
+                                  return 'Please enter your age';
+                                } else if (int.tryParse(value) == null) {
+                                  return 'Please enter an integer valid number';
+                                }
+                                return null;
+                          },*/
+                          controller: ageController,
+                          enabled: true,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                                  icon: Icon(MdiIcons.counter, color: Color.fromARGB(255, 21, 120, 25)),
+                                  border: UnderlineInputBorder(),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 2, color: Color.fromARGB(255, 21, 120, 25))),
+                                  labelText: 'Age',
+                                  labelStyle: TextStyle(color: Color.fromARGB(255, 21, 120, 25), fontWeight: FontWeight.bold))),
+                        ),
 
   
                       //children per inserimento country
@@ -174,16 +210,17 @@ class _ProfileState extends State<Profile>{
                       SizedBox(
                         width: 400,
                         child: TextFormField(   
-                          controller: countryController,                         
+                          controller: countryController, 
+                          keyboardType: TextInputType.none,                              
                           onTap:() {
                             showCountryPicker(
                               context: context,  
                               onSelect: (Country country)  {                                  
                                 setState(() {
                                   chosenCountry=country;
-                                  countryController.text=chosenCountry!.displayNameNoCountryCode;
+                                  countryController.text=chosenCountry!.displayNameNoCountryCode;                                
                                 });
-                              },                            
+                              },          
                               countryListTheme: CountryListThemeData(
                                 flagSize: 25,
                                 backgroundColor: Colors.white,
@@ -195,6 +232,7 @@ class _ProfileState extends State<Profile>{
                                   topRight: Radius.circular(20.0),
                                 ),
                                 //Optional. Styles the search field.
+                                
                                 inputDecoration: InputDecoration(
                                   labelText: 'Search',
                                   hintText: 'Start typing to search',
@@ -209,7 +247,7 @@ class _ProfileState extends State<Profile>{
                             );                            
                           }, //fine OnTap
                           
-                                                 
+                          //initialValue: ProfileData.getString('country'),                     
                             /*validator: (countryChosen) {
                               if (countryChosen == null || countryChosen.isEmpty) {
                                 return 'Please select your country';
@@ -323,8 +361,7 @@ class _ProfileState extends State<Profile>{
                                         },
                                         child: Row(
                                           children: [
-                                            Container(                                     
-                                            
+                                            Container(
                                               child: countryCode != null ? countryCode!.flagImage : null,                                            
                                             ),
                                             const SizedBox(width: 10),
@@ -351,23 +388,27 @@ class _ProfileState extends State<Profile>{
                       ),
                       
 
+                      
 
 
-
-                      Row(
+                      Row(                        
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  var prefs = Provider.of<Preferences>(context, listen: false);
-                                  prefs.name=nameController.text;
-                                  prefs.email=emailController.text;
-                                  prefs.age=ageController.text;
-                                  prefs.city=cityController.text;
-                                  prefs.country=countryController.text;
-                                  prefs.phone=countryController.text;
-                                  Navigator.pop(context);
+                                  //String name=nameController.text;
+                                  final profileData=await SharedPreferences.getInstance();
+                                  await profileData.setString('name', nameController.text);
+                                  //await ProfileData.setInt('gender', RadioVal);
+                                  await profileData.setString('age', ageController.text);
+                                  await profileData.setString('country', countryController.text);
+                                  await profileData.setString('city', cityController.text);
+                                  await profileData.setString('email', emailController.text);
+                                  await profileData.setString('phone', phoneController.text);
+
+                                                                
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
                                 }
                               },
                               style: ElevatedButton.styleFrom(
