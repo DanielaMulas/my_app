@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   String _errorMessage = '';
-  //final _formKey = GlobalKey<FormState>();
 
   final UserProfile _user = UserProfile();
 
@@ -28,17 +27,21 @@ class _LoginPageState extends State<LoginPage> {
 
     if (enteredUsername == _user.username && enteredPassword == _user.password) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+<<<<<<< Updated upstream
+=======
+      final pref = await SharedPreferences.getInstance();
+      pref.setString('username',enteredUsername);
+      pref.setString('password',enteredPassword);
+>>>>>>> Stashed changes
       _errorMessage = '';
     } else {
       _errorMessage = 'Invalid username or password';
     }
-
     setState(() {});
   }
 
   @override
   void dispose() {
-
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -65,16 +68,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20.0),
                 TextFormField(
                   controller: _usernameController,
-                  /*validator: (val) {
-                    if(val==null || val.isEmpty) {
-                      return 'Insert username';
-                    }
-                    else if (val != _user.username) 
-                    {
-                      return 'Wrong username';
-                    }
-                    return null;
-                  },*/
                   decoration: InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
@@ -84,16 +77,6 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  /*validator: (val) {
-                    if(val==null || val.isEmpty) {
-                      return 'Insert password';
-                    }
-                    else if (val != _user.username) 
-                    {
-                      return 'Wrong password';
-                    }
-                    return null;
-                  },*/
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
@@ -102,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20.0),
                 ElevatedButton(
                   onPressed: _login,
-                  
                   child: Text('Login'),
                 ),
                 SizedBox(height: 10.0),
