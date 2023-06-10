@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/homepage.dart';
+import 'package:my_app/screens/challengespage.dart';
 
 class BottomNavBar extends StatefulWidget{
   BottomNavBar({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 int _currentIndex = 0;
 final screens = [
   HomePage(),
-  Center(child: Text('Events', style: TextStyle(fontSize:60)),),
+  Challenge(),
   Center(child: Text('Stats', style: TextStyle(fontSize:60)),),
   Profile(),
 ];
@@ -45,7 +46,7 @@ final screens = [
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.event_available, color: Colors.white),
-            label: 'Events',
+            label: 'Challenges',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart, color: Colors.white),

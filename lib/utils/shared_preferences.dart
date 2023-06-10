@@ -69,6 +69,5 @@ class Preferences {
   set phone(String? newphone) => _saveToDisk("phone number", newphone);
 
 
-  //String? get purpleAirXApiKey => _getFromDisk('purpleAirXApiKey');
-  //set purpleAirXApiKey(String? newpurpleAirXApiKey) => _saveToDisk("purpleAirXApiKey", newpurpleAirXApiKey);
+
 }
