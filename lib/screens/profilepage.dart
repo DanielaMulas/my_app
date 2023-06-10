@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile>{
               Center(
                 child: ClipOval(
                   child: CircleAvatar(
-                      radius: 60, child: Image.asset('assets/avatar_green_pic.png')
+                      radius: 60, child: Image.asset('assets/images/avatar_green_pic.png')
                   ),
                 )),
               Padding(

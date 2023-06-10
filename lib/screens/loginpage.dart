@@ -5,13 +5,28 @@ import 'package:my_app/screens/homepage.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
-  @override
+
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  @override
+  void initState(){
+    super.initState();
+    _checkLogin();
+  }
+
+  void _checkLogin() async{
+    final pref = await SharedPreferences.getInstance();
+    if(pref.getString('username')!= null){
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
+    };
+  }
+
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -19,12 +34,16 @@ class _LoginPageState extends State<LoginPage> {
 
   final UserProfile _user = UserProfile();
 
-  void _login() {
+  Future<void> _login() async {
     String enteredUsername = _usernameController.text;
     String enteredPassword = _passwordController.text;
 
     if (enteredUsername == _user.username && enteredPassword == _user.password) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+      final pref = await SharedPreferences.getInstance();
+      pref.setString('username',enteredUsername);
+      pref.setString('password',enteredPassword);
+      
       _errorMessage = '';
     } else {
       _errorMessage = 'Invalid username or password';
@@ -101,3 +120,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+

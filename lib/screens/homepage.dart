@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:my_app/models/userprofile.dart';
+import 'package:my_app/screens/loginpage.dart';
 import 'package:my_app/screens/profilepage.dart';
-
+import 'package:my_app/screens/challengespage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget{
   HomePage({Key? key}) : super(key: key);
@@ -15,16 +17,7 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomeState extends State<HomePage> {
-
-int _currentIndex = 0;
-final screens = [
-  HomePage(),
-  Center(child: Text('Events', style: TextStyle(fontSize:60)),),
-  Center(child: Text('Stats', style: TextStyle(fontSize:60)),),
-  Profile(),
-];
-  
-  @override
+   @override
   Widget build(BuildContext context){
     print('${HomePage.routeDisplayName} built');
   
@@ -42,7 +35,7 @@ final screens = [
         ),
               // Cose da aggiungere
       ),
-            drawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -53,10 +46,17 @@ final screens = [
             ListTile(
               title: const Text('Log Out'),
               trailing: const Icon(Icons.logout_outlined),
-              onTap:(){},
+              onTap:() => _logOut(context),
             ),],
         ),
       ),
     );
   }
+}
+
+void _logOut(BuildContext context) async{
+  final sp = await SharedPreferences.getInstance();
+  sp.remove('username');
+  sp.remove('password');
+  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
 }
