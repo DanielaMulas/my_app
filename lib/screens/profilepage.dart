@@ -39,6 +39,12 @@ class _ProfileState extends State<Profile>{
   CountryCode? countryCode;
   final countryPicker= const FlCountryCodePicker();
   
+  @override
+  void initState(){
+    super.initState();
+    _retrieveVar();
+  }
+
   void _retrieveVar() async {
     final profileData= await SharedPreferences.getInstance();
     profileData.getString('name');
@@ -48,7 +54,12 @@ class _ProfileState extends State<Profile>{
     profileData.getString('email');
     profileData.getString('phone');
     setState(() {
-
+      nameController.text=profileData.getString('name')?? '{}';
+      ageController.text=profileData.getString('age')?? '{}';
+      countryController.text=profileData.getString('country')?? '{}';
+      cityController.text=profileData.getString('city')?? '{}';
+      emailController.text=profileData.getString('email')?? '{}';
+      phoneController.text=profileData.getString('phone')?? '{}'; //defaulting to an empty map when the method return null
     });
   }
   
@@ -90,19 +101,7 @@ class _ProfileState extends State<Profile>{
                   child: Column(
                     children: [
                       
-                      Row(                                  
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ElevatedButton(
-                              onPressed: ()  {
-                                _retrieveVar();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color.fromARGB(255, 33, 163, 57),
-                                  shape: const CircleBorder()),
-                              child: const Icon(Icons.autorenew)),
-                        ],
-                      ),
+                      
 
                       //Children per inserimento name
                       const SizedBox(height: 20),
@@ -397,7 +396,6 @@ class _ProfileState extends State<Profile>{
                           ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  //String name=nameController.text;
                                   final profileData=await SharedPreferences.getInstance();
                                   await profileData.setString('name', nameController.text);
                                   //await ProfileData.setInt('gender', RadioVal);
@@ -406,7 +404,8 @@ class _ProfileState extends State<Profile>{
                                   await profileData.setString('city', cityController.text);
                                   await profileData.setString('email', emailController.text);
                                   await profileData.setString('phone', phoneController.text);
-
+                                  //await profileData.setInt('gender', RadioVal);
+                                  //setState((){});
                                                                 
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
                                 }
@@ -427,4 +426,7 @@ class _ProfileState extends State<Profile>{
     );
         
   } //build
+
+
+  
 } //Page

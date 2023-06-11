@@ -3,6 +3,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/screens/loginpage.dart';
 import 'package:my_app/screens/profilepage.dart';
+import 'package:my_app/screens/eventshomepage.dart';
+
 import 'package:my_app/screens/challengespage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +19,17 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomeState extends State<HomePage> {
+
+int _currentIndex = 0;
+final screens = [
+  HomePage(),
+  Events(),
+  //Center(child: Text('Events', style: TextStyle(fontSize:60)),),
+  Center(child: Text('Stats', style: TextStyle(fontSize:60)),),
+  Profile(),
+];
+  
+  @override
    @override
   Widget build(BuildContext context){
     print('${HomePage.routeDisplayName} built');

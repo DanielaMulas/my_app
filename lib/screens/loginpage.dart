@@ -5,7 +5,6 @@ import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -45,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
       final pref = await SharedPreferences.getInstance();
       pref.setString('username',enteredUsername);
       pref.setString('password',enteredPassword);
+
       _errorMessage = '';
     } else {
       _errorMessage = 'Invalid username or password';
