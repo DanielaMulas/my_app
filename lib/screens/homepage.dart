@@ -5,12 +5,12 @@ import 'package:my_app/screens/loginpage.dart';
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/eventshomepage.dart';
 import 'package:my_app/screens/aboutpage.dart';
-import 'package:my_app/screens/challengespage.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
+import 'package:my_app/screens/authorizationpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget{
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   static const route = '/home/';
   static const routeDisplayName = 'Homepage';
@@ -60,6 +60,16 @@ final screens = [
               onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar())),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172)),
+            ListTile(
+              title: const Text('Authorization'),
+              trailing: const Icon(Icons.lock_outline),
+              onTap:() => Navigator.push(context,MaterialPageRoute(builder: (context) => Authorization())),
+            ),
+            ListTile(
+              title: const Text('About Us'),
+              trailing: const Icon(Icons.question_mark_outlined),
+              onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => AboutPage())),
+            ),
             ListTile(
               title: const Text('Log Out'),
               leading: const Icon(Icons.logout_outlined),
