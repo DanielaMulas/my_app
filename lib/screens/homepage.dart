@@ -63,25 +63,19 @@ final screens = [
             ListTile(
               title: const Text('Authorization'),
               trailing: const Icon(Icons.lock_outline),
-              onTap:() => Navigator.push(context,MaterialPageRoute(builder: (context) => Authorization())),
-            ),
-            ListTile(
-              title: const Text('About Us'),
-              trailing: const Icon(Icons.question_mark_outlined),
-              onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => AboutPage())),
-            ),
-            ListTile(
-              title: const Text('Log Out'),
-              leading: const Icon(Icons.logout_outlined),
-              onTap:() => _logOut(context),
+              onTap:() => Navigator.push(context,MaterialPageRoute(builder: (context) => const Authorization())),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172),),
             ListTile(
-              title: const Text('About us'),
-              leading: const Icon(
-                 MdiIcons.informationOutline,
-                 ),
-              onTap:() => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => AboutPage())),
+              title: const Text('About Us'),
+              trailing: const Icon(MdiIcons.informationOutline),
+              onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => const AboutPage())),
+            ),
+            const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172),),
+            ListTile(
+              title: const Text('Log Out'),
+              trailing: const Icon(Icons.logout_outlined),
+              onTap:() => _logOut(context),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172),),
           ],

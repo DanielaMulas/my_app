@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class AboutPage extends StatefulWidget{
-  AboutPage({Key? key}) : super(key: key);
+  const AboutPage({Key? key}) : super(key: key);
 
   static const route = '/aboutpage/';
   static const routeDisplayName = 'AboutPage';

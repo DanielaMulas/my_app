@@ -15,7 +15,7 @@ class Authorization extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Authorization")         
+          title: const Text("Authorization")         
         ),
         body: Center(
           child: Column(
