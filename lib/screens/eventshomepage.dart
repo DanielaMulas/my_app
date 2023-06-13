@@ -41,13 +41,13 @@ class _Events extends State<Events> {
 
               MaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                //padding: EdgeInsets.all(8.0),              
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),              
                 textColor: Colors.white,
                 splashColor: Colors.greenAccent,
                 elevation: 8.0,
                 child: Container(
                   height:240,
-                  width: 800,
+                  //width: 800,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/human_rights.jpg'), 
@@ -56,15 +56,18 @@ class _Events extends State<Events> {
                         ),
                   ),
                   child: const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "Human Rights section",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        //backgroundColor: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        " Human Rights section ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          backgroundColor: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -77,30 +80,32 @@ class _Events extends State<Events> {
 
               MaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                
+                padding: const EdgeInsets.symmetric(horizontal: 0.0), 
                 textColor: Colors.white,
                 splashColor: Colors.greenAccent,
                 elevation: 8.0,
                 child: Container(
                   height:240,
-                  width: 800,
-                  decoration: BoxDecoration(
+                  //width: 800,
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/School.jpeg'), 
+                        image: AssetImage('assets/images/education.jpg'), 
                         fit: BoxFit.cover
-                        
-                        ),
+                    ),
                   ),
                   child: const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "Education section",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        //backgroundColor: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        " Education section ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          backgroundColor: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -112,14 +117,15 @@ class _Events extends State<Events> {
               ),
 
               MaterialButton(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,                
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),                 
                 textColor: Colors.white,
                 splashColor: Colors.greenAccent,
                 elevation: 8.0,
                 child: Container(
-                  height:240,
-                  width: 1200,
-                  decoration: BoxDecoration(
+                  height:250,
+                  //width: 1200,
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/peace_flag.png'), 
                         fit: BoxFit.cover
@@ -127,15 +133,18 @@ class _Events extends State<Events> {
                         ),
                   ),
                   child: const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "Peace culture section",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        //backgroundColor: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text(
+                        " Peace culture section ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          backgroundColor: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:flutter_login/flutter_login.dart';
+//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+//import 'package:flutter_login/flutter_login.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:provider/provider.dart';
+
 
 class LoginPage extends StatefulWidget {
 
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
     final pref = await SharedPreferences.getInstance();
     if(pref.getString('username')!= null){
        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
-    };
+    }
   }
 
   final TextEditingController _usernameController = TextEditingController();
