@@ -1,122 +1,174 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:my_app/widgets/bottomnavbar.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
+class AboutPage extends StatefulWidget{
+  AboutPage({Key? key}) : super(key: key);
+
+  static const route = '/aboutpage/';
+  static const routeDisplayName = 'AboutPage';
+  
+  @override
+  State<AboutPage> createState() => _AboutPage();
+}
+
+class _AboutPage extends State<AboutPage> {
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
-            child: Icon(Icons.arrow_back_ios), // the default arrow icon button has been changed to one having more style
-            onTap: () => Navigator.pop(context),
-          ), // manually handling the back button
-          centerTitle: true,
-          title: Text("About us"),
+            child: const Icon(Icons.arrow_back_ios),
+            onTap: () => Navigator.pop(context)//Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar())),
+          ),
+          //centerTitle: true,
+          title: const Text("About Us"),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                //mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // App Name
-                  Text('App Name', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,),),
-                  SizedBox(height: 20.0),
-
+                  
+                  //App name
+                  const Text(
+                    'App Name',
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62),),
+                    textAlign: TextAlign.left,
+                  ),
+                  const Divider(height: 10, thickness:5, color: Color.fromARGB(255, 59, 126, 62), endIndent: 120),
+                  const SizedBox(height: 10.0),
+                  
                   // App Logo
-                  Image.asset('assets/images/icon_app.png', width: 120.0, height: 120.0,),
-                  SizedBox(height: 20.0),
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green,),
+                        borderRadius: const BorderRadius.all(Radius.circular(60)),
+                        ),
+                      child: ClipOval(
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 60,
+                          child: Image.asset('assets/images/logo_app.jpg'),
+                                      )),
+                    )),
+                  const SizedBox(height: 20.0),
+
+                  //Slogan
+                  const Text(
+                    'Our Slogan', 
+                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 59, 126, 62), 
+                    height: 5,
+                    thickness: 3,
+                    endIndent: 235,
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'TRAIN FOR WHAT YOU BELIEVE IN!',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20.0),
+
+
 
                   // Mission Section
-                  Text('Our Mission', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,),),
-                  Text('Write your mission statement here', textAlign: TextAlign.center,),
-                  SizedBox(height: 20.0),
-
-                  // Values Section
-                  Text('Our Values', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,),),
-                  Text('Write your values statement here', textAlign: TextAlign.center,),
-                  SizedBox(height: 20.0),
-
-                  // Developers Section
-                  Text('Developers', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,),),
-                  SizedBox(height: 10.0),
-
-                  // Developer 1
-                  DeveloperCard(
-                    name: 'Christian Dragonetti',
-                    bio: 'Write a short bio of the developer',
-                    linkedinUrl: Uri.parse('https://www.linkedin.com/in/christian-dragonetti-942bb7211/'),
+                  const Text(
+                    'Our Mission', 
+                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
                   ),
-                  SizedBox(height: 10.0),
-
-                  // Developer 2
-                  DeveloperCard(
-                    name: 'Paola Righetto',
-                    bio: 'Write a short bio of the developer',
-                    linkedinUrl: Uri.parse('https://www.linkedin.com/developer2'),
+                  const Divider(
+                    color: Color.fromARGB(255, 59, 126, 62), 
+                    height: 5,
+                    thickness: 3,
+                    endIndent: 220,
                   ),
-                  SizedBox(height: 10.0),
-
-                  // Developer 3
-                  DeveloperCard(
-                    name: 'Daniela',
-                    bio: 'Write a short bio of the developer',
-                    linkedinUrl: Uri.parse('https://www.linkedin.com/developer3'),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'The objective of this app is to educate people to social causes in a sustainable way.\nIn particular, you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 15),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
+
+                  // DEVELOPERS SECTION
+                  //Title
+                  const Text(
+                    'Developers', 
+                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62),),
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 59, 126, 62), 
+                    height: 5,
+                    thickness: 3,
+                    endIndent: 230,
+                  ),
+                  
+                  //Names
+                  const ListTile(
+                    title: Text('Paola Righetto'),
+                    leading: Icon(
+                      MdiIcons.accountTieWoman,
+                      color: Color.fromARGB(255, 59, 126, 62),
+                    ),
+                  ),
+                  const ListTile(
+                    title: Text('Daniela Mulas'),
+                    leading: Icon(
+                      MdiIcons.accountTieWoman,
+                      color: Color.fromARGB(255, 59, 126, 62),
+                    ),
+                  ),
+                  const SizedBox(height:20),
+
+                  //Contacts section
+                  //Title
+                  const Text(
+                    'Contacts', 
+                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62),),
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 59, 126, 62), 
+                    height: 5,
+                    thickness: 3,
+                    endIndent: 255,
+                  ),
+                  //Information
+                  const ListTile(
+                    title: Text('paola.righetto.1@studenti.unipd.it'),
+                    leading: Icon(
+                      MdiIcons.email,
+                      color: Color.fromARGB(255, 59, 126, 62)
+                    ),
+                  ),
+                  const ListTile(
+                    title: Text('daniela.mulas@studenti.unipd.it'),
+                    leading: Icon(
+                      MdiIcons.email,
+                      color: Color.fromARGB(255, 59, 126, 62)
+                    ),
+                  )
                 ],
               ),
             ),
           ),
-        ),
+        
       );// WillPopScope give us control over the back button action
   }
 }
 
 
-class DeveloperCard extends StatelessWidget {
-  final String name;
-  final String bio;
-  final Uri linkedinUrl;
 
-  const DeveloperCard({
-    required this.name,
-    required this.bio,
-    required this.linkedinUrl,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: Colors.grey[200],),
-      child: Column(
-        children: [
-          Text(name, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,),),
-          SizedBox(height: 10.0),
-          Text(bio, textAlign: TextAlign.center,),
-          SizedBox(height: 10.0),
-          ElevatedButton(
-              onPressed: () async {
-              if(await canLaunchUrl(linkedinUrl)){
-                await launchUrl(linkedinUrl, mode: LaunchMode.inAppWebView);
-              }
-              else{
-                throw "Couldn't launch ${linkedinUrl}";
-              }
-            },
-            child: Text('LinkedIn'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
+   
+  
 
 
 
