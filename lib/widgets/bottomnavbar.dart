@@ -3,7 +3,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:my_app/models/userprofile.dart';
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/homepage.dart';
-import 'package:my_app/screens/challengespage.dart';
 import 'package:my_app/screens/eventshomepage.dart';
 
 class BottomNavBar extends StatefulWidget{
@@ -21,7 +20,6 @@ int _currentIndex = 0;
 final screens = [
   HomePage(),
   Events(),
-  //Challenge(),
   Center(child: Text('Stats', style: TextStyle(fontSize:60)),),
   Profile(),
 ];
