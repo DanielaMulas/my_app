@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
-
-
+import 'package:my_app/screens/events/humanrights/humanrights.dart';
 
 class Events extends StatefulWidget {
   Events({Key? key}) : super(key: key);
@@ -52,7 +51,6 @@ class _Events extends State<Events> {
                     image: DecorationImage(
                         image: AssetImage('assets/images/human_rights.jpg'), 
                         fit: BoxFit.cover
-                        
                         ),
                   ),
                   child: const Align(
@@ -74,7 +72,7 @@ class _Events extends State<Events> {
                 ),
                 // ),
                 onPressed: () {
-                  print('Tapped');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HumanRights()));
                 },
               ),
 

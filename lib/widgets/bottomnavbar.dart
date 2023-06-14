@@ -46,7 +46,7 @@ final screens = [
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.event_available, color: Colors.white),
-            label: 'Challenges',
+            label: 'Events',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart, color: Colors.white),
