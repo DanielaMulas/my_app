@@ -29,6 +29,7 @@ class _ProfileState extends State<Profile> {
 
   Country? chosenCountry;
   CountryCode? countryCode;
+  String? chosenCode;
   final countryPicker = const FlCountryCodePicker();
 
   @override
@@ -39,6 +40,7 @@ class _ProfileState extends State<Profile> {
 
   void _retrieveVar() async { 
     final profileData = await SharedPreferences.getInstance();
+    setState((){
     nameController.text = profileData.getString('name') ?? '{}'; //defaulting to an empty map when the method return null
     ageController.text = profileData.getString('age') ?? '{}';
     countryController.text = profileData.getString('country') ?? '{}';
@@ -46,9 +48,14 @@ class _ProfileState extends State<Profile> {
     emailController.text = profileData.getString('email') ?? '{}';
     phoneController.text = profileData.getString('phone') ?? '{}';
     RadioVal = profileData.getInt('gender');
+    chosenCode = profileData.getString('prefix');
+    });
+   
     
-    //countryCode!.dialCode = profileData.getString('prefix'); //'{}';
+    
+    
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,7 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 78, 189, 81),
         //iconTheme: const IconThemeData(color: Color(0xFF89453C)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
@@ -73,7 +80,7 @@ class _ProfileState extends State<Profile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-
+            const SizedBox(height:20),
             //avatar picture:
             Center(
               child: ClipOval(
@@ -84,7 +91,7 @@ class _ProfileState extends State<Profile> {
             
             Padding(
               padding: const EdgeInsets.all(8.0),
-              //Initialization of the form with all the fields that define profile informations
+              //Initialization of the form with all the fields that define the profile informations
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -124,10 +131,10 @@ class _ProfileState extends State<Profile> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         const SizedBox(width: 10),
-                        const ListTile(
+                        ListTile(
                           leading: Icon(MdiIcons.genderMaleFemale,
-                              color: Color.fromARGB(255, 21, 120, 25)),
-                          title: Text('GENDER:',
+                              color: const Color.fromARGB(255, 21, 120, 25)),
+                          title: const Text('GENDER:',
                               style: TextStyle(
                                   color: Color.fromARGB(255, 21, 120, 25),
                                   fontSize: 20,
@@ -140,9 +147,9 @@ class _ProfileState extends State<Profile> {
                             toggleable: true,
                             value: 1,
                             groupValue: RadioVal,
-                            onChanged: (value)  {
+                            onChanged: (val)  {
                               setState(()  {
-                                RadioVal = value;
+                                RadioVal = val;
                               });
                             },
                           ),
@@ -158,9 +165,9 @@ class _ProfileState extends State<Profile> {
                               toggleable: true,
                               value: 2,
                               groupValue: RadioVal,
-                              onChanged: (value)  {
+                              onChanged: (val)  {
                                 setState(() {
-                                  RadioVal = value;
+                                  RadioVal = val;
                                 });
                               }
                           ),
@@ -182,16 +189,16 @@ class _ProfileState extends State<Profile> {
                         controller: ageController,
                         enabled: true,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                             icon: Icon(MdiIcons.counter,
-                              color: Color.fromARGB(255, 21, 120, 25)),
-                            border: UnderlineInputBorder(),
-                            focusedBorder: UnderlineInputBorder(
+                              color: const Color.fromARGB(255, 21, 120, 25)),
+                            border: const UnderlineInputBorder(),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 width: 2,
                                 color: Color.fromARGB(255, 21, 120, 25))),
                             labelText: 'Age',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               color: Color.fromARGB(255, 21, 120, 25),
                               fontWeight: FontWeight.bold))),
                     ),
@@ -241,16 +248,16 @@ class _ProfileState extends State<Profile> {
                           );
                         }, //fine OnTap
 
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                             icon: Icon(MdiIcons.earth,
                                 color: Color.fromARGB(255, 21, 120, 25)),
                             border: UnderlineInputBorder(),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide:  BorderSide(
                                     width: 2,
                                     color: Color.fromARGB(255, 21, 120, 25))),
                             labelText: 'Country',
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                                 color: Color.fromARGB(255, 21, 120, 25),
                                 fontWeight: FontWeight.bold)),
                       ),
@@ -262,16 +269,16 @@ class _ProfileState extends State<Profile> {
                       child: TextFormField(
                           controller: cityController,
                           enabled: true,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                               icon: Icon(MdiIcons.cityVariantOutline,
                                   color: Color.fromARGB(255, 21, 120, 25)),
                               border: UnderlineInputBorder(),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
+                              focusedBorder: const UnderlineInputBorder(
+                                  borderSide:  BorderSide(
                                       width: 2,
                                       color: Color.fromARGB(255, 5, 71, 7))),
                               labelText: 'City',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 5, 71, 7),
                                   fontWeight: FontWeight.bold))),
                     ),
@@ -291,16 +298,16 @@ class _ProfileState extends State<Profile> {
                           controller: emailController,
                           enabled: true,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
+                          decoration:  InputDecoration(
                               icon: Icon(MdiIcons.emailOutline,
                                   color: Color.fromARGB(255, 21, 120, 25)),
-                              border: UnderlineInputBorder(),
-                              focusedBorder: UnderlineInputBorder(
+                              border: const UnderlineInputBorder(),
+                              focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
                                       color: Color.fromARGB(255, 5, 71, 7))),
                               labelText: 'Email address',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 5, 71, 7),
                                   fontWeight: FontWeight.bold))),
                     ),
@@ -314,7 +321,7 @@ class _ProfileState extends State<Profile> {
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
-                          icon: const Icon(MdiIcons.phoneDial,
+                          icon: Icon(MdiIcons.phoneDial,
                             color: Color.fromARGB(255, 21, 120, 25)),
                           border: const UnderlineInputBorder(),
                           focusedBorder: const UnderlineInputBorder(
@@ -327,7 +334,8 @@ class _ProfileState extends State<Profile> {
                               fontWeight: FontWeight.bold),
                           prefixIcon: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 6),
+                                horizontal: 2, vertical: 2
+                                ),
                             margin: const EdgeInsets.symmetric(horizontal: 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -337,28 +345,32 @@ class _ProfileState extends State<Profile> {
                                     final code = await countryPicker.showPicker(context: context);
                                     setState(() {
                                       countryCode = code;
+                                      if(countryCode!=null){
+                                      chosenCode=countryCode!.dialCode;
+                                      }
                                     });
                                   },
                                   child: Row(
                                     children: [
                                       //container for the country flag
-                                      Container(
+                                      /*Container(
                                         child: countryCode != null
                                             ? countryCode!.flagImage
                                             : null,
-                                      ),
+                                      ),*/
                                       //container for the phone prefix
-                                      const SizedBox(width: 10),
+                                      //const SizedBox(width: 10),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 6),
                                         decoration: BoxDecoration(
-                                          color: Colors.black,
+                                          color: Color.fromARGB(255, 5, 71, 7),
                                           borderRadius: BorderRadius.circular(5),
                                           //border: Border.all(color: Colors.black)
                                         ),
                                         child: Text(
-                                            countryCode?.dialCode ?? "Choose prefix",
+                                            chosenCode ?? "Choose prefix",
+                                            //countryCode?.dialCode ?? "Choose prefix",
                                             style: const TextStyle(
                                                 color: Colors.white)),
                                       ),
@@ -384,20 +396,24 @@ class _ProfileState extends State<Profile> {
                                 await profileData.setString('city', cityController.text);
                                 await profileData.setString('email', emailController.text);
                                 await profileData.setString('phone', phoneController.text);
-                                await profileData.setInt('gender', RadioVal!);
+                                if (RadioVal!=null){
+                                  await profileData.setInt('gender', RadioVal!);
+                                }
                                 if(countryCode != null){
-                                  await profileData.setString('prefix', countryCode!.dialCode);
+                                  await profileData.setString('prefix', chosenCode!);
                                 }
                                 
+
+                                //print('\nCode:$chosenCode\n');
                                 setState((){});
 
                                 ScaffoldMessenger.of(context)
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(
-                                      const SnackBar(content: Text('Data saved!')));
+                                      const SnackBar(content: Text('Data saved!'), duration: Duration(seconds: 2),));
 
                                 //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
-                              }
+                              } //fine OnPressed
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:

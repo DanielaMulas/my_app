@@ -68,7 +68,7 @@ final screens = [
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172),),
             ListTile(
               title: const Text('About Us'),
-              trailing: const Icon(MdiIcons.informationOutline),
+              trailing: Icon(MdiIcons.informationVariantCircleOutline),
               onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => const AboutPage())),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172),),

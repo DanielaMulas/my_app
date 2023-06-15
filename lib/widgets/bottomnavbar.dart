@@ -39,21 +39,21 @@ final screens = [
         selectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 14),
         //unselectedLabelStyle: const TextStyle(color: Colors.black, fontSize: 14),
         backgroundColor: Colors.green,
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon:  const Icon(Icons.home, color: Colors.white),
+            icon:  Icon(Icons.home, color: Colors.white),
             label: "Home",      
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.event_available, color: Colors.white),
             label: 'Events',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart, color: Colors.white),
             label: 'Stats',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person, color: Colors.white),
+            icon: Icon(Icons.person, color: Colors.white),
             label: 'Profile',
           ),
         ],
