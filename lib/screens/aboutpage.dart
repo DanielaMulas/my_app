@@ -35,11 +35,11 @@ class _AboutPage extends State<AboutPage> {
                   
                   //App name
                   const Text(
-                    'App Name',
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62),),
+                    'Step4Rights',
+                    style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62),),
                     textAlign: TextAlign.left,
                   ),
-                  const Divider(height: 10, thickness:5, color: Color.fromARGB(255, 59, 126, 62), endIndent: 120),
+                  const Divider(height: 10, thickness:5, color: Color.fromARGB(255, 59, 126, 62), endIndent: 0),
                   const SizedBox(height: 10.0),
                   
                   // App Logo
@@ -58,7 +58,27 @@ class _AboutPage extends State<AboutPage> {
                     )),
                   const SizedBox(height: 20.0),
 
-                  //Slogan
+                  
+                  /*const Text(
+                    'Our Slogan', 
+                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 59, 126, 62), 
+                    height: 5,
+                    thickness: 3,
+                    endIndent: 235,
+                  ),*/
+                  const SizedBox(height: 5),
+                  const Center(
+                    child: Text(
+                      'TRAIN FOR WHAT YOU BELIEVE IN!',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+
+                  //Slogan section
                   const Text(
                     'Our Slogan', 
                     style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
@@ -71,15 +91,13 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'TRAIN FOR WHAT YOU BELIEVE IN!',
+                    ' "Train for what you believe in" encapsulates the core message of the app.\nIt encourages individuals to align their physical training and fitness goals with their personal beliefs and values.',
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 15),
                   ),
                   const SizedBox(height: 20.0),
 
-
-
-                  // Mission Section
+                  // How it works section
                   const Text(
                     'Our Mission', 
                     style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
@@ -92,7 +110,28 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'The objective of this app is to educate people to social causes in a sustainable way.\nIn particular, you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
+                    'The aim of this app is to promote education about social causes thorugh physical training.\nIn particular, it aims to raise awareness about important issues while encouraging people to take action and make a positive impact in their daily lives.',// you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  const SizedBox(height: 20.0),
+
+                  
+
+                  //EXPLANATION SECTION
+                  const Text(
+                    'How it works', 
+                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 59, 126, 62), 
+                    height: 5,
+                    thickness: 3,
+                    endIndent: 220,
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    'This app promotes physical training by counting the steps you make and donating to the causes you choose based on how many steps you do.\nFor every step counted we commit to donate a certain amount of money to the association you have chosen.\nIn this way, you can contribute to a worthy cause simply by engaging with the app while mantain a healthy lifestyle.',// you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 15),
                   ),
@@ -112,18 +151,18 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   
                   //Names
-                  const ListTile(
-                    title: Text('Paola Righetto'),
+                  ListTile(
+                    title: const Text('Paola Righetto'),
                     leading: Icon(
                       MdiIcons.accountTieWoman,
-                      color: Color.fromARGB(255, 59, 126, 62),
+                      color: const Color.fromARGB(255, 59, 126, 62),
                     ),
                   ),
-                  const ListTile(
-                    title: Text('Daniela Mulas'),
+                  ListTile(
+                    title: const Text('Daniela Mulas'),
                     leading: Icon(
                       MdiIcons.accountTieWoman,
-                      color: Color.fromARGB(255, 59, 126, 62),
+                      color: const Color.fromARGB(255, 59, 126, 62),
                     ),
                   ),
                   const SizedBox(height:20),
@@ -141,14 +180,14 @@ class _AboutPage extends State<AboutPage> {
                     endIndent: 255,
                   ),
                   //Information
-                  const ListTile(
+                  ListTile(
                     title: Text('paola.righetto.1@studenti.unipd.it'),
                     leading: Icon(
                       MdiIcons.email,
                       color: Color.fromARGB(255, 59, 126, 62)
                     ),
                   ),
-                  const ListTile(
+                  ListTile(
                     title: Text('daniela.mulas@studenti.unipd.it'),
                     leading: Icon(
                       MdiIcons.email,
