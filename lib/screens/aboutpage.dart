@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:my_app/widgets/bottomnavbar.dart';
+import 'package:my_app/screens/loginpage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AboutPage extends StatefulWidget{
   const AboutPage({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class _AboutPage extends State<AboutPage> {
         appBar: AppBar(
           leading: GestureDetector(
             child: const Icon(Icons.arrow_back_ios),
-            onTap: () => Navigator.pop(context)//Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar())),
+            onTap: () => _checkLogin(),
           ),
           //centerTitle: true,
           title: const Text("About Us"),
@@ -162,8 +166,19 @@ class _AboutPage extends State<AboutPage> {
         
       );// WillPopScope give us control over the back button action
   }
-}
 
+  void _checkLogin() async{
+    final pref = await SharedPreferences.getInstance();
+    if(pref.getString('username')!= null){
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
+    }
+    else{
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
+
+    }
+  }
+
+}
 
 
    
