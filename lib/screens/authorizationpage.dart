@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+//import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/steps.dart';
 import 'package:my_app/utils/impact.dart';
@@ -7,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+//import 'package:my_app/models/steps.dart';
+//import 'package:provider/provider.dart';
 
 
 class Authorization extends StatelessWidget {
@@ -35,7 +38,7 @@ class Authorization extends StatelessWidget {
                 onTap: () async {
                   final result = await _authorize();
                   final message =
-                      result == 200 ? 'Request successful' : 'Request failed wit code $result';
+                      result == 200 ? 'Request successful' : 'Request failed with code $result';
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
                     ..showSnackBar(SnackBar(content: Text(message)));
@@ -136,7 +139,7 @@ class Authorization extends StatelessWidget {
     }//if
 
     //Create the (representative) request
-    final day = '2023-05-04';
+    final day = '2023-06-21';
     final url = Impact.baseUrl + '/' + Impact.stepsEndpoint +  '/' + Impact.patientUsername + '/day/$day/';
     final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
 
@@ -151,11 +154,14 @@ class Authorization extends StatelessWidget {
       for (var i = 0; i < decodedResponse['data']['data'].length; i++) {
         result.add(Steps.fromJson(decodedResponse['data']['date'], decodedResponse['data']['data'][i]));
       }//for
+      //await sp.setStringList('StepsList', result.map((steps) => jsonEncode(steps)).toList());
+      //Provider.of<StepProvider>(context, listen: false).updateSteps(result);
     } //if
     else{
       result = null;
     }//else
 
+    
     //Return the result
     return result;
 
@@ -186,6 +192,6 @@ class Authorization extends StatelessWidget {
     return response.statusCode;
 
   } //_refreshTokens
-} //HomePage
+} //AuthorizationPage
               
     

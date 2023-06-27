@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:my_app/models/userprofile.dart';
+
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/homepage.dart';
 import 'package:my_app/screens/eventshomepage.dart';

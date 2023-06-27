@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 
 class Steps{
   final DateTime time;
@@ -15,3 +16,15 @@ class Steps{
     return 'Steps(time: $time, value: $value)';
   }//toString
 }//Steps
+
+
+/*class StepProvider extends ChangeNotifier {
+  List<Steps> _stepsData = [];
+
+  List<Steps> get stepsData => _stepsData;
+
+  void updateSteps(List<Steps> steps) {
+    _stepsData = steps;
+    notifyListeners();
+  }
+}*/
