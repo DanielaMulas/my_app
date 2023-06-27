@@ -41,12 +41,12 @@ class _ProfileState extends State<Profile> {
   void _retrieveVar() async { 
     final profileData = await SharedPreferences.getInstance();
     
-    nameController.text = profileData.getString('name') ?? '{}'; //defaulting to an empty map when the method return null
-    ageController.text = profileData.getString('age') ?? '{}';
-    countryController.text = profileData.getString('country') ?? '{}';
-    cityController.text = profileData.getString('city') ?? '{}';
-    emailController.text = profileData.getString('email') ?? '{}';
-    phoneController.text = profileData.getString('phone') ?? '{}';
+    nameController.text = profileData.getString('name') ?? ''; //defaulting to an empty map when the method return null
+    ageController.text = profileData.getString('age') ?? '';
+    countryController.text = profileData.getString('country') ?? '';
+    cityController.text = profileData.getString('city') ?? '';
+    emailController.text = profileData.getString('email') ?? '';
+    phoneController.text = profileData.getString('phone') ?? '';
     RadioVal = profileData.getInt('gender');
     chosenCode = profileData.getString('prefix');
     
