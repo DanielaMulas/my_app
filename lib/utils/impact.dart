@@ -7,6 +7,10 @@ class Impact{
   
   static String stepsEndpoint = 'data/v1/steps/patients/';
 
+  static String stepsRangeEndpoint = 'daterange/start_date/';
+
+
+
   static String username = 'USIGr0F8oE';
 
   static String password = '12345678!';
