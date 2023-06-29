@@ -38,7 +38,7 @@ class Authorization extends StatelessWidget {
                 title: Text('Click here to authorize'),
                 leading: Icon(MdiIcons.cursorDefaultClick),
                 onTap: () async {
-                  final result = await _authorize();
+                  final result = await authorize();
                   final message =
                       result == 200 ? 'Request successful' : 'Request failed with code $result';
                   ScaffoldMessenger.of(context)
@@ -73,7 +73,7 @@ class Authorization extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              const Text(
+              /*const Text(
                 'Get the steps',
                 style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62),),
                 textAlign: TextAlign.left,
@@ -84,7 +84,7 @@ class Authorization extends StatelessWidget {
                 title: Text('Click here to get the steps'),
                 leading: Icon(MdiIcons.cursorDefaultClick),
                 onTap: () async {
-                  final result = await _requestData();
+                  final result = await requestDataSingleDay(context,day);
                   print(result);
                   final message =
                       result == null ? 'Request failed' : 'Request successful';
@@ -93,7 +93,7 @@ class Authorization extends StatelessWidget {
                     ..showSnackBar(SnackBar(content: Text(message)));
                 },
                 //child: Text('Get the data')
-              ),
+              ),*/
               SizedBox(height: 10),
               const Text(
                     'Today steps',
@@ -122,7 +122,7 @@ class Authorization extends StatelessWidget {
   } //build
 
   //This method allows to obtain the JWT token pair from IMPACT and store it in SharedPreferences
-  Future<int?> _authorize() async {
+  Future<int?> authorize() async {
 
     //Create the request
     final url = Impact.baseUrl + '/' + Impact.tokenEndpoint;
@@ -146,7 +146,7 @@ class Authorization extends StatelessWidget {
   } //_authorize
 
   //This method allows to obtain the JWT token pair from IMPACT and store it in SharedPreferences
-  Future<List<Steps>?> _requestData() async {
+  /*Future<List<Steps>?> _requestData() async {
     //Initialize the result
     List<Steps>? result;
 
@@ -156,7 +156,7 @@ class Authorization extends StatelessWidget {
 
     //If access token is expired, refresh it
     if(JwtDecoder.isExpired(access!)){
-      await _refreshTokens();
+      await refreshTokens();
       access = sp.getString('access');
     }//if
 
@@ -187,10 +187,10 @@ class Authorization extends StatelessWidget {
     //Return the result
     return result;
 
-  } //_requestData
+  } *///_requestData
 
   //This method allows to obtain the JWT token pair from IMPACT and store it in SharedPreferences
-  Future<int> _refreshTokens() async {
+  Future<int> refreshTokens() async {
 
     //Create the request
     final url = Impact.baseUrl + Impact.refreshEndpoint;
@@ -213,7 +213,7 @@ class Authorization extends StatelessWidget {
     //Return just the status code
     return response.statusCode;
 
-  } //_refreshTokens
+  } //refreshTokens
 
   Future<List<Steps>?> _requestDataPeriod() async {
     //Initialize the result
@@ -225,7 +225,7 @@ class Authorization extends StatelessWidget {
 
     //If access token is expired, refresh it
     if(JwtDecoder.isExpired(access!)){
-      await _refreshTokens();
+      await refreshTokens();
       access = sp.getString('access');
     }//if
 
@@ -264,6 +264,71 @@ class Authorization extends StatelessWidget {
     return result;
 
   } //_requestData
+
+  Future<List<Steps>?> requestDataSingleDay(
+      BuildContext context, DateTime dayChosen) async {
+    // Initialize the result
+    List<Steps>? result;
+
+    final codeAuth = await authorize();
+
+    if (codeAuth == 200) {
+      // Get the stored access token (Note that this code does not work if the tokens are null)
+      final sp = await SharedPreferences.getInstance();
+      var access = sp.getString('access');
+
+      //If access token is expired, refresh it
+      if (JwtDecoder.isExpired(access!)) {
+        await refreshTokens();
+        access = sp.getString('access');
+      } //if
+
+      String formattedDayLink = DateFormat('yyyy-MM-dd').format(dayChosen);
+      //String formattedDayDisplay = DateFormat('dd-MM-yyyy').format(DayChosen);
+
+      final url = Impact.baseUrl +
+          '/' +
+          Impact.stepsEndpoint +
+          Impact.patientUsername +
+          '/day/$formattedDayLink/';
+      final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
+
+      // Get the response
+      print('Calling: $url');
+      final response = await http.get(Uri.parse(url), headers: headers);
+
+      int cod = response.statusCode;
+      String body = response.body;
+      print('\nGET RESPONSE CODE: $cod\n');
+      print('\nRESPONSE BODY: $body\n');
+
+      // If OK, parse the response; otherwise, return null
+      if (response.statusCode == 200) {
+        final decodedResponse = jsonDecode(response.body);
+        result = [];
+        for (var i = 0; i < decodedResponse['data']['data'].length; i++) {
+          result.add(Steps.fromJson(decodedResponse['data']['date'],
+              decodedResponse['data']['data'][i]));
+        }
+        /*ScaffoldMessenger.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+              SnackBar(content: Text('App authorized and data retrieved')));*/
+        // Return the result
+      } else {
+        result = [Steps(time: DateTime.now(), value: 0)];
+      }
+
+      // Return the result
+
+      return result;
+    }
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(
+          SnackBar(content: Text('App NOT authorized with code $codeAuth')));
+    return null;
+  }
 
 
 } //AuthorizationPage

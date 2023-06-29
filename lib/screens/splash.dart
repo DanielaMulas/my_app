@@ -8,7 +8,7 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(
-        const Duration(seconds: 4),
+        const Duration(seconds: 3),
         () => Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: ((context) => LoginPage()))));
     return Scaffold(
