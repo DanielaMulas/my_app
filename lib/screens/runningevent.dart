@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:my_app/screens/authorizationpage.dart';
+import 'package:my_app/';
 
 class RunEvent extends StatefulWidget {
   const RunEvent({Key? key}) : super(key: key);
@@ -23,6 +24,13 @@ class _RunEventState extends State<RunEvent> {
       home: new Scaffold(
         appBar: new AppBar(
           title: const Text('Welcome to Flutter'),
+          leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          color: Colors.black,
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+        ),
         ),
         body: const Center(
           child: const Text('Hello World'),
@@ -30,4 +38,6 @@ class _RunEventState extends State<RunEvent> {
       ),
     );
   }
+
+ 
 }
