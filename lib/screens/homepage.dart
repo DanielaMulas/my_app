@@ -14,6 +14,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 //import 'package:my_app/models/steps.dart';
 import 'package:intl/intl.dart';
 
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -40,6 +41,7 @@ class _HomeState extends State<HomePage> {
     super.initState();
     _retrieveName(); // Fetch the name inserted in the profilePage when the widget is initialized
   }
+
 
   void _retrieveName() async {
     final prefs = await SharedPreferences.getInstance();
@@ -245,6 +247,8 @@ class _HomeState extends State<HomePage> {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
+  
+  
 
   /*Future<List<Steps>?> _requestData(
       BuildContext context, DateTime dayChosen) async {
