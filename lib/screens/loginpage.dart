@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
 
   String _errorMessage = '';
 
+  static bool _passwordVisible = false;
+
   final UserProfile _user = UserProfile();
 
   Future<void> _login() async {
@@ -51,10 +53,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose() {
+  void dispose() async {
     _usernameController.dispose();
     _passwordController.dispose();
+    _eliminationPreferences();
+
     super.dispose();
+  }
+
+  void _eliminationPreferences() async{
+    final pref = await SharedPreferences.getInstance();
+      pref.remove('username');
   }
 
   @override
@@ -86,11 +95,23 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20.0),
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: true,
+                  obscureText: !_passwordVisible,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
-                  ),
+                    suffixIcon: IconButton(
+                    icon: Icon(
+                      // Based on passwordVisible state choose the icon
+                      _passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      _showPassword();
+                    },
+                  )),
+                  
                 ),
                 SizedBox(height: 20.0),
                 ElevatedButton(
@@ -120,7 +141,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
  
-  
+  void _showPassword() {
+    setState(() {
+      _passwordVisible = !_passwordVisible;
+    });
+  }
   
 } //loginStatePage
 

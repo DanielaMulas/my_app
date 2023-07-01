@@ -6,14 +6,8 @@ import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/eventshomepage.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
-import 'package:my_app/screens/authorizationpage.dart';
-import 'package:http/http.dart' as http;
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'dart:convert';
-import 'dart:io';
-//import 'dart:js';
+import 'package:my_app/models/authorization.dart';
 import 'package:my_app/models/steps.dart';
-import 'package:my_app/utils/impact.dart';
 //import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -45,7 +39,7 @@ class _HomeState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _retrieveName(); // Fetch steps data when the widget is initialized
+    _retrieveName(); // Fetch the name inserted in the profilePage when the widget is initialized
   }
 
 
@@ -207,14 +201,14 @@ class _HomeState extends State<HomePage> {
               ),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172)),
-            ListTile(
+            /*ListTile(
               title: const Text('Authorization'),
               trailing: const Icon(Icons.lock_outline),
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Authorization()),
+                MaterialPageRoute(builder: (context) =>  const Authorization()),
               ),
-            ),
+            ),*/
             const Divider(
               height: 0,
               color: Color.fromARGB(255, 186, 172, 172),
