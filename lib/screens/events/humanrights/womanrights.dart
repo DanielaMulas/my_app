@@ -4,8 +4,8 @@ import 'package:my_app/screens/runningevent.dart';
 class WomanRights extends StatefulWidget {
   WomanRights({Key? key}) : super(key: key);
 
-  static const route = '/womanrights/';
-  static const routename = 'WomanRights';
+  static const route = '/womenrights/';
+  static const routename = 'WomenRights';
 
   @override
   State<WomanRights> createState() => _WomanRights();
@@ -20,7 +20,7 @@ class _WomanRights extends State<WomanRights> {
           child: const Icon(Icons.arrow_back_ios),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Woman Rights', style: TextStyle(color: Colors.black)),
+        title: Text('Women Rights', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 173, 248, 175),
       ),
