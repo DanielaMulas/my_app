@@ -8,12 +8,10 @@ import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:my_app/models/authorization.dart';
 import 'package:my_app/models/steps.dart';
-//import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-//import 'package:my_app/models/steps.dart';
 import 'package:intl/intl.dart';
-
+import 'package:fl_chart/fl_chart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,21 +37,19 @@ class _HomeState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _retrieveName(); // Fetch the name inserted in the profilePage when the widget is initialized
+    _retrieveName(); // Fetch name saved in the profile page information when the widget is initialized
   }
-
 
   void _retrieveName() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString('name') ?? 'enjoy';
-
+    //If name already exist the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
     setState(() {});
   }
-  /*Future<void> requestData() async {
-    final result = await Authorization._requestData();
-    if (result != null) {
-      Provider.of<StepProvider>(context, listen: false).updateSteps(result);
-    }
+
+  /*@override
+  void dispose(){
+    calculateSums().dispose();
   }*/
 
   int? totalSteps;
@@ -67,13 +63,43 @@ class _HomeState extends State<HomePage> {
   String formattedDayDisplay = DateFormat('dd-MM-yyyy')
       .format(DateTime.now().subtract(const Duration(days: 1)));
 
+  DateTime startDayWeekAgo = DateTime.now().subtract(const Duration(days: 7));
+
+  Future<List<int>> calculateSums() async {
+    final weekSteps = List<int>.filled(7, 0);
+
+    final now = DateTime.now();
+    final List<DateTime> weekDays = [
+      now.subtract(const Duration(days: 7)),
+      now.subtract(const Duration(days: 6)),
+      now.subtract(const Duration(days: 5)),
+      now.subtract(const Duration(days: 4)),
+      now.subtract(const Duration(days: 3)),
+      now.subtract(const Duration(days: 2)),
+      now.subtract(const Duration(days: 1)),
+    ];
+
+    for (int i = 0; i < 7; i++) {
+      if (mounted) {
+        final dayResult = await auth.requestDataSingleDay(context, weekDays[i]);
+        if (dayResult != null) {
+          for (final step in dayResult) {
+            weekSteps[i] += step.value;
+          }
+        }
+      }
+    }
+
+    return weekSteps;
+  }
+
   @override
   Widget build(BuildContext context) {
     print('${HomePage.routeDisplayName} built');
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(HomePage.routeDisplayName),
+        title: const Text(HomePage.routeDisplayName),
       ),
       body: Center(
         child: Padding(
@@ -82,15 +108,12 @@ class _HomeState extends State<HomePage> {
             children: [
               //SizedBox(height: 5),
               Text('Welcome, $name!',
-                style:
-                    const TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28.0,
-                      fontStyle: FontStyle.italic)
-              ),
+                      fontStyle: FontStyle.italic)),
               const SizedBox(height: 20),
 
-              
               FutureBuilder<List<Steps>?>(
                 future: auth.requestDataSingleDay(context, day),
                 builder: (context, snapshot) {
@@ -100,22 +123,24 @@ class _HomeState extends State<HomePage> {
                     final totalSteps =
                         result?.fold<int>(0, (sum, step) => sum + step.value) ??
                             0;
+                    //If the result isn't null, totalSteps corresond to the sum of the values returned by the function requestDataSingleDay
                     print('\nTOTAL STEPS: $totalSteps\n');
                     return SizedBox(
                       width: 800,
-                      height: 400,
+                      height: 300,
                       child: Column(
                         children: [
                           Text(
-                            'Steps of the day ($formattedDayDisplay):',
+                            'Steps of the day ($formattedDayDisplay):', //shows me the day of which the steps are shown
                             textAlign: TextAlign.start,
                             style: const TextStyle(
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.bold,
-                                color:  Color.fromARGB(255, 32, 90, 34),),
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 32, 90, 34),
+                            ),
                           ),
                           const Divider(
-                            color:  Color.fromARGB(255, 32, 90, 34),
+                            color: Color.fromARGB(255, 32, 90, 34),
                             height: 5,
                             thickness: 3,
                             //endIndent: 220,
@@ -133,9 +158,12 @@ class _HomeState extends State<HomePage> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      day = day.subtract(const Duration(days: 1));
+                                      day = day.subtract(const Duration(
+                                          days:
+                                              1)); //update the day whose steps are requested (the previious one)
                                       formattedDayDisplay =
-                                          DateFormat('dd-MM-yyyy').format(day);
+                                          DateFormat('dd-MM-yyyy').format(
+                                              day); //update of the text that shows me the day to which the steps displayed correspond
                                     });
                                   }),
                               //const SizedBox(width: 140),
@@ -144,7 +172,9 @@ class _HomeState extends State<HomePage> {
                                 lineWidth: 30,
                                 percent: totalSteps / maxSteps,
                                 center: Text(
-                                  '$totalSteps',
+                                  result != null
+                                      ? '$totalSteps'
+                                      : 'Data non available yet',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30,
@@ -163,9 +193,12 @@ class _HomeState extends State<HomePage> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      day = day.add(const Duration(days: 1));
+                                      day = day.add(const Duration(
+                                          days:
+                                              1)); //update the day whose steps are requested (the following one)
                                       formattedDayDisplay =
-                                          DateFormat('dd-MM-yyyy').format(day);
+                                          DateFormat('dd-MM-yyyy').format(
+                                              day); //update of the text that shows me the day to which the steps displayed correspond
                                     });
                                   }),
                               //const SizedBox(width: 50),
@@ -173,6 +206,129 @@ class _HomeState extends State<HomePage> {
                           ),
                         ],
                       ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('There is an error: ${snapshot.error}');
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Steps trend of this week:', //shows me the day of which the steps are shown
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 32, 90, 34),
+                  ),
+                ),
+              ),
+              const Divider(
+                color: Color.fromARGB(255, 32, 90, 34),
+                height: 5,
+                thickness: 3,
+                endIndent: 70,
+              ),
+              SizedBox(height: 30),
+              FutureBuilder<List<int>>(
+                future: calculateSums(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var weekSteps = snapshot.data!;
+                    print('\nSteps List (result): $weekSteps');
+
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 200.0,
+                          child: LineChart(
+                            LineChartData(
+                                lineBarsData: [
+                                  LineChartBarData(
+                                    spots: weekSteps
+                                        .asMap()
+                                        .entries
+                                        .map((entry) => FlSpot(
+                                            entry.key.toDouble(),
+                                            entry.value.toDouble()))
+                                        .toList(),
+                                    isCurved: false,
+                                    colors: [Color.fromARGB(255, 74, 195, 90)],
+                                    barWidth: 5,
+                                    dotData: FlDotData(show: true),
+                                    belowBarData: BarAreaData(
+                                      show: false,
+                                    ),
+                                  ),
+                                ],
+                                minX: 0,
+                                maxX: weekSteps.length - 1,
+                                minY: 0,
+                                maxY: maxSteps.toDouble(),
+                                titlesData: FlTitlesData(
+                                  show: true,
+                                  bottomTitles: SideTitles(
+                                    showTitles: true,
+                                    getTitles: (value) {
+                                      if (value % 1 == 0) {
+                                        //return (value.toInt() + 1).toString();
+                                        DateTime dateTime = startDayWeekAgo
+                                            .add(Duration(days: value.toInt()));
+                                        String formattedDate =
+                                            DateFormat('dd/MM')
+                                                .format(dateTime);
+                                        return formattedDate;
+                                      }
+                                      return '';
+                                    },
+                                  ),
+                                  leftTitles: SideTitles(
+                                    showTitles: true,
+                                    getTextStyles: (context, value) =>
+                                        const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  rightTitles: SideTitles(
+                                      showTitles:
+                                          false), // Remove titles on the right side
+                                  topTitles: SideTitles(showTitles: false),
+                                ),
+                                gridData: FlGridData(show: false),
+                                lineTouchData: LineTouchData(
+                                    touchTooltipData: LineTouchTooltipData(
+                                  tooltipBgColor:
+                                      Color.fromARGB(255, 193, 193, 193),
+                                  tooltipPadding: EdgeInsets.all(8),
+                                  tooltipRoundedRadius: 8,
+                                  getTooltipItems:
+                                      (List<LineBarSpot> lineBarsSpot) {
+                                    return lineBarsSpot.map((lineBarSpot) {
+                                      final int spotIndex =
+                                          lineBarSpot.spotIndex;
+                                      final double spotValueY = lineBarSpot.y;
+                                      final String spotValueText =
+                                          '${spotValueY.toInt()}';
+
+                                      return LineTooltipItem(
+                                        spotValueText,
+                                        const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                        ),
+                                      );
+                                    }).toList();
+                                  },
+                                ))),
+                          ),
+                        )
+                      ],
                     );
                   } else if (snapshot.hasError) {
                     return Text('There is an error: ${snapshot.error}');
@@ -201,18 +357,6 @@ class _HomeState extends State<HomePage> {
               ),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172)),
-            /*ListTile(
-              title: const Text('Authorization'),
-              trailing: const Icon(Icons.lock_outline),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  const Authorization()),
-              ),
-            ),*/
-            const Divider(
-              height: 0,
-              color: Color.fromARGB(255, 186, 172, 172),
-            ),
             ListTile(
               title: const Text('About Us'),
               trailing: Icon(MdiIcons.informationVariantCircleOutline),
@@ -247,122 +391,4 @@ class _HomeState extends State<HomePage> {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }
-  
-  
-
-  /*Future<List<Steps>?> _requestData(
-      BuildContext context, DateTime dayChosen) async {
-    // Initialize the result
-    List<Steps>? result;
-
-    final codeAuth =  await _authorize();
-
-    if (codeAuth == 200) {
-      // Get the stored access token (Note that this code does not work if the tokens are null)
-      final sp = await SharedPreferences.getInstance();
-      var access = sp.getString('access');
-
-      //If access token is expired, refresh it
-      if (JwtDecoder.isExpired(access!)) {
-        await auth.refreshTokens();
-        access = sp.getString('access');
-      } //if
-
-      String formattedDayLink = DateFormat('yyyy-MM-dd').format(dayChosen);
-      //String formattedDayDisplay = DateFormat('dd-MM-yyyy').format(DayChosen);
-
-      final url = Impact.baseUrl +
-          '/' +
-          Impact.stepsEndpoint +
-          Impact.patientUsername +
-          '/day/$formattedDayLink/';
-      final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
-
-      // Get the response
-      print('Calling: $url');
-      final response = await http.get(Uri.parse(url), headers: headers);
-
-      int cod = response.statusCode;
-      String body = response.body;
-      print('\nGET RESPONSE CODE: $cod\n');
-      print('\nRESPONSE BODY: $body\n');
-
-      // If OK, parse the response; otherwise, return null
-      if (response.statusCode == 200) {
-        final decodedResponse = jsonDecode(response.body);
-        result = [];
-        for (var i = 0; i < decodedResponse['data']['data'].length; i++) {
-          result.add(Steps.fromJson(decodedResponse['data']['date'],
-              decodedResponse['data']['data'][i]));
-        }
-        /*ScaffoldMessenger.of(context)
-          ..removeCurrentSnackBar()
-          ..showSnackBar(
-              SnackBar(content: Text('App authorized and data retrieved')));*/
-        // Return the result
-      } else {
-        result = [Steps(time: DateTime.now(), value: 0)];
-      }
-
-      // Return the result
-
-      return result;
-    }
-    print(codeAuth);
-    ScaffoldMessenger.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(
-          SnackBar(content: Text('App NOT authorized with code $codeAuth')));
-    
-    return null;
-  }
-
-
-
-  Future<int> _refreshTokens() async {
-    //Create the request
-    final url = Impact.baseUrl + '/' + Impact.refreshEndpoint;
-    final sp = await SharedPreferences.getInstance();
-    final refresh = sp.getString('refresh');
-    final body = {'refresh': refresh};
-
-    //Get the respone
-    print('Calling: $url');
-    final response = await http.post(Uri.parse(url), body: body);
-
-    //If 200 set the tokens
-    if (response.statusCode == 200) {
-      final decodedResponse = jsonDecode(response.body);
-      final sp = await SharedPreferences.getInstance();
-      sp.setString('access', decodedResponse['access']);
-      sp.setString('refresh', decodedResponse['refresh']);
-    } //if
-
-    //Return just the status code
-    return response.statusCode;
-  } //_refreshTokens
-
-  Future<int?> _authorize() async {
-    //Create the request
-    final url = Impact.baseUrl + '/' + Impact.tokenEndpoint;
-    print('url: $url');
-    final body = {'username': Impact.username, 'password': Impact.password};
-
-    //Get the response
-    print('Calling: $url');
-    final response = await http.post(Uri.parse(url), body: body);
-
-    //If 200, set the token
-    if (response.statusCode == 200) {
-      final decodedResponse = jsonDecode(response.body);
-      final sp = await SharedPreferences.getInstance();
-      sp.setString('access', decodedResponse['access']);
-      sp.setString('refresh', decodedResponse['refresh']);
-    } //if
-
-    //Just return the status code
-    return response.statusCode;
-  } //_author
-  */
-
 } //homestate

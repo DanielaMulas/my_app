@@ -67,7 +67,7 @@ class Authorization {
 
   } //refreshTokens
 
-  Future<List<Steps>?> _requestDataPeriod() async {
+  Future<List<Steps>?> requestDataPeriod(BuildContext context, DateTime startDay, DateTime endDay) async {
     //Initialize the result
     List<Steps>? result;
 
@@ -82,10 +82,8 @@ class Authorization {
     }//if
 
     //Create the (representative) request
-    final now= DateTime.now().subtract(const Duration(days: 1));
-    final startDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
+    
     final start = DateFormat('yyyy-MM-dd').format(startDay);
-    final endDay=DateTime.now();
     final end = DateFormat('yyyy-MM-dd').format(endDay);
     final url = Impact.baseUrl + '/' + Impact.stepsEndpoint + Impact.patientUsername + '/daterange/start_date/$start/end_date/$end';
     final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
@@ -169,6 +167,7 @@ class Authorization {
         // Return the result
       } else {
         result = [Steps(time: DateTime.now(), value: 0)];
+        
       }
 
       // Return the result

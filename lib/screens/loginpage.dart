@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose() async {
+  void dispose()  {
     _usernameController.dispose();
     _passwordController.dispose();
     _eliminationPreferences();
