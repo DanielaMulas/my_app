@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:my_app/screens/authorizationpage.dart';
+import 'package:my_app/models/authorization.dart';
 import 'dart:async';
 import 'package:percent_indicator/percent_indicator.dart';
 
