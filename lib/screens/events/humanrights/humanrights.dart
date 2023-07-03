@@ -45,7 +45,7 @@ class _HumanRights extends State<HumanRights> {
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "Woman Rights Events",
+                      "Women Rights Events",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -59,16 +59,33 @@ class _HumanRights extends State<HumanRights> {
               ),
             ),
             //Copia e incolla il material button di sopra
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[200],
-              child: const Text('Heed not the rabble'),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[300],
-              child: const Text('Sound of screams but the'),
-            ),
+            MaterialButton(
+              padding: const EdgeInsets.all(50),
+              onPressed:() {},
+              splashColor: Colors.greenAccent,
+              child: Container(
+                  decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage('assets/images/pride_flag.png'),
+                  fit: BoxFit.scaleDown)
+                ),
+                child: const Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      "Pride Events",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        backgroundColor: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),              
+              ),
+            ),            
           ],
         ));
   }

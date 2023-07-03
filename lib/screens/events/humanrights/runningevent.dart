@@ -1,29 +1,34 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:my_app/models/authorization.dart';
-import 'dart:async';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class RunEvent extends StatefulWidget {
-  const RunEvent({Key? key}) : super(key: key);
+class RunEvent1 extends StatefulWidget {
+  const RunEvent1({Key? key}) : super(key: key);
 
   static const route = '/runningevent/';
   static const routeDisplayName = 'RunEvent';
 
   @override
-  State<RunEvent> createState() => _RunEventState();
+  State<RunEvent1> createState() => _RunEventState();
 }
 
-class _RunEventState extends State<RunEvent> {
-  Timer? timer;
-  int totalTime = 30; //Total time in seconds
-  int currentTime = 0; //Current time in seconds
-  bool isRunning = false; //Indicates if the timer is running
+class _RunEventState extends State<RunEvent1> {
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  Timer? timer;
+  int totalTime = 24; // Total time in seconds (mimicking hours)
+  int currentTime = 0; // Current time in seconds
+  bool isRunning = false; // Checking if the timer is running
+  bool isTimerDisabled = false; // CHecking if the timer is disabled
+  int? totalSteps; 
+  final int maxSteps = 9000; // StepGoal
+
+  final Authorization auth = Authorization();
+
+  DateTime day = DateTime.now().subtract(const Duration(days: 1)); // Initialized as "yesterday"
+  String formattedDayDisplay = DateFormat('dd-MM-yyyy').format(DateTime.now().subtract(const Duration(days: 1)));
 
   @override
   void dispose() {
@@ -31,29 +36,37 @@ class _RunEventState extends State<RunEvent> {
     super.dispose();
   }
 
-  void _startTimer() {
-    //checking if isRunning is false
-    if (isRunning == false) {
+  void _startTimer() async {
+    if (isRunning) {
       setState(() {
-        currentTime = 0; // Reset the current time
-        isRunning = true;
-      });
-      timer = Timer.periodic(const Duration(seconds: 1), (timer) {//
-        setState(() {
-          if (currentTime < totalTime) {
-            currentTime++;
-          } else {
-            timer.cancel();
-            isRunning = false;
-          }
-        });
-      });
-    }else{
-      timer?.cancel();
-      setState(() {
+        timer?.cancel();
         isRunning = false;
       });
+    } else {
+      setState(() {
+        currentTime = 0; // Resetting the timer
+        isRunning = true;
+        isTimerDisabled = true;
+        auth.requestDataSingleDay(context, day).then((steps) {
+          setState(() {
+            totalSteps = steps?.fold<int>(0, (sum, step) => sum + step.value);
+            print('$totalSteps');
+          });
+        });
+      });
     }
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (currentTime < totalTime) {
+          currentTime++;
+        } else {
+          timer.cancel();
+          isRunning = false;
+          isTimerDisabled = true;          
+        }
+      });
+    });
   }
 
   double _timeLeftPercentage() {
@@ -64,9 +77,20 @@ class _RunEventState extends State<RunEvent> {
     final remainingSeconds = totalTime - currentTime;
     final minutes = (remainingSeconds / 60).floor();
     final seconds = remainingSeconds % 60;
-    final secondsString =
-        seconds < 10 ? '0$seconds' : '$seconds'; //if it is <10 --> 01,02,...,09
+    final secondsString = seconds < 10 ? '0$seconds' : '$seconds'; // If it is <10 --> 01,02,...,09
     return '$minutes:$secondsString';
+  }
+
+  Widget _returnStepsText(){
+    if(totalSteps != null && totalSteps! >= maxSteps){
+      return Text('Congratulations! You have completed the task by taking ${totalSteps} steps');
+    }
+    else if(totalSteps != null && totalSteps! < maxSteps){
+      return Text("Sorry, you didn't make it. Try again!");
+    }
+    else{
+      return Text('Start now!');
+    }
   }
 
   @override
@@ -113,9 +137,12 @@ class _RunEventState extends State<RunEvent> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _startTimer,
+                onPressed: isTimerDisabled ? null: _startTimer, //If isTimerDisabled is true, then onPressed is null. Otherwise, it launches _startTimer
                 child: Text(isRunning ? 'Timer Running' : 'Participate'),
               ),
+              SizedBox(height: 15.0),
+              if(currentTime >= totalTime) _returnStepsText(),
+              
             ],
           ),
         ),
@@ -123,4 +150,3 @@ class _RunEventState extends State<RunEvent> {
     );
   }
 }
-

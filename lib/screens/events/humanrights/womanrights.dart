@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/runningevent.dart';
+import 'package:my_app/screens/events/humanrights/runningevent.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WomanRights extends StatefulWidget {
   WomanRights({Key? key}) : super(key: key);
@@ -12,13 +13,20 @@ class WomanRights extends StatefulWidget {
 }
 
 class _WomanRights extends State<WomanRights> {
+
+  var uri = Uri(
+    scheme: 'https',
+    host: 'associazionefrida.it',
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          child: const Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios, color: Colors.black,),
           onTap: () => Navigator.pop(context),
+          
         ),
         title: Text('Women Rights', style: TextStyle(color: Colors.black)),
         elevation: 0,
@@ -69,15 +77,23 @@ class _WomanRights extends State<WomanRights> {
               ),
               const SizedBox(height: 5),
               const Text(
-                'With your help, we can reach our purpose: every little step in this fight is important, yours especially!\nEverytime you decide to partecipate in one of our virtual marches, we will donate *random number of euros* to an association whose purpose is to boh, advocate for equality? Protect women victim of domestic violence? JOIN US E GRZ PER CAGARCI, ah and by the way we will gift you tot points, keep going and you will get our special prize for you (nulla).',
+                "With your support, we can make a difference in the fight for women's rights and gender equality.\nEvery step you take in our virtual marches will contribute to meaningful change: we will donate euros 5,00 to associations dedicated to advocating for equality and supporting women who are victims of domestic violence. As you participate, you will earn reward points, and by reaching milestones, you can unlock special prizes as a token of our appreciation.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0,),
+              Row(children: [
+                const Text("For more information: ", style: TextStyle(fontWeight: FontWeight.w600),),
+                InkWell(
+                  child: const Text("https://www.associazionefrida.it", style: TextStyle(color: Colors.blue) ,),
+                  onTap: () => launchUrl(uri),
+                )
+              ],),
+              const SizedBox(height: 30.0),
 
-              //Check available events
+              //Attended events
               const Text(
-                'Check the available events here:',
+                'Here are your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -89,6 +105,24 @@ class _WomanRights extends State<WomanRights> {
                 thickness: 3,
                 endIndent: 15,
               ),
+              const SizedBox(height: 5),
+              const Text("Ops, you have attended to 0 events about women's rights.",style: TextStyle(fontSize: 15)),
+              SizedBox(height: 30),
+
+              //Check available events
+             const Text(
+                'Check the available events here:',
+                style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 59, 126, 62)),
+              ),
+              const Divider(
+                color: Color.fromARGB(255, 59, 126, 62),
+                height: 5,
+                thickness: 3,
+                endIndent: 15,
+               ),
               SizedBox(height: 7),
 
               Container(
@@ -142,12 +176,24 @@ class _WomanRights extends State<WomanRights> {
                                   context: context, 
                                   builder: (BuildContext context){  
                                     return AlertDialog(
-                                      title: Text('Gender Equality March', textAlign: TextAlign.center, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                                      title: Text('Gender Equality March', textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
                                       content: Column(
+                                        mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('By deciding to partecipate to this event, you will help us in the fight against gender stereotypes and blablabla')
+                                          const SizedBox(height: 10.0),
+                                          const Text('By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to creating a more inclusive society.\n\nAs a reward for your participation, you will earn 10 points.\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.', style: TextStyle(fontSize: 16)),
+                                          const SizedBox(height: 18.0),
+                                          const Text("Your prize in case you take 9000 steps:", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),),
+                                          const SizedBox(height: 10.0),
+                                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                            const Text("+100 points", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.amber)),
+                                            Image.asset("assets/images/bronze_medal.png", width: 50.0, height: 50.0,)
+                                          ]),
                                         ],
+                                        
                                       ),
                                       actions: [
                                         TextButton(onPressed: () {
@@ -156,7 +202,7 @@ class _WomanRights extends State<WomanRights> {
                                         child: Text('Cancel')),
                                         TextButton(onPressed: (){
                                           Navigator.pop(context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => RunEvent()));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => RunEvent1()));
                                         }, 
                                         child: Text('Confirm'))
                                       ],

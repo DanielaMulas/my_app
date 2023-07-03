@@ -85,7 +85,7 @@ class _$StepsDatabase extends StepsDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `count` INTEGER NOT NULL, `time` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` INTEGER NOT NULL, `time` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -109,7 +109,7 @@ class _$StepsDao extends StepsDao {
             'StepsEntity',
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
-                  'count': item.count,
+                  'value': item.value,
                   'time': item.time
                 }),
         _stepsEntityUpdateAdapter = UpdateAdapter(
@@ -118,7 +118,7 @@ class _$StepsDao extends StepsDao {
             ['id'],
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
-                  'count': item.count,
+                  'value': item.value,
                   'time': item.time
                 }),
         _stepsEntityDeletionAdapter = DeletionAdapter(
@@ -127,7 +127,7 @@ class _$StepsDao extends StepsDao {
             ['id'],
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
-                  'count': item.count,
+                  'value': item.value,
                   'time': item.time
                 });
 
@@ -151,7 +151,7 @@ class _$StepsDao extends StepsDao {
   ) async {
     return _queryAdapter.queryList(
         'SELECT * FROM Steps WHERE id = ?1 AND dateTime between ?2 AND ?3 ORDER BY dateTime ASC',
-        mapper: (Map<String, Object?> row) => StepsEntity(id: row['id'] as int?, count: row['count'] as int, time: row['time'] as String),
+        mapper: (Map<String, Object?> row) => StepsEntity(id: row['id'] as int?, value: row['value'] as int, time: row['time'] as String),
         arguments: [
           id,
           _dateTimeConverter.encode(startTime),
@@ -164,16 +164,16 @@ class _$StepsDao extends StepsDao {
     return _queryAdapter.queryList('SELECT * FROM Steps',
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
-            count: row['count'] as int,
+            value: row['value'] as int,
             time: row['time'] as String));
   }
 
   @override
-  Future<List<StepsEntity>> _findSpecificDaySteps(DateTime time) async {
+  Future<List<StepsEntity>> findSpecificDaySteps(DateTime time) async {
     return _queryAdapter.queryList('SELECT * FROM Steps WHERE dateTime == ?1',
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
-            count: row['count'] as int,
+            value: row['value'] as int,
             time: row['time'] as String),
         arguments: [_dateTimeConverter.encode(time)]);
   }
@@ -184,7 +184,7 @@ class _$StepsDao extends StepsDao {
         'SELECT * FROM Steps WHERE and dateTime >= ?1 ORDER BY dateTime ASC',
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
-            count: row['count'] as int,
+            value: row['value'] as int,
             time: row['time'] as String),
         arguments: [_dateTimeConverter.encode(time)]);
   }

@@ -1,6 +1,5 @@
 import 'package:floor/floor.dart'; 
-import 'package:my_app/database/entities/stepsEntity.dart';
-
+import 'package:my_app/database/entities/stepsEntity.dart'; 
 
 @dao
 abstract class StepsDao{
@@ -26,7 +25,7 @@ abstract class StepsDao{
 
   //Select a specific day
   @Query('SELECT * FROM Steps WHERE dateTime == :time')
-  Future<List<StepsEntity>> _findSpecificDaySteps(DateTime time);
+  Future<List<StepsEntity>> findSpecificDaySteps(DateTime time);
 
   //SELECT last steps
   @Query('SELECT * FROM Steps WHERE and dateTime >= :time ORDER BY dateTime ASC')
