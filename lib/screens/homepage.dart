@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:my_app/database/entities/stepsEntity.dart';
 import 'package:my_app/screens/loginpage.dart';
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/eventshomepage.dart';
@@ -85,6 +86,9 @@ class _HomeState extends State<HomePage> {
         if (dayResult != null) {
           for (final step in dayResult) {
             weekSteps[i] += step.value;
+
+            final stepsEntity = StepsEntity.fromSteps(step);
+            await database.stepsDao.insertSteps(stespsEntity);
           }
         }
       }

@@ -112,15 +112,6 @@ class _$StepsDao extends StepsDao {
                   'value': item.value,
                   'time': item.time
                 }),
-        _stepsEntityUpdateAdapter = UpdateAdapter(
-            database,
-            'StepsEntity',
-            ['id'],
-            (StepsEntity item) => <String, Object?>{
-                  'id': item.id,
-                  'value': item.value,
-                  'time': item.time
-                }),
         _stepsEntityDeletionAdapter = DeletionAdapter(
             database,
             'StepsEntity',
@@ -139,24 +130,32 @@ class _$StepsDao extends StepsDao {
 
   final InsertionAdapter<StepsEntity> _stepsEntityInsertionAdapter;
 
-  final UpdateAdapter<StepsEntity> _stepsEntityUpdateAdapter;
-
   final DeletionAdapter<StepsEntity> _stepsEntityDeletionAdapter;
 
   @override
-  Future<List<StepsEntity>> findStepsbyDate(
+  Future<List<StepsEntity>> findStepsbyRange(
     int id,
-    DateTime startTime,
-    DateTime endTime,
+    DateTime startDay,
+    DateTime endDay,
   ) async {
     return _queryAdapter.queryList(
         'SELECT * FROM Steps WHERE id = ?1 AND dateTime between ?2 AND ?3 ORDER BY dateTime ASC',
         mapper: (Map<String, Object?> row) => StepsEntity(id: row['id'] as int?, value: row['value'] as int, time: row['time'] as String),
         arguments: [
           id,
-          _dateTimeConverter.encode(startTime),
-          _dateTimeConverter.encode(endTime)
+          _dateTimeConverter.encode(startDay),
+          _dateTimeConverter.encode(endDay)
         ]);
+  }
+
+  @override
+  Future<List<StepsEntity>> findSpecificDaySteps(DateTime day) async {
+    return _queryAdapter.queryList('SELECT * FROM Steps WHERE dateTime == ?1',
+        mapper: (Map<String, Object?> row) => StepsEntity(
+            id: row['id'] as int?,
+            value: row['value'] as int,
+            time: row['time'] as String),
+        arguments: [_dateTimeConverter.encode(day)]);
   }
 
   @override
@@ -169,34 +168,8 @@ class _$StepsDao extends StepsDao {
   }
 
   @override
-  Future<List<StepsEntity>> findSpecificDaySteps(DateTime time) async {
-    return _queryAdapter.queryList('SELECT * FROM Steps WHERE dateTime == ?1',
-        mapper: (Map<String, Object?> row) => StepsEntity(
-            id: row['id'] as int?,
-            value: row['value'] as int,
-            time: row['time'] as String),
-        arguments: [_dateTimeConverter.encode(time)]);
-  }
-
-  @override
-  Future<List<StepsEntity>> _findLastHourSteps(DateTime time) async {
-    return _queryAdapter.queryList(
-        'SELECT * FROM Steps WHERE and dateTime >= ?1 ORDER BY dateTime ASC',
-        mapper: (Map<String, Object?> row) => StepsEntity(
-            id: row['id'] as int?,
-            value: row['value'] as int,
-            time: row['time'] as String),
-        arguments: [_dateTimeConverter.encode(time)]);
-  }
-
-  @override
   Future<void> insertStep(StepsEntity steps) async {
     await _stepsEntityInsertionAdapter.insert(steps, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> updateSteps(StepsEntity step) async {
-    await _stepsEntityUpdateAdapter.update(step, OnConflictStrategy.replace);
   }
 
   @override

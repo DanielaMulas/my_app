@@ -8,4 +8,7 @@ class StepsEntity {
   final String time;
 
   StepsEntity({this.id, required this.value, required this.time});
+
+  
+  
 }
