@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/events/humanrights/womanrights.dart';
+import 'package:my_app/screens/events/humanrights/pride.dart';
+
 
 class HumanRights extends StatefulWidget {
   HumanRights({Key? key}) : super(key: key);
@@ -61,7 +63,7 @@ class _HumanRights extends State<HumanRights> {
             //Copia e incolla il material button di sopra
             MaterialButton(
               padding: const EdgeInsets.all(50),
-              onPressed:() {},
+              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Pride()));},
               splashColor: Colors.greenAccent,
               child: Container(
                   decoration: const BoxDecoration(
