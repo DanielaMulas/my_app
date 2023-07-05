@@ -16,7 +16,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
   var uri = Uri(
     scheme: 'https',
     host: 'unicef.it',
-    path: 'https://www.unicef.it/programmi/istruzione/',
+    path: 'programmi/istruzione',
   );
 
   final Authorization auth = Authorization();
@@ -26,6 +26,9 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
       DateFormat('dd/MM/yyyy').format(DateTime(2023, 5, 20));
   String formattedEndDisplay =
       DateFormat('dd/MM/yyyy').format(DateTime(2023, 5, 26));
+
+  int? points;
+  int money = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +69,10 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
               ),
               const SizedBox(height: 5.0),
               const Text(
-                  "Equal Access to Education for All Children:\nThe goal of this section is to ensure that every child, regardless of their geographical location, socioeconomic background, or social conditions, has the same opportunities to access quality education",
+                  "Equal Access to Education for All Children:\nThe goal of this section is to ensure that every child, regardless of their geographical location, socioeconomic background, or social conditions, has the same opportunities to access quality education.",
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 15)),
-              const SizedBox(height: 25.0),
+              const SizedBox(height: 20.0),
 
               //Your help
               const Text(
@@ -92,7 +95,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                 style: TextStyle(fontSize: 15),
               ),
               const SizedBox(
-                height: 10.0,
+                height: 20.0,
               ),
 
               //Attended events
@@ -119,30 +122,30 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Row(
                         children: [
-                          Text(
-                            "Gender Equality",
+                          const Text(
+                            "School4Everyone",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
-                            width: 50.0,
+                          const SizedBox(
+                            width: 29.0,
                           ),
                           Text(
-                            'Date: 28/06/2023',
-                            style: TextStyle(
-                                fontSize: 12,
+                            'From $formattedStartDisplay to $formattedEndDisplay',
+                            style: const TextStyle(
+                                fontSize: 13,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blueGrey),
                           ),
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.lightGreen,
                       height: 0.3,
                       thickness: 0.4,
@@ -179,7 +182,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                             children: [
                                               const SizedBox(height: 10.0),
                                               const Text(
-                                                  'By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to create a more inclusive society.\nAs a reward for your participation, you will earn 10 points.\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.',
+                                                  'By deciding to participate in this event, you will indirectly sustain Unicef organization, that works towards increasing access to education for all children, especially those who are marginalized or disadvantaged.\nEvery 1000 steps you make we will donate 1€ to this association.\nAs a reward for your participation, you will earn points based on how many steps you made.\n\nPlease note that this event is one week long. This means that you have 7 days to walk or run as much as you can to do your part in this donation event.',
                                                   style:
                                                       TextStyle(fontSize: 16)),
                                               const SizedBox(height: 18.0),
@@ -199,30 +202,12 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                               ),
                                               const SizedBox(height: 30.0),
                                               const Text(
-                                                "Your prize in case you take 9000 steps:",
+                                                "Points that will be assigned to you based on your achievement:\n-> 100 points if you make less than 50000 steps\n-> 250 points if you make between 50000 and 80000 steps\n-> 500 points if you make more than 80000 steps",
                                                 style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  fontSize: 16.0,
+                                                ),
                                               ),
                                               const SizedBox(height: 10.0),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    const Text("+100 points",
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Colors.amber)),
-                                                    Image.asset(
-                                                      "assets/images/bronze_medal.png",
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                    )
-                                                  ]),
                                               FutureBuilder<List<Steps>?>(
                                                 future: auth.requestDataPeriod(
                                                     context,
@@ -240,31 +225,70 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                                     sum +
                                                                     step.value) ??
                                                             0;
-                                                    //If the result isn't null, totalSteps corresond to the sum of the values returned by the function requestDataSingleDay
+                                                    money = totalSteps ~/ 1000;
+                                                    print(money);
+                                                    if (totalSteps < 50000) {
+                                                      points = 100;
+                                                    } else if (totalSteps <
+                                                            80000 &&
+                                                        totalSteps > 50000) {
+                                                      points = 250;
+                                                    } else {
+                                                      points = 500;
+                                                    }
+                                                    //If the result isn't null, totalSteps corresond to the sum of all the values returned by the function requestDataPeriod for all the days
                                                     print(
                                                         '\nTOTAL STEPS: $totalSteps\n');
                                                     return SizedBox(
                                                       width: 800,
-                                                      height: 300,
+                                                      height: 150,
                                                       child: Column(
                                                         children: [
                                                           Text(
-                                                            'Steps made from $formattedStartDisplay to $formattedEndDisplay: $totalSteps', //shows me the day of which the steps are shown
+                                                            'Steps made from $formattedStartDisplay to $formattedEndDisplay: ', //shows me the day of which the steps are shown
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style:
                                                                 const TextStyle(
                                                               fontSize: 16.0,
-                                                              fontStyle: FontStyle.italic,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              color: Colors.black,
+                                                              color:
+                                                                  Colors.black,
                                                             ),
                                                           ),
-                                                         
                                                           const SizedBox(
                                                               height: 20),
+                                                          Text(
+                                                            totalSteps
+                                                                .toString(), //total steps done in the week
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18.0,
+                                                              fontWeight:
+                                                                  FontWeight.bold,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Text(
+                                                              'Thanks to you we will donate $money€!', //total steps done in the week
+                                                              textAlign: TextAlign.center,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontStyle: FontStyle.italic,
+                                                                color: Colors.black,
+                                                              )),
                                                         ],
                                                       ),
                                                     );
@@ -277,6 +301,27 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                   }
                                                 },
                                               ),
+                                              const SizedBox(height: 50),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                        "You obtained +$points points",
+                                                        style: const TextStyle(
+                                                            fontSize: 18,
+                                                            fontStyle: FontStyle
+                                                                .italic,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.amber)),
+                                                    Image.asset(
+                                                      "assets/images/gold_medal.png",
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                    )
+                                                  ]),
                                             ],
                                           ),
                                         ),
@@ -328,6 +373,42 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                 endIndent: 80,
               ),
               SizedBox(height: 7),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.lightGreen, width: 0.4),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Row(
+                        children: const [
+                          Text(
+                            "No events available right now.",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          /*SizedBox(
+                            width: 50.0,
+                          ),*/
+                        ],
+                      ),
+                    ),
+                    const Divider(
+                      color: Colors.lightGreen,
+                      height: 0.3,
+                      thickness: 0.4,
+                      indent: 100,
+                      endIndent: 100,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

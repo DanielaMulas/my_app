@@ -66,7 +66,7 @@ class _Education extends State<Education> {
             MaterialButton(
               
               //padding: const EdgeInsets.all(8),
-              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => ChildrenSchoolRights()));
+              onPressed:() {
               },
               color: Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
