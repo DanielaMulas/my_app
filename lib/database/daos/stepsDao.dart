@@ -4,12 +4,16 @@ import 'package:my_app/database/entities/stepsEntity.dart';
 @dao
 abstract class StepsDao{
   // Select entries of Steps table of a certain date 
-  @Query('SELECT * FROM Steps WHERE id = :id AND dateTime between :startTime AND :endTime ORDER BY dateTime ASC')
-  Future<List<StepsEntity>> findStepsbyDate(int id,DateTime startTime,DateTime endTime);
+  /*@Query('SELECT * FROM Steps WHERE id = :id AND dateTime between :startTime AND :endTime ORDER BY dateTime ASC')
+  Future<List<StepsEntity>> findStepsbyDate(int id,DateTime startTime,DateTime endTime);*/
 
   // Obtain all the entries
   @Query('SELECT * FROM Steps')
   Future<List<StepsEntity>> findAllSteps();
+
+  //Select the average value of steps
+  @Query('SELECT AVG(value) FROM Steps')
+  Future<double?> findStepsMean();
 
   //Insert Steps in the table
   @insert
@@ -24,7 +28,7 @@ abstract class StepsDao{
   Future<void> updateSteps(StepsEntity step);
 
   //Select a specific day
-  @Query('SELECT * FROM Steps WHERE dateTime == :time')
+  /*@Query('SELECT * FROM Steps WHERE dateTime == :time')
   Future<List<StepsEntity>> findSpecificDaySteps(DateTime time);
 
   //SELECT last steps
@@ -34,5 +38,7 @@ abstract class StepsDao{
   Future<List<StepsEntity>> findLastHourSteps() {
      final time = DateTime.now().subtract(const Duration(hours: 1));
      return _findLastHourSteps(time);
-}
+}*/
+
+
 }//StepsDao
