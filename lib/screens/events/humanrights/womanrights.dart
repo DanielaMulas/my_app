@@ -87,7 +87,7 @@ class WomanRights extends StatelessWidget {
 
               //Attended events
               const Text(
-                'Here are your attended events:',
+                'Your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class WomanRights extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 130,
               ),
               const SizedBox(height: 5),
               const Text("Ops, you have attended to 0 events about women's rights.",style: TextStyle(fontSize: 15)),
@@ -105,7 +105,7 @@ class WomanRights extends StatelessWidget {
 
               //Check available events
              const Text(
-                'Check the available events here:',
+                'Check the available events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class WomanRights extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 80,
                ),
               SizedBox(height: 7),
 
@@ -142,7 +142,7 @@ class WomanRights extends StatelessWidget {
                             width: 50.0,
                           ),
                           Text(
-                            'Date: 2023/06/28',
+                            'Date: 28/06/2023',
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -177,7 +177,7 @@ class WomanRights extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(height: 10.0),
-                                          const Text('By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to creating a more inclusive society.\n\nAs a reward for your participation, you will earn 10 points.\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.', style: TextStyle(fontSize: 16)),
+                                          const Text('By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to create a more inclusive society.\n\nAs a reward for your participation, you will earn 10 points.\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.', style: TextStyle(fontSize: 16)),
                                           const SizedBox(height: 18.0),
                                           const Text("Your prize in case you take 9000 steps:", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),),
                                           const SizedBox(height: 10.0),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:my_app/screens/events/humanrights/humanrights.dart';
 import 'package:my_app/screens/events/peace/ukrainepeace.dart';
+import 'package:my_app/screens/events/education/education.dart';
+
 
 class Events extends StatelessWidget {
   Events({Key? key}) : super(key: key);
@@ -106,7 +108,7 @@ class Events extends StatelessWidget {
                 ),
                 // ),
                 onPressed: () {
-                  print('Tapped');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Education()));
                 },
               ),
 

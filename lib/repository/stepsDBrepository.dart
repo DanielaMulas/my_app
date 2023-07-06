@@ -17,6 +17,14 @@ class DatabaseRepository extends ChangeNotifier{
     return results;
   }//findAllSteps
 
+  Future<List<StepsEntity>> findStepsbyRange(int id, DateTime startDay, DateTime endDay) async{
+    final results = await database.stepsDao.findStepsbyRange(id,startDay,endDay);
+    return results;
+  }
+  Future<List<StepsEntity>> findSpecificDaySteps(DateTime day) async{
+    final results = await database.stepsDao.findSpecificDaySteps(day);
+    return results;
+  }
  
   Future<void> insertStep(StepsEntity step)async {
     await database.stepsDao.insertStep(step);
@@ -31,15 +39,11 @@ class DatabaseRepository extends ChangeNotifier{
   }//removeStep
 
   //Update a Steps entry
-  Future<void> updateSteps(StepsEntity step) async {
+  /*Future<void> updateSteps(StepsEntity step) async {
     await database.stepsDao.updateSteps(step);
     notifyListeners();
-  }
+  }*/
 
- Future<List<StepsEntity>> findLastHourSteps() async {
-    final results = await database.stepsDao.findLastHourSteps();
-    return results;
-  }
  
 
   

@@ -60,7 +60,7 @@ class _HumanRights extends State<HumanRights> {
                 ),              
               ),
             ),
-            //Copia e incolla il material button di sopra
+            
             MaterialButton(
               padding: const EdgeInsets.all(50),
               onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Pride()));},
