@@ -56,15 +56,12 @@ class _LoginPageState extends State<LoginPage> {
   void dispose()  {
     _usernameController.dispose();
     _passwordController.dispose();
-    _eliminationPreferences();
+    
 
     super.dispose();
   }
 
-  void _eliminationPreferences() async{
-    final pref = await SharedPreferences.getInstance();
-      pref.remove('username');
-  }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -62,17 +62,7 @@ class _AboutPage extends State<AboutPage> {
                     )),
                   const SizedBox(height: 20.0),
 
-                  
-                  /*const Text(
-                    'Our Slogan', 
-                    style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
-                  ),
-                  const Divider(
-                    color: Color.fromARGB(255, 59, 126, 62), 
-                    height: 5,
-                    thickness: 3,
-                    endIndent: 235,
-                  ),*/
+
                   const SizedBox(height: 5),
                   const Center(
                     child: Text(
