@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimerData with ChangeNotifier {
-  int totalTime = 24; // Total time in seconds (mimicking hours)
+  int totalTime = 3; // Total time in seconds (mimicking hours)
   int currentTime = 0; // Current time in seconds
   bool isRunning = false; // Checking if the timer is running
   bool isTimerDisabled = false; // Checking if the timer is disabled
@@ -17,14 +17,19 @@ class TimerData with ChangeNotifier {
 
   final Authorization auth = Authorization();
 
-  DateTime day = DateTime.now()
+  /*DateTime chosenDay;
       .subtract(const Duration(days: 1)); // Initialized as "yesterday"
-  String formattedDayDisplay = DateFormat('dd-MM-yyyy')
+  String formattedDayDisplay = DateFormat('dd-MM-yyyy');
       .format(DateTime.now().subtract(const Duration(days: 1)));
+  */
+
+  late DateTime chosenDay;
+  late String formattedDayDisplay;
 
   Timer? timer;
 
-  TimerData(BuildContext context) {
+  TimerData(BuildContext context, DateTime day) {
+    chosenDay = day;
     _loadTimerData(context);
   }
 
@@ -37,13 +42,13 @@ class TimerData with ChangeNotifier {
       isTimerDisabled = true;
       _startTimer(context);
     }
-  }//_loadTimerData
+  } //_loadTimerData
 
   void _saveTimerData() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('timer', currentTime);
     await prefs.setBool('isRunning', isRunning);
-  }//_saveTimerData
+  } //_saveTimerData
 
   void _startTimer(BuildContext context) async {
     if (isRunning == false) {
@@ -51,12 +56,13 @@ class TimerData with ChangeNotifier {
       isTimerDisabled = true;
       _saveTimerData();
 
-      auth.requestDataSingleDay(context, day).then((steps) {
+      auth.requestDataSingleDay(context, chosenDay).then((steps) {
         totalSteps = steps?.fold<int>(0, (sum, step) => sum + step.value);
         print('$totalSteps');
         notifyListeners();
       });
-    };
+    }
+    ;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentTime < totalTime) {
         currentTime++;
@@ -64,10 +70,19 @@ class TimerData with ChangeNotifier {
       } else {
         _stopTimer();
       }
+
+      /*if(isSameDay(chosenDay, DateTime.now()) == false){
+        _stopTimer();
+      }*/
       notifyListeners();
     });
-    
-  }//_startTimer
+  } //_startTimer
+
+  bool isSameDay(DateTime day1, DateTime day2) {
+    return day1.year == day2.year &&
+        day1.month == day2.month &&
+        day1.day == day2.day;
+  }
 
   void _stopTimer() {
     isRunning = false;
@@ -77,11 +92,11 @@ class TimerData with ChangeNotifier {
     timer?.cancel();
     timer = null;
     notifyListeners();
-  }//_stopTimer
+  } //_stopTimer
 
   double timeLeftPercentage() {
     return currentTime / totalTime;
-  }//timeLeftPercentage
+  } //timeLeftPercentage
 
   String timeLeft() {
     final remainingSeconds = totalTime - currentTime;
@@ -100,8 +115,10 @@ class RunEvent1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectedDay = DateTime(2023, 7, 3);
+    final formattedDayDisplay = DateFormat('dd-MM-yyyy').format(selectedDay);
     return ChangeNotifierProvider(
-      create: (_) => TimerData(context),
+      create: (_) => TimerData(context, selectedDay),
       child: _RunEventPage(),
     );
   }
@@ -113,7 +130,9 @@ class _RunEventPage extends StatelessWidget {
     final timerData = Provider.of<TimerData>(context);
 
     Widget _returnStepsText() {
-      if (timerData.currentTime >= timerData.totalTime) {
+      if (timerData.currentTime >= timerData.totalTime &&
+          timerData.totalSteps != null &&
+          timerData.maxSteps <= timerData.totalSteps!) {
         return Text(
           'Congratulations! You have completed the task by taking ${timerData.totalSteps} steps',
         );
@@ -167,7 +186,9 @@ class _RunEventPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: timerData.isTimerDisabled
+                onPressed: timerData.isTimerDisabled ||
+                        timerData.isSameDay(
+                            timerData.chosenDay, DateTime.now())
                     ? null
                     : () {
                         timerData._startTimer(context);

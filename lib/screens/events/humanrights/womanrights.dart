@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:my_app/screens/events/humanrights/runningevent.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class WomanRights extends StatefulWidget {
+class WomanRights extends StatelessWidget {
   WomanRights({Key? key}) : super(key: key);
 
   static const route = '/womenrights/';
   static const routename = 'WomenRights';
-
-  @override
-  State<WomanRights> createState() => _WomanRights();
-}
-
-class _WomanRights extends State<WomanRights> {
 
   var uri = Uri(
     scheme: 'https',

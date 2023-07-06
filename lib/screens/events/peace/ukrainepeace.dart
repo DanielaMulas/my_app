@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Pride extends StatefulWidget {
-  Pride({Key? key}) : super(key: key);
+class Peace extends StatefulWidget {
+  Peace({Key? key}) : super(key: key);
 
-  static const route = '/pride/';
-  static const routename = 'Pride';
+  static const route = '/peace/';
+  static const routename = 'Peace';
 
   @override
-  State<Pride> createState() => _PrideState();
+  State<Peace> createState() => _PeaceState();
 }
 
-class _PrideState extends State<Pride> {
+class _PeaceState extends State<Peace> {
   var uri = Uri(
     scheme: 'https',
-    host: 'associazionearc.eu',
+    host: 'unfpa.org',
+    path: 'donate/Ukraine-a?utm_campaign=HO-UA-22-Ukraine&utm_content=evergreen&gclid=CjwKCAiA1JGRBhBSEiwAxXblwULSSi1DDIzP6plSTz6QXYPRCsEeAlCRoHlpGFsQ4qf3-GGDL3iIeRoCJ9IQAvD_BwE',
   );
 
   @override
@@ -28,7 +29,7 @@ class _PrideState extends State<Pride> {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Pride', style: TextStyle(color: Colors.black)),
+        title: Text('Peace', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 173, 248, 175),
       ),
@@ -38,7 +39,7 @@ class _PrideState extends State<Pride> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //Goal
+              // Goal
               const Text(
                 'Our goal',
                 style: TextStyle(
@@ -56,12 +57,13 @@ class _PrideState extends State<Pride> {
               ),
               const SizedBox(height: 5.0),
               const Text(
-                  "Our goal is to celebrate and support the LGBTQ+ community by promoting inclusivity, acceptance, and equality through our app.\nWe aim to foster awareness, understanding, and respect for all sexual orientations and gender identities\nWith your help, we can work towards creating a society that embraces diversity and stands against discrimination.",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 15)),
+                "Our goal is to promote peace and harmony by fostering understanding, cooperation, and conflict resolution through our app.\nWe strive to create a community that advocates for non-violence and works towards creating a world free from conflicts and wars.\nWith your help, we can make a positive impact and contribute to a more peaceful and sustainable future.",
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 15),
+              ),
               const SizedBox(height: 25.0),
 
-              //Your help
+              // Your help
               const Text(
                 'Your help',
                 style: TextStyle(
@@ -77,13 +79,11 @@ class _PrideState extends State<Pride> {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can make a difference in the fight for LGBTQ+ rights and equality. Every step you take in our virtual marches will contribute to meaningful change: we will donate euros 5,00 to LGBTQ+ organizations dedicated to advocating for equality and supporting individuals who face discrimination and prejudice. As you participate, you will earn reward points, and by reaching milestones, you can unlock special prizes as a token of our appreciation.",
+                "With your support, we can work towards a more peaceful world. By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donate euros 5 to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
-              const SizedBox(
-                height: 10.0,
-              ),
+              const SizedBox(height: 10.0,),
               Row(
                 children: [
                   const Text(
@@ -92,7 +92,7 @@ class _PrideState extends State<Pride> {
                   ),
                   InkWell(
                     child: const Text(
-                      "https://www.associazionearc.eu",
+                      "https://www.unfpa.org/",
                       style: TextStyle(color: Colors.blue),
                     ),
                     onTap: () => launchUrl(uri),
@@ -101,7 +101,7 @@ class _PrideState extends State<Pride> {
               ),
               const SizedBox(height: 30.0),
 
-              //Attended events
+              // Attended events
               const Text(
                 'Here are your attended events:',
                 style: TextStyle(
@@ -116,11 +116,11 @@ class _PrideState extends State<Pride> {
                 endIndent: 15,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events about pride.",
+              const Text("Oops, you have not attended any peace-related events yet.",
                   style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 
-              //Check available events
+              // Check available events
               const Text(
                 'Check the available events here:',
                 style: TextStyle(
