@@ -112,6 +112,15 @@ class _$StepsDao extends StepsDao {
                   'value': item.value,
                   'time': item.time
                 }),
+        _stepsEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'StepsEntity',
+            ['id'],
+            (StepsEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'value': item.value,
+                  'time': item.time
+                }),
         _stepsEntityDeletionAdapter = DeletionAdapter(
             database,
             'StepsEntity',
@@ -130,10 +139,11 @@ class _$StepsDao extends StepsDao {
 
   final InsertionAdapter<StepsEntity> _stepsEntityInsertionAdapter;
 
+  final UpdateAdapter<StepsEntity> _stepsEntityUpdateAdapter;
+
   final DeletionAdapter<StepsEntity> _stepsEntityDeletionAdapter;
 
   @override
-
   Future<List<StepsEntity>> findAllSteps() async {
     return _queryAdapter.queryList('SELECT * FROM Steps',
         mapper: (Map<String, Object?> row) => StepsEntity(
@@ -146,12 +156,16 @@ class _$StepsDao extends StepsDao {
   Future<double?> findStepsMean() async {
     return _queryAdapter.query('SELECT AVG(value) FROM Steps',
         mapper: (Map<String, Object?> row) => row.values.first as double);
-
   }
 
   @override
   Future<void> insertStep(StepsEntity steps) async {
     await _stepsEntityInsertionAdapter.insert(steps, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> updateSteps(StepsEntity step) async {
+    await _stepsEntityUpdateAdapter.update(step, OnConflictStrategy.replace);
   }
 
   @override

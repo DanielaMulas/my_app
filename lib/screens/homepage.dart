@@ -28,20 +28,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State<HomePage> {
-  /*int _currentIndex = 0;
-  final screens = [
-    const HomePage(),
-    Events(),
-    /*const Center(
-      child: Text('Stats', style: TextStyle(fontSize: 60)),
-    ),*/
-    Profile(),
-  ];*/
+  
+  
+  //late Future<int?> codeAuth;
 
   @override
   void initState() {
     super.initState();
-    _retrieveName(); // Fetch name saved in the profile page information when the widget is initialized
+    _retrieveName();
+    //codeAuth=auth.authorize(); // Fetch name saved in the profile page information when the widget is initialized
   }
 
   void _retrieveName() async {
@@ -51,10 +46,7 @@ class _HomeState extends State<HomePage> {
     setState(() {});
   }
 
-  /*@override
-  void dispose(){
-    calculateSums().dispose();
-  }*/
+  
 
   int? totalSteps;
   String? name;
@@ -95,10 +87,10 @@ class _HomeState extends State<HomePage> {
             weekSteps[i] += step.value;
 
             // Insert the steps into the database
-            final stepsEntity =
+            /*final stepsEntity =
                 StepsEntity(value: step.value, time: step.time.toString());
             print('Step to add to the database: $stepsEntity');
-            await dbRepository.insertStep(stepsEntity);
+            await dbRepository.insertStep(stepsEntity);*/
           }
         }
       }
