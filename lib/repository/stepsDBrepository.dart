@@ -17,10 +17,10 @@ class DatabaseRepository extends ChangeNotifier{
     return results;
   }//findAllSteps
 
+
   Future<double?> findStepsMean() async{
     final mean=await database.stepsDao.findStepsMean();
     return mean;
-  }
  
   Future<void> insertStep(StepsEntity step)async {
     await database.stepsDao.insertStep(step);
@@ -35,10 +35,11 @@ class DatabaseRepository extends ChangeNotifier{
   }//removeStep
 
   //Update a Steps entry
-  Future<void> updateSteps(StepsEntity step) async {
+  /*Future<void> updateSteps(StepsEntity step) async {
     await database.stepsDao.updateSteps(step);
     notifyListeners();
-  }
+  }*/
+
 
   /*Future<List<StepsEntity>> findLastHourSteps() async {
     final results = await database.stepsDao.findLastHourSteps();
@@ -46,6 +47,7 @@ class DatabaseRepository extends ChangeNotifier{
   }*/
 
   
+
  
 
   

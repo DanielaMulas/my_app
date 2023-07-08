@@ -4,97 +4,146 @@ import 'package:my_app/models/authorization.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class RunEvent1 extends StatefulWidget {
+class TimerData with ChangeNotifier {
+  int totalTime = 3; // Total time in seconds (mimicking hours)
+  int currentTime = 0; // Current time in seconds
+  bool isRunning = false; // Checking if the timer is running
+  bool isTimerDisabled = false; // Checking if the timer is disabled
+
+  int? totalSteps;
+  final int maxSteps = 9000; // StepGoal
+
+  final Authorization auth = Authorization();
+
+  /*DateTime chosenDay;
+      .subtract(const Duration(days: 1)); // Initialized as "yesterday"
+  String formattedDayDisplay = DateFormat('dd-MM-yyyy');
+      .format(DateTime.now().subtract(const Duration(days: 1)));
+  */
+
+  late DateTime chosenDay;
+  late String formattedDayDisplay;
+
+  Timer? timer;
+
+  TimerData(BuildContext context, DateTime day) {
+    chosenDay = day;
+    _loadTimerData(context);
+  }
+
+  void _loadTimerData(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedTime = prefs.getInt('timer');
+    final isRunning = prefs.getBool('isRunning') ?? false;
+    if (storedTime != null && isRunning) {
+      currentTime = storedTime;
+      isTimerDisabled = true;
+      _startTimer(context);
+    }
+  } //_loadTimerData
+
+  void _saveTimerData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('timer', currentTime);
+    await prefs.setBool('isRunning', isRunning);
+  } //_saveTimerData
+
+  void _startTimer(BuildContext context) async {
+    if (isRunning == false) {
+      isRunning = true;
+      isTimerDisabled = true;
+      _saveTimerData();
+
+      auth.requestDataSingleDay(context, chosenDay).then((steps) {
+        totalSteps = steps?.fold<int>(0, (sum, step) => sum + step.value);
+        print('$totalSteps');
+        notifyListeners();
+      });
+    }
+    ;
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (currentTime < totalTime) {
+        currentTime++;
+        _saveTimerData();
+      } else {
+        _stopTimer();
+      }
+
+      /*if(isSameDay(chosenDay, DateTime.now()) == false){
+        _stopTimer();
+      }*/
+      notifyListeners();
+    });
+  } //_startTimer
+
+  bool isSameDay(DateTime day1, DateTime day2) {
+    return day1.year == day2.year &&
+        day1.month == day2.month &&
+        day1.day == day2.day;
+  }
+
+  void _stopTimer() {
+    isRunning = false;
+    isTimerDisabled = true;
+    _saveTimerData();
+
+    timer?.cancel();
+    timer = null;
+    notifyListeners();
+  } //_stopTimer
+
+  double timeLeftPercentage() {
+    return currentTime / totalTime;
+  } //timeLeftPercentage
+
+  String timeLeft() {
+    final remainingSeconds = totalTime - currentTime;
+    final minutes = (remainingSeconds / 60).floor();
+    final seconds = remainingSeconds % 60;
+    final secondsString = seconds < 10 ? '0$seconds' : '$seconds';
+    return '$minutes:$secondsString';
+  }
+}
+
+class RunEvent1 extends StatelessWidget {
   const RunEvent1({Key? key}) : super(key: key);
 
   static const route = '/runningevent/';
   static const routeDisplayName = 'RunEvent';
 
   @override
-  State<RunEvent1> createState() => _RunEventState();
+  Widget build(BuildContext context) {
+    final selectedDay = DateTime(2023, 7, 3);
+    final formattedDayDisplay = DateFormat('dd-MM-yyyy').format(selectedDay);
+    return ChangeNotifierProvider(
+      create: (_) => TimerData(context, selectedDay),
+      child: _RunEventPage(),
+    );
+  }
 }
 
-class _RunEventState extends State<RunEvent1> {
-
-  Timer? timer;
-  int totalTime = 24; // Total time in seconds (mimicking hours)
-  int currentTime = 0; // Current time in seconds
-  bool isRunning = false; // Checking if the timer is running
-  bool isTimerDisabled = false; // CHecking if the timer is disabled
-  int? totalSteps; 
-  final int maxSteps = 9000; // StepGoal
-
-  final Authorization auth = Authorization();
-
-  DateTime day = DateTime.now().subtract(const Duration(days: 1)); // Initialized as "yesterday"
-  String formattedDayDisplay = DateFormat('dd-MM-yyyy').format(DateTime.now().subtract(const Duration(days: 1)));
-
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
-
-  void _startTimer() async {
-    if (isRunning) {
-      setState(() {
-        timer?.cancel();
-        isRunning = false;
-      });
-    } else {
-      setState(() {
-        currentTime = 0; // Resetting the timer
-        isRunning = true;
-        isTimerDisabled = true;
-        auth.requestDataSingleDay(context, day).then((steps) {
-          setState(() {
-            totalSteps = steps?.fold<int>(0, (sum, step) => sum + step.value);
-            print('$totalSteps');
-          });
-        });
-      });
-    }
-
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (currentTime < totalTime) {
-          currentTime++;
-        } else {
-          timer.cancel();
-          isRunning = false;
-          isTimerDisabled = true;          
-        }
-      });
-    });
-  }
-
-  double _timeLeftPercentage() {
-    return currentTime / totalTime;
-  }
-
-  String _timeLeft() {
-    final remainingSeconds = totalTime - currentTime;
-    final minutes = (remainingSeconds / 60).floor();
-    final seconds = remainingSeconds % 60;
-    final secondsString = seconds < 10 ? '0$seconds' : '$seconds'; // If it is <10 --> 01,02,...,09
-    return '$minutes:$secondsString';
-  }
-
-  Widget _returnStepsText(){
-    if(totalSteps != null && totalSteps! >= maxSteps){
-      return Text('Congratulations! You have completed the task by taking ${totalSteps} steps');
-    }
-    else if(totalSteps != null && totalSteps! < maxSteps){
-      return Text("Sorry, you didn't make it. Try again!");
-    }
-    else{
-      return Text('Start now!');
-    }
-  }
-
+class _RunEventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final timerData = Provider.of<TimerData>(context);
+
+    Widget _returnStepsText() {
+      if (timerData.currentTime >= timerData.totalTime &&
+          timerData.totalSteps != null &&
+          timerData.maxSteps <= timerData.totalSteps!) {
+        return Text(
+          'Congratulations! You have completed the task by taking ${timerData.totalSteps} steps',
+        );
+      } else if (timerData.totalSteps != null &&
+          timerData.totalSteps! < timerData.maxSteps) {
+        return Text("Sorry, you didn't make it. Try again!");
+      } else {
+        return Text('Start now!');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Let's start!"),
@@ -123,9 +172,9 @@ class _RunEventState extends State<RunEvent1> {
               LinearPercentIndicator(
                 width: 300,
                 lineHeight: 20.0,
-                percent: _timeLeftPercentage(),
+                percent: timerData.timeLeftPercentage(),
                 center: Text(
-                  _timeLeft(),
+                  timerData.timeLeft(),
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -137,12 +186,19 @@ class _RunEventState extends State<RunEvent1> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: isTimerDisabled ? null: _startTimer, //If isTimerDisabled is true, then onPressed is null. Otherwise, it launches _startTimer
-                child: Text(isRunning ? 'Timer Running' : 'Participate'),
+                onPressed: timerData.isTimerDisabled ||
+                        timerData.isSameDay(
+                            timerData.chosenDay, DateTime.now())
+                    ? null
+                    : () {
+                        timerData._startTimer(context);
+                      },
+                child:
+                    Text(timerData.isRunning ? 'Timer Running' : 'Participate'),
               ),
               SizedBox(height: 15.0),
-              if(currentTime >= totalTime) _returnStepsText(),
-              
+              if (timerData.currentTime >= timerData.totalTime)
+                _returnStepsText(),
             ],
           ),
         ),

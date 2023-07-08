@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:my_app/screens/events/humanrights/humanrights.dart';
+import 'package:my_app/screens/events/peace/peace.dart';
+import 'package:my_app/screens/events/education/education.dart';
 
-class Events extends StatefulWidget {
+
+class Events extends StatelessWidget {
   Events({Key? key}) : super(key: key);
 
   static const route = '/profilepage/';
   static const routename = 'ProfilePage';
 
-  @override
-  State<Events> createState() => _Events();
-}
-
-class _Events extends State<Events> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +108,7 @@ class _Events extends State<Events> {
                 ),
                 // ),
                 onPressed: () {
-                  print('Tapped');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Education()));
                 },
               ),
 
@@ -149,7 +147,7 @@ class _Events extends State<Events> {
                 ),
                 // ),
                 onPressed: () {
-                  print('Tapped');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Peace()));
                 },
               ),
 

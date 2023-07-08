@@ -20,7 +20,7 @@ int _currentIndex = 0;
 final screens = [
   HomePage(),
   Events(),
-  Center(child: Text('Stats', style: TextStyle(fontSize:60)),),
+  //Center(child: Text('Stats', style: TextStyle(fontSize:60)),),
   Profile(),
 ];
   
@@ -48,10 +48,10 @@ final screens = [
             icon: Icon(Icons.event_available, color: Colors.white),
             label: 'Events',
           ),
-          BottomNavigationBarItem(
+          /*BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart, color: Colors.white),
             label: 'Stats',
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(Icons.person, color: Colors.white),
             label: 'Profile',
