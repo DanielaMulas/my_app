@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:my_app/screens/events/humanrights/humanrights.dart';
-import 'package:my_app/screens/events/peace/ukrainepeace.dart';
+import 'package:my_app/screens/events/peace/peace.dart';
 import 'package:my_app/screens/events/education/education.dart';
 
 

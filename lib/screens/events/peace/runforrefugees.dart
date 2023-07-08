@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Pride extends StatelessWidget {
-  Pride({Key? key}) : super(key: key);
+class Run4Refugee extends StatelessWidget {
+  Run4Refugee({Key? key}) : super(key: key);
 
-  static const route = '/pride/';
-  static const routename = 'Pride';
+  static const route = '/run4Refugees/';
+  static const routename = 'Run4Refugees';
 
   var uri = Uri(
     scheme: 'https',
-    host: 'associazionearc.eu',
+    host: 'dona.unhcr.it/',
   );
 
   @override
@@ -23,7 +23,7 @@ class Pride extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Pride', style: TextStyle(color: Colors.black)),
+        title: Text('Run4Refugees', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 173, 248, 175),
       ),
@@ -51,7 +51,7 @@ class Pride extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               const Text(
-                  "Our goal is to celebrate and support the LGBTQ+ community by promoting inclusivity, acceptance, and equality through our app.\nWe aim to foster awareness, understanding, and respect for all sexual orientations and gender identities\nWith your help, we can work towards creating a society that embraces diversity and stands against discrimination.",
+                  "Our goal is to support and empower refugees by promoting inclusivity, compassion, and equality through our app. We aim to foster awareness, understanding, and respect for individuals who have been forced to flee their homes due to conflict, persecution, or other life-threatening circumstances.",
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 15)),
               const SizedBox(height: 25.0),
@@ -72,7 +72,7 @@ class Pride extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can make a difference in the fight for LGBTQ+ rights and equality. Every step you take in our virtual marches will contribute to meaningful change: we will donate euros 5,00 to LGBTQ+ organizations dedicated to advocating for equality and supporting individuals who face discrimination and prejudice. As you participate, you will earn reward points, and by reaching milestones, you can unlock special prizes as a token of our appreciation.",
+                "With your help, we can work towards creating a society that embraces and welcomes refugees, providing them with the support they need to rebuild their lives and integrate into their new communities. Together, we can stand against discrimination, promote human rights, and advocate for fair and just treatment of refugees worldwide.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
@@ -87,7 +87,7 @@ class Pride extends StatelessWidget {
                   ),
                   InkWell(
                     child: const Text(
-                      "https://www.associazionearc.eu",
+                      "https://dona.unhcr.it/",
                       style: TextStyle(color: Colors.blue),
                     ),
                     onTap: () => launchUrl(uri),
