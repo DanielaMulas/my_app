@@ -47,7 +47,7 @@ class _HomeState extends State<HomePage> {
   void _retrieveName() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString('name') ?? 'enjoy';
-    //If name already exist the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
+    //If name already exists the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
     setState(() {});
   }
 
@@ -97,6 +97,7 @@ class _HomeState extends State<HomePage> {
             // Insert the steps into the database
             final stepsEntity =
                 StepsEntity(value: step.value, time: step.time.toString());
+            print('Step to add to the database: $stepsEntity');
             await dbRepository.insertStep(stepsEntity);
           }
         }
@@ -132,7 +133,7 @@ class _HomeState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var result = snapshot.data;
-                    print('\nSteps List (result): $result');
+                    print('\nSteps List (futureBuilder1): $result');
                     final totalSteps =
                         result?.fold<int>(0, (sum, step) => sum + step.value) ??
                             0;
@@ -253,7 +254,7 @@ class _HomeState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var weekSteps = snapshot.data!;
-                    print('\nSteps List (result): $weekSteps');
+                    print('\nSteps week (futureBuilder2): $weekSteps');
 
                     return Column(
                       children: [
