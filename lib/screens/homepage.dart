@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:my_app/database/entities/stepsEntity.dart';
+import 'package:my_app/database/daos/stepsDao.dart';
+import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/screens/loginpage.dart';
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/eventshomepage.dart';
@@ -10,6 +12,7 @@ import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:my_app/models/authorization.dart';
 import 'package:my_app/models/steps.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -44,7 +47,7 @@ class _HomeState extends State<HomePage> {
   void _retrieveName() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString('name') ?? 'enjoy';
-    //If name already exist the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
+    //If name already exists the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
     setState(() {});
   }
 
@@ -69,6 +72,10 @@ class _HomeState extends State<HomePage> {
   Future<List<int>> calculateSums() async {
     final weekSteps = List<int>.filled(7, 0);
 
+    final dbRepository =
+        Provider.of<DatabaseRepository>(context, listen: false);
+    //final stepsDatabase = dbRepository.database;
+
     final now = DateTime.now();
     final List<DateTime> weekDays = [
       now.subtract(const Duration(days: 7)),
@@ -87,7 +94,11 @@ class _HomeState extends State<HomePage> {
           for (final step in dayResult) {
             weekSteps[i] += step.value;
 
-            
+            // Insert the steps into the database
+            final stepsEntity =
+                StepsEntity(value: step.value, time: step.time.toString());
+            print('Step to add to the database: $stepsEntity');
+            await dbRepository.insertStep(stepsEntity);
           }
         }
       }
@@ -122,7 +133,7 @@ class _HomeState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var result = snapshot.data;
-                    print('\nSteps List (result): $result');
+                    print('\nSteps List (futureBuilder1): $result');
                     final totalSteps =
                         result?.fold<int>(0, (sum, step) => sum + step.value) ??
                             0;
@@ -236,12 +247,14 @@ class _HomeState extends State<HomePage> {
                 endIndent: 70,
               ),
               SizedBox(height: 30),
+              
+              
               FutureBuilder<List<int>>(
                 future: calculateSums(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var weekSteps = snapshot.data!;
-                    print('\nSteps List (result): $weekSteps');
+                    print('\nSteps week (futureBuilder2): $weekSteps');
 
                     return Column(
                       children: [
@@ -340,6 +353,50 @@ class _HomeState extends State<HomePage> {
                   }
                 },
               ),
+              /*Center(child: Consumer<DatabaseRepository>(
+                builder: (context, db, child) {
+                  return FutureBuilder(
+                    future: db.findStepsMean(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final mean = snapshot.data;
+
+                        return Column(children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Media di boh passi:', //shows me the day of which the steps are shown
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 32, 90, 34),
+                              ),
+                            ),
+                          ),
+                          const Divider(
+                            color: Color.fromARGB(255, 32, 90, 34),
+                            height: 5,
+                            thickness: 3,
+                            endIndent: 70,
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Steps Mean of the last 7 days: $mean',
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                //fontWeight: FontWeight.bold,
+                                color: Colors.black)
+                          ),
+                        ]);
+                      } else {
+                        //A CircularProgressIndicator is shown while the mean is loading
+                        return CircularProgressIndicator();
+                      } //else
+                    },
+                  );
+                },
+              ))*/
             ],
           ),
         ),

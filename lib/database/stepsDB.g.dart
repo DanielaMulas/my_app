@@ -133,38 +133,20 @@ class _$StepsDao extends StepsDao {
   final DeletionAdapter<StepsEntity> _stepsEntityDeletionAdapter;
 
   @override
-  Future<List<StepsEntity>> findStepsbyRange(
-    int id,
-    DateTime startDay,
-    DateTime endDay,
-  ) async {
-    return _queryAdapter.queryList(
-        'SELECT * FROM Steps WHERE id = ?1 AND dateTime between ?2 AND ?3 ORDER BY dateTime ASC',
-        mapper: (Map<String, Object?> row) => StepsEntity(id: row['id'] as int?, value: row['value'] as int, time: row['time'] as String),
-        arguments: [
-          id,
-          _dateTimeConverter.encode(startDay),
-          _dateTimeConverter.encode(endDay)
-        ]);
-  }
 
-  @override
-  Future<List<StepsEntity>> findSpecificDaySteps(DateTime day) async {
-    return _queryAdapter.queryList('SELECT * FROM Steps WHERE dateTime == ?1',
-        mapper: (Map<String, Object?> row) => StepsEntity(
-            id: row['id'] as int?,
-            value: row['value'] as int,
-            time: row['time'] as String),
-        arguments: [_dateTimeConverter.encode(day)]);
-  }
-
-  @override
   Future<List<StepsEntity>> findAllSteps() async {
     return _queryAdapter.queryList('SELECT * FROM Steps',
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
             value: row['value'] as int,
             time: row['time'] as String));
+  }
+
+  @override
+  Future<double?> findStepsMean() async {
+    return _queryAdapter.query('SELECT AVG(value) FROM Steps',
+        mapper: (Map<String, Object?> row) => row.values.first as double);
+
   }
 
   @override
