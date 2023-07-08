@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/screens/events/education/childrenschoolrights.dart';
+import 'package:my_app/screens/events/peace/runforrefugees.dart';
+import 'package:my_app/screens/events/peace/ukrainepeace.dart';
 
 
-
-class Education extends StatefulWidget {
-  Education({Key? key}) : super(key: key);
+class Peace extends StatelessWidget {
+  Peace({Key? key}) : super(key: key);
 
   static const route = '/humanrights/';
   static const routename = 'HumanRights';
 
   @override
-  State<Education> createState() => _Education();
-}
-
-class _Education extends State<Education> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Education', style: TextStyle(color: Colors.black)),
+          title: Text('Peace', style: TextStyle(color: Colors.black)),
           elevation: 0,
           backgroundColor: Color.fromARGB(255, 173, 248, 175),
           leading: IconButton(
@@ -34,13 +29,13 @@ class _Education extends State<Education> {
           children: [
             MaterialButton(
               //padding: const EdgeInsets.all(8),
-              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => ChildrenSchoolRights()));
+              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => UkrPeace()));
               },
               color: Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
                   decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/children_education.png'),
+                  image: DecorationImage(image: AssetImage('assets/images/ukraine_flag.png'),
                   //fit: BoxFit.scaleDown
                   )
                 ),
@@ -49,7 +44,7 @@ class _Education extends State<Education> {
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "Children Education Events",
+                      "Events to support Ukraine",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -66,13 +61,13 @@ class _Education extends State<Education> {
             MaterialButton(
               
               //padding: const EdgeInsets.all(8),
-              onPressed:() {
+              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Run4Refugee()));
               },
               color: Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
                   decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/disability_accessibility.jpg'),
+                  image: DecorationImage(image: AssetImage(''),
                   //fit: BoxFit.scaleDown
                   )
                 ),
@@ -81,7 +76,7 @@ class _Education extends State<Education> {
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "Physical Accessibility to Education",// Disabled Education Events
+                      "Events to support refugees",// Disabled Education Events
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,

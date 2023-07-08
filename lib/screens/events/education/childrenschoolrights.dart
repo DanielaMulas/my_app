@@ -27,8 +27,28 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
   String formattedEndDisplay =
       DateFormat('dd/MM/yyyy').format(DateTime(2023, 5, 26));
 
-  int? points;
+  int points = 0;
   int money = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    auth.requestDataPeriod(context, start_day, end_day).then((data) {
+      if (data != null) {
+        final totalSteps = data.fold<int>(0, (sum, step) => sum + step.value);
+
+        setState(() {
+          if (totalSteps < 50000) {
+            points = 100;
+          } else if (totalSteps < 80000 && totalSteps > 50000) {
+            points = 250;
+          } else {
+            points = 500;
+          }
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +120,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
 
               //Attended events
               const Text(
-                'Your attended events:',
+                'Check the available events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -227,15 +247,6 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                             0;
                                                     money = totalSteps ~/ 1000;
                                                     print(money);
-                                                    if (totalSteps < 50000) {
-                                                      points = 100;
-                                                    } else if (totalSteps <
-                                                            80000 &&
-                                                        totalSteps > 50000) {
-                                                      points = 250;
-                                                    } else {
-                                                      points = 500;
-                                                    }
                                                     //If the result isn't null, totalSteps corresond to the sum of all the values returned by the function requestDataPeriod for all the days
                                                     print(
                                                         '\nTOTAL STEPS: $totalSteps\n');
@@ -272,7 +283,8 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                                 const TextStyle(
                                                               fontSize: 18.0,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
                                                                   Colors.black,
                                                             ),
@@ -282,12 +294,17 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                           ),
                                                           Text(
                                                               'Thanks to you we will donate $money€!', //total steps done in the week
-                                                              textAlign: TextAlign.center,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
                                                               style:
                                                                   const TextStyle(
                                                                 fontSize: 18.0,
-                                                                fontStyle: FontStyle.italic,
-                                                                color: Colors.black,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic,
+                                                                color: Colors
+                                                                    .black,
                                                               )),
                                                         ],
                                                       ),
@@ -360,7 +377,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
 
               //Check available events
               const Text(
-                'Check the available events:',
+                'Your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
