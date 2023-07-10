@@ -1,8 +1,6 @@
 import 'package:my_app/database/stepsDB.dart';
 import 'package:my_app/repository/stepsDBrepository.dart';
-import 'package:my_app/screens/homepage.dart';
 import 'package:my_app/screens/splash.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +24,7 @@ Future<void> main() async {
   //That instance will be then shared through the platform and will be unique.
   runApp(ChangeNotifierProvider<DatabaseRepository>(
     create: (context) => databaseRepository,
-    child: MyApp(),
+    child: const MyApp(),
   ));
 
 } //main

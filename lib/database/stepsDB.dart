@@ -16,3 +16,6 @@ part 'stepsDB.g.dart';
 abstract class StepsDatabase extends FloorDatabase{
   StepsDao get stepsDao;
 }
+
+
+// flutter pub run build_runner build

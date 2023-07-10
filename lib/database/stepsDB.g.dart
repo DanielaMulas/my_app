@@ -69,7 +69,7 @@ class _$StepsDatabase extends StepsDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -85,7 +85,7 @@ class _$StepsDatabase extends StepsDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` INTEGER NOT NULL, `time` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` INTEGER NOT NULL, `day` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -110,7 +110,16 @@ class _$StepsDao extends StepsDao {
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
                   'value': item.value,
-                  'time': item.time
+                  'day': item.day
+                }),
+        _stepsEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'StepsEntity',
+            ['id'],
+            (StepsEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'value': item.value,
+                  'day': item.day
                 }),
         _stepsEntityUpdateAdapter = UpdateAdapter(
             database,
@@ -128,7 +137,7 @@ class _$StepsDao extends StepsDao {
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
                   'value': item.value,
-                  'time': item.time
+                  'day': item.day
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -149,7 +158,7 @@ class _$StepsDao extends StepsDao {
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
             value: row['value'] as int,
-            time: row['time'] as String));
+            day: row['day'] as String));
   }
 
   @override
