@@ -23,12 +23,12 @@ class _UkrPeaceState extends State<UkrPeace> {
   );
 
   final Authorization auth = Authorization();
-  DateTime start_day = DateTime(2023, 5, 20);
-  DateTime end_day = DateTime(2023, 5, 26);
+  DateTime start_day = DateTime(2023, 2, 24);
+  DateTime end_day = DateTime(2023, 2, 27);
   String formattedStartDisplay =
-      DateFormat('dd/MM/yyyy').format(DateTime(2023, 5, 20));
+      DateFormat('dd/MM/yyyy').format(DateTime(2023, 2, 24));
   String formattedEndDisplay =
-      DateFormat('dd/MM/yyyy').format(DateTime(2023, 5, 26));
+      DateFormat('dd/MM/yyyy').format(DateTime(2023, 2, 27));
 
   int points = 0;
   int money = 0;
@@ -41,12 +41,12 @@ class _UkrPeaceState extends State<UkrPeace> {
         final totalSteps = data.fold<int>(0, (sum, step) => sum + step.value);
 
         setState(() {
-          if (totalSteps < 60000) {
-            points = 200;
-          } else if (totalSteps >= 60000 && totalSteps < 90000) {
-            points = 500;
+          if (totalSteps < 20000) {
+            points = 50;
+          } else if (totalSteps >= 20000 && totalSteps < 50000) {
+            points = 100;
           } else {
-            points = 1000;
+            points = 200;
           }
         });
       }

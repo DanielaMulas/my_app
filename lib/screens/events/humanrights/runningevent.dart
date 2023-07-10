@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TimerData with ChangeNotifier {
+class TimerData extends ChangeNotifier {
   int totalTime = 3; // Total time in seconds (mimicking hours)
   int currentTime = 0; // Current time in seconds
   bool isRunning = false; // Checking if the timer is running
@@ -24,8 +24,6 @@ class TimerData with ChangeNotifier {
   */
 
   late DateTime chosenDay;
-  late String formattedDayDisplay;
-
   Timer? timer;
 
   TimerData(BuildContext context, DateTime day) {
@@ -115,10 +113,9 @@ class RunEvent1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedDay = DateTime(2023, 7, 3);
-    final formattedDayDisplay = DateFormat('dd-MM-yyyy').format(selectedDay);
+    final selectedDay = DateTime(2023, 7, 17);
     return ChangeNotifierProvider(
-      create: (_) => TimerData(context, selectedDay),
+      create: (context) => TimerData(context, selectedDay),
       child: _RunEventPage(),
     );
   }
@@ -187,8 +184,8 @@ class _RunEventPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: timerData.isTimerDisabled ||
-                        timerData.isSameDay(
-                            timerData.chosenDay, DateTime.now())
+                        !timerData.isSameDay(
+                            timerData.chosenDay, DateTime.now().subtract(const Duration(days: 1)))
                     ? null
                     : () {
                         timerData._startTimer(context);

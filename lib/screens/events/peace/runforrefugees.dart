@@ -9,7 +9,7 @@ class Run4Refugee extends StatelessWidget {
 
   var uri = Uri(
     scheme: 'https',
-    host: 'dona.unhcr.it/',
+    host: 'dona.unhcr.it',
   );
 
   @override

@@ -5,9 +5,9 @@ class StepsEntity {
   @PrimaryKey(autoGenerate: true)
   final int? id;
   final int value; 
-  final String time;
+  final String day;
 
-  StepsEntity({this.id, required this.value, required this.time});
+  StepsEntity({this.id, required this.value, required this.day});
 
   
   
