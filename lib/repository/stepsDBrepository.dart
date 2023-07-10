@@ -19,7 +19,12 @@ class DatabaseRepository extends ChangeNotifier{
 
 
   Future<double?> findStepsMean() async{
-    final mean=await database.stepsDao.findStepsMean();
+    DateTime now=DateTime.now();
+    DateTime now_midnight=DateTime(now.year, now.month, now.day, 0, 0, 0);
+    DateTime startDate = now_midnight.subtract(const Duration(days: 7));
+    DateTime endDate = now_midnight.subtract(const Duration(days: 1));
+
+    final mean=await database.stepsDao.findStepsMean(startDate,endDate);
     return mean;
   }
 

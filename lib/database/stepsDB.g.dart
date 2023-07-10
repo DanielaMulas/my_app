@@ -69,7 +69,7 @@ class _$StepsDatabase extends StepsDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 2,
+      version: 1,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -121,15 +121,6 @@ class _$StepsDao extends StepsDao {
                   'value': item.value,
                   'day': item.day
                 }),
-        _stepsEntityUpdateAdapter = UpdateAdapter(
-            database,
-            'StepsEntity',
-            ['id'],
-            (StepsEntity item) => <String, Object?>{
-                  'id': item.id,
-                  'value': item.value,
-                  'time': item.time
-                }),
         _stepsEntityDeletionAdapter = DeletionAdapter(
             database,
             'StepsEntity',
@@ -154,7 +145,7 @@ class _$StepsDao extends StepsDao {
 
   @override
   Future<List<StepsEntity>> findAllSteps() async {
-    return _queryAdapter.queryList('SELECT * FROM Steps',
+    return _queryAdapter.queryList('SELECT * FROM StepsEntity',
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
             value: row['value'] as int,
@@ -162,9 +153,17 @@ class _$StepsDao extends StepsDao {
   }
 
   @override
-  Future<double?> findStepsMean() async {
-    return _queryAdapter.query('SELECT AVG(value) FROM Steps',
-        mapper: (Map<String, Object?> row) => row.values.first as double);
+  Future<double?> findStepsMean(
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
+    return _queryAdapter.query(
+        'SELECT AVG(value) FROM StepsEntity WHERE day >= ?1 AND day <= ?2 AND value IS NOT NULL',
+        mapper: (Map<String, Object?> row) => row.values.first as double,
+        arguments: [
+          _dateTimeConverter.encode(startDate),
+          _dateTimeConverter.encode(endDate)
+        ]);
   }
 
   @override

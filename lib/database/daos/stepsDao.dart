@@ -9,12 +9,12 @@ abstract class StepsDao{
   Future<List<StepsEntity>> findStepsbyDate(int id,DateTime startTime,DateTime endTime);*/
 
   // Obtain all the entries
-  @Query('SELECT * FROM Steps')
+  @Query('SELECT * FROM StepsEntity')
   Future<List<StepsEntity>> findAllSteps();
 
   //Select the average value of steps
-  @Query('SELECT AVG(value) FROM Steps')
-  Future<double?> findStepsMean();
+  @Query('SELECT AVG(value) FROM StepsEntity WHERE day >= :startDate AND day <= :endDate AND value IS NOT NULL')
+  Future<double?> findStepsMean(DateTime startDate, DateTime endDate);
 
   //Insert Steps in the table
   @insert

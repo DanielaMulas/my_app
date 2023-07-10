@@ -16,7 +16,7 @@ Future<void> main() async {
   //This opens the database.
   final StepsDatabase database =
       await $FloorStepsDatabase.databaseBuilder('app_database.db').build();
-  //This creates a new DatabaseRepository from the AppDatabase instance just initialized
+  //This creates a new DatabaseRepository from the StepDatabase instance just initialized
   final databaseRepository = DatabaseRepository(database: database);
 
 
