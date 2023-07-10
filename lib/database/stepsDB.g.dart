@@ -69,7 +69,7 @@ class _$StepsDatabase extends StepsDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -85,7 +85,7 @@ class _$StepsDatabase extends StepsDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` INTEGER NOT NULL, `time` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` INTEGER NOT NULL, `day` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -110,7 +110,16 @@ class _$StepsDao extends StepsDao {
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
                   'value': item.value,
-                  'time': item.time
+                  'day': item.day
+                }),
+        _stepsEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'StepsEntity',
+            ['id'],
+            (StepsEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'value': item.value,
+                  'day': item.day
                 }),
         _stepsEntityDeletionAdapter = DeletionAdapter(
             database,
@@ -119,7 +128,7 @@ class _$StepsDao extends StepsDao {
             (StepsEntity item) => <String, Object?>{
                   'id': item.id,
                   'value': item.value,
-                  'time': item.time
+                  'day': item.day
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -130,28 +139,33 @@ class _$StepsDao extends StepsDao {
 
   final InsertionAdapter<StepsEntity> _stepsEntityInsertionAdapter;
 
+  final UpdateAdapter<StepsEntity> _stepsEntityUpdateAdapter;
+
   final DeletionAdapter<StepsEntity> _stepsEntityDeletionAdapter;
 
   @override
-
   Future<List<StepsEntity>> findAllSteps() async {
     return _queryAdapter.queryList('SELECT * FROM Steps',
         mapper: (Map<String, Object?> row) => StepsEntity(
             id: row['id'] as int?,
             value: row['value'] as int,
-            time: row['time'] as String));
+            day: row['day'] as String));
   }
 
   @override
   Future<double?> findStepsMean() async {
     return _queryAdapter.query('SELECT AVG(value) FROM Steps',
         mapper: (Map<String, Object?> row) => row.values.first as double);
-
   }
 
   @override
   Future<void> insertStep(StepsEntity steps) async {
     await _stepsEntityInsertionAdapter.insert(steps, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> updateSteps(StepsEntity step) async {
+    await _stepsEntityUpdateAdapter.update(step, OnConflictStrategy.replace);
   }
 
   @override

@@ -28,16 +28,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State<HomePage> {
-  /*int _currentIndex = 0;
-  final screens = [
-    const HomePage(),
-    Events(),
-    /*const Center(
-      child: Text('Stats', style: TextStyle(fontSize: 60)),
-    ),*/
-    Profile(),
-  ];*/
-
+  
   @override
   void initState() {
     super.initState();
@@ -50,11 +41,6 @@ class _HomeState extends State<HomePage> {
     //If name already exists the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
     setState(() {});
   }
-
-  /*@override
-  void dispose(){
-    calculateSums().dispose();
-  }*/
 
   int? totalSteps;
   String? name;
@@ -95,10 +81,10 @@ class _HomeState extends State<HomePage> {
             weekSteps[i] += step.value;
 
             // Insert the steps into the database
-            final stepsEntity =
-                StepsEntity(value: step.value, time: step.time.toString());
+            /*final stepsEntity =
+                StepsEntity(value: weekSteps[i], day: weekDays.toString());
             print('Step to add to the database: $stepsEntity');
-            await dbRepository.insertStep(stepsEntity);
+            await dbRepository.insertStep(stepsEntity);*/
           }
         }
       }
@@ -354,49 +340,50 @@ class _HomeState extends State<HomePage> {
                 },
               ),
               /*Center(child: Consumer<DatabaseRepository>(
-                builder: (context, db, child) {
-                  return FutureBuilder(
-                    future: db.findStepsMean(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final mean = snapshot.data;
-
-                        return Column(children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Media di boh passi:', //shows me the day of which the steps are shown
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 32, 90, 34),
+                  builder: (context, db, child) {
+                    return FutureBuilder(
+                      future: db.findStepsMean(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final mean = snapshot.data;
+              
+                          return Column(children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Media di boh passi:', //shows me the day of which the steps are shown
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 32, 90, 34),
+                                ),
                               ),
                             ),
-                          ),
-                          const Divider(
-                            color: Color.fromARGB(255, 32, 90, 34),
-                            height: 5,
-                            thickness: 3,
-                            endIndent: 70,
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Steps Mean of the last 7 days: $mean',
-                            style: const TextStyle(
-                                fontSize: 18.0,
-                                //fontWeight: FontWeight.bold,
-                                color: Colors.black)
-                          ),
-                        ]);
-                      } else {
-                        //A CircularProgressIndicator is shown while the mean is loading
-                        return CircularProgressIndicator();
-                      } //else
-                    },
-                  );
-                },
-              ))*/
+                            const Divider(
+                              color: Color.fromARGB(255, 32, 90, 34),
+                              height: 5,
+                              thickness: 3,
+                              endIndent: 70,
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Steps Mean of the last 7 days: $mean',
+                              style: const TextStyle(
+                                  fontSize: 18.0,
+                                  //fontWeight: FontWeight.bold,
+                                  color: Colors.black)
+                            ),
+                          ]);
+                        } else {
+                          //A CircularProgressIndicator is shown while the mean is loading
+                          return CircularProgressIndicator();
+                        } //else
+                      },
+                    );
+                  },
+                )),*/
+              
             ],
           ),
         ),
