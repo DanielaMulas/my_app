@@ -13,15 +13,19 @@ abstract class StepsDao{
   Future<List<StepsEntity>> findAllSteps();
 
 
-  //Select the average value of steps
-  @Query('SELECT AVG(sub.value) FROM (SELECT DISTINCT value FROM StepsEntity WHERE day >= :startDate AND day <= :endDate AND value IS NOT NULL) as sub')
+  //Select the average value of steps in a time range -> the same value is considered only once
+  //sub --> sub query
+  @Query('SELECT AVG(sub.value) FROM (SELECT DISTINCT value FROM StepsEntity WHERE day >= :startDate AND day <= :endDate) as sub')
   Future<double?> findStepsMean(String startDate, String endDate);
-  
-  @Query('SELECT MAX(value) FROM StepsEntity')
-  Future<int?> findStepsMax();
 
-  @Query('SELECT MIN(value) FROM StepsEntity')
-  Future<int?> findStepsMin();
+
+  //Select the mamimum value of steps in a period
+  @Query('SELECT MAX(value) FROM StepsEntity WHERE day >= :startDate AND day <= :endDate')
+  Future<int?> findStepsMax(String startDate, String endDate);
+
+  //Select the minimum value of steps in a period
+  @Query('SELECT MIN(value) FROM StepsEntity WHERE day >= :startDate AND day <= :endDate')
+  Future<int?> findStepsMin(String startDate, String endDate);
 
   
 

@@ -158,21 +158,31 @@ class _$StepsDao extends StepsDao {
     String endDate,
   ) async {
     return _queryAdapter.query(
-        'SELECT AVG(sub.value) FROM (SELECT DISTINCT value FROM StepsEntity WHERE day >= ?1 AND day <= ?2 AND value IS NOT NULL) as sub',
+        'SELECT AVG(sub.value) FROM (SELECT DISTINCT value FROM StepsEntity WHERE day >= ?1 AND day <= ?2) as sub',
         mapper: (Map<String, Object?> row) => row.values.first as double,
         arguments: [startDate, endDate]);
   }
 
   @override
-  Future<int?> findStepsMax() async {
-    return _queryAdapter.query('SELECT MAX(value) FROM StepsEntity',
-        mapper: (Map<String, Object?> row) => row.values.first as int);
+  Future<int?> findStepsMax(
+    String startDate,
+    String endDate,
+  ) async {
+    return _queryAdapter.query(
+        'SELECT MAX(value) FROM StepsEntity WHERE day >= ?1 AND day <= ?2',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
+        arguments: [startDate, endDate]);
   }
 
   @override
-  Future<int?> findStepsMin() async {
-    return _queryAdapter.query('SELECT MIN(value) FROM StepsEntity',
-        mapper: (Map<String, Object?> row) => row.values.first as int);
+  Future<int?> findStepsMin(
+    String startDate,
+    String endDate,
+  ) async {
+    return _queryAdapter.query(
+        'SELECT MIN(value) FROM StepsEntity WHERE day >= ?1 AND day <= ?2',
+        mapper: (Map<String, Object?> row) => row.values.first as int,
+        arguments: [startDate, endDate]);
   }
 
   @override
