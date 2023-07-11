@@ -2,11 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:my_app/database/entities/stepsEntity.dart';
-import 'package:my_app/database/daos/stepsDao.dart';
 import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/screens/loginpage.dart';
-import 'package:my_app/screens/profilepage.dart';
-import 'package:my_app/screens/eventshomepage.dart';
 import 'package:my_app/screens/aboutpage.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 import 'package:my_app/models/authorization.dart';
@@ -51,7 +48,7 @@ class _HomeState extends State<HomePage> {
 
   int? totalSteps;
   String? name;
-  final int maxSteps = 20000;
+  final int maxSteps = 30000;
 
   final Authorization auth = Authorization();
 
@@ -86,15 +83,17 @@ class _HomeState extends State<HomePage> {
         if (dayResult != null) {
           for (final step in dayResult) {
             weekSteps[i] += step.value;
-
-            // Insert the steps into the database
-            /*final stepsEntity =
-
-                StepsEntity(value: weekSteps[i], day: weekDays.toString());
-
-            print('Step to add to the database: $stepsEntity');
-            await dbRepository.insertStep(stepsEntity);*/
           }
+
+          // Insert the steps into the database
+          final stepsEntity =
+              StepsEntity(value: weekSteps[i], day: weekDays[i].toString());
+            final daySteps=weekSteps[i];
+            final dayEntity=weekDays[i].toString();
+            print('value inserted in StepsEntity: $daySteps');
+            print('day inserted in StepsEntity: $dayEntity');
+            print('Step to add to the database: $stepsEntity');
+            await dbRepository.insertStep(stepsEntity);
         }
       }
     }

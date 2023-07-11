@@ -8,22 +8,20 @@ import 'package:my_app/utils/impact.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class Authorization {
-  //This method allows to obtain the JWT token pair from IMPACT and store it in SharedPreferences
   Future<int?> authorize() async {
-    //Create the request
+    //Request
     final url = Impact.baseUrl + '/' + Impact.tokenEndpoint;
-    print('url: $url');
+    //print('url authorize: $url');
     final body = {'username': Impact.username, 'password': Impact.password};
 
     //Get the response
-    print('Calling: $url');
+    print('Calling url to authorize: $url');
     final response = await http.post(Uri.parse(url), body: body);
 
-    //If 200, set the token
+    //If 200 --> all good, get the token
     if (response.statusCode == 200) {
       final decodedResponse = jsonDecode(response.body);
       final sp = await SharedPreferences.getInstance();
@@ -35,16 +33,15 @@ class Authorization {
     return response.statusCode;
   } //_authorize
 
-  //This method allows to obtain the JWT token pair from IMPACT and store it in SharedPreferences
   Future<int> refreshTokens() async {
-    //Create the request
+    //Request
     final url = Impact.baseUrl + Impact.refreshEndpoint;
     final sp = await SharedPreferences.getInstance();
     final refresh = sp.getString('refresh');
     final body = {'refresh': refresh};
 
     //Get the respone
-    print('Calling: $url');
+    print('Calling url to refresh tokens: $url');
     final response = await http.post(Uri.parse(url), body: body);
 
     //If 200 set the tokens
@@ -67,7 +64,8 @@ class Authorization {
     final codeAuth = await authorize();
 
     if (codeAuth == 200) {
-      //Get the stored access token (Note that this code does not work if the tokens are null)
+      //check if the authorization went well
+      //Get the stored access token
       final sp = await SharedPreferences.getInstance();
       var access = sp.getString('access');
 
@@ -77,8 +75,7 @@ class Authorization {
         access = sp.getString('access');
       } //if
 
-      //Create the (representative) request
-
+      //Request for the steps of the defined range
       final start = DateFormat('yyyy-MM-dd').format(startDay);
       final end = DateFormat('yyyy-MM-dd').format(endDay);
       final url = Impact.baseUrl +
@@ -89,32 +86,29 @@ class Authorization {
       final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
 
       //Get the response
-      print('Calling: $url');
+      print('Calling url to get the data of the period specified: $url');
       final response = await http.get(Uri.parse(url), headers: headers);
       int code = response.statusCode;
       String body = response.body;
       print('CodicePeriodSteps: $code\n');
-      print('\nResponseBodyAuth: $body\n');
+      print('\nResponseBodyPeriod: $body\n');
       //if OK parse the response, otherwise return null
       if (response.statusCode == 200) {
         final decodedResponse = jsonDecode(response.body);
         result = [];
-        /*for (var i = 0; i < decodedResponse['data']['data'].length; i++) {
-        result.add(Steps.fromJson(decodedResponse['data']['date'], decodedResponse['data']['data'][i]));
-      }//for*/
+
         for (var i = 0; i < decodedResponse['data'].length; i++) {
           final date = decodedResponse['data'][i]['date'];
           final data = decodedResponse['data'][i]['data'];
           for (var j = 0; j < data.length; j++) {
             result.add(Steps.fromJson(date, data[j]));
-          }
-        }
+          } //I keep the date fixed and get the data of that day
+        } //for
       } //if
       else {
         result = null;
       } //else
       return result;
-    
     } //if authorize
 
     //Return the result
@@ -129,7 +123,8 @@ class Authorization {
     final codeAuth = await authorize();
 
     if (codeAuth == 200) {
-      // Get the stored access token (Note that this code does not work if the tokens are null)
+      //if the authorization went well
+      // Get the stored access token
       final sp = await SharedPreferences.getInstance();
       var access = sp.getString('access');
 
@@ -162,27 +157,44 @@ class Authorization {
       if (response.statusCode == 200) {
         final decodedResponse = jsonDecode(response.body);
         result = [];
+        final data = decodedResponse['data'];
+        
+        if (data is Map<String, dynamic>) {
+          //"is" is used to check the type of an object
+          /*The Map<String, dynamic> type represents a map (key-value pairs) where the keys are strings and the values can be of any type (dynamic).
+          By using is Map<String, dynamic>, we ensure that data is a map with string keys and dynamic values.
+          This check helps us safely access the date and data fields later in the code, avoiding potential errors if the structure of the response data is different than expected.*/
+          final date = data['date'];
+          final stepsData = data['data'];
+
+          if (stepsData is List) {
+            for (final stepData in stepsData) {
+              result.add(Steps.fromJson(date, stepData));
+            }
+          }
+        }
+
+        if (result.isEmpty) {
+          result = [Steps(time: DateTime.now(), value: 0)];
+        }
+
+        /*ORIGINAL FUNCTION:
         for (var i = 0; i < decodedResponse['data']['data'].length; i++) {
           result.add(Steps.fromJson(decodedResponse['data']['date'],
               decodedResponse['data']['data'][i]));
-        }
-        /*ScaffoldMessenger.of(context)
-          ..removeCurrentSnackBar()
-          ..showSnackBar(
-              SnackBar(content: Text('App authorized and data retrieved')));*/
-        // Return the result
+        }*/
       } else {
         result = [Steps(time: DateTime.now(), value: 0)];
       }
 
       // Return the result
-
       return result;
     } //if authorize
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(
           SnackBar(content: Text('App NOT authorized with code $codeAuth')));
+    //display only in case the request was not authorized
     return null;
   } //requestDataSingleDay
 } //AuthorizationPage
