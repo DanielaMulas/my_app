@@ -12,9 +12,18 @@ abstract class StepsDao{
   @Query('SELECT * FROM StepsEntity')
   Future<List<StepsEntity>> findAllSteps();
 
+
   //Select the average value of steps
-  @Query('SELECT AVG(value) FROM StepsEntity WHERE day >= :startDate AND day <= :endDate AND value IS NOT NULL')
-  Future<double?> findStepsMean(DateTime startDate, DateTime endDate);
+  @Query('SELECT AVG(sub.value) FROM (SELECT DISTINCT value FROM StepsEntity WHERE day >= :startDate AND day <= :endDate AND value IS NOT NULL) as sub')
+  Future<double?> findStepsMean(String startDate, String endDate);
+  
+  @Query('SELECT MAX(value) FROM StepsEntity')
+  Future<int?> findStepsMax();
+
+  @Query('SELECT MIN(value) FROM StepsEntity')
+  Future<int?> findStepsMin();
+
+  
 
   //Insert Steps in the table
   @insert
