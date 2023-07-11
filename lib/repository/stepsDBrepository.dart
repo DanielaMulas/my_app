@@ -22,6 +22,7 @@ class DatabaseRepository extends ChangeNotifier{
     final mean=await database.stepsDao.findStepsMean();
     return mean;
   }
+
   Future<void> insertStep(StepsEntity step)async {
     await database.stepsDao.insertStep(step);
     notifyListeners();

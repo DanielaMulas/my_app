@@ -121,6 +121,15 @@ class _$StepsDao extends StepsDao {
                   'value': item.value,
                   'day': item.day
                 }),
+        _stepsEntityUpdateAdapter = UpdateAdapter(
+            database,
+            'StepsEntity',
+            ['id'],
+            (StepsEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'value': item.value,
+                  'time': item.time
+                }),
         _stepsEntityDeletionAdapter = DeletionAdapter(
             database,
             'StepsEntity',

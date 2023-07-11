@@ -29,10 +29,16 @@ class HomePage extends StatefulWidget {
 
 class _HomeState extends State<HomePage> {
   
+
+  
+  //late Future<int?> codeAuth;
+
+
   @override
   void initState() {
     super.initState();
-    _retrieveName(); // Fetch name saved in the profile page information when the widget is initialized
+    _retrieveName();
+    //codeAuth=auth.authorize(); // Fetch name saved in the profile page information when the widget is initialized
   }
 
   void _retrieveName() async {
@@ -41,6 +47,7 @@ class _HomeState extends State<HomePage> {
     //If name already exists the app will display "Welcome, *name*!" otherwise it will display "Welcome, enjoy!"
     setState(() {});
   }
+
 
   int? totalSteps;
   String? name;
@@ -82,7 +89,9 @@ class _HomeState extends State<HomePage> {
 
             // Insert the steps into the database
             /*final stepsEntity =
+
                 StepsEntity(value: weekSteps[i], day: weekDays.toString());
+
             print('Step to add to the database: $stepsEntity');
             await dbRepository.insertStep(stepsEntity);*/
           }
