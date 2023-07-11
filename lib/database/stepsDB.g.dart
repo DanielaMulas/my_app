@@ -154,16 +154,25 @@ class _$StepsDao extends StepsDao {
 
   @override
   Future<double?> findStepsMean(
-    DateTime startDate,
-    DateTime endDate,
+    String startDate,
+    String endDate,
   ) async {
     return _queryAdapter.query(
-        'SELECT AVG(value) FROM StepsEntity WHERE day >= ?1 AND day <= ?2 AND value IS NOT NULL',
+        'SELECT AVG(sub.value) FROM (SELECT DISTINCT value FROM StepsEntity WHERE day >= ?1 AND day <= ?2 AND value IS NOT NULL) as sub',
         mapper: (Map<String, Object?> row) => row.values.first as double,
-        arguments: [
-          _dateTimeConverter.encode(startDate),
-          _dateTimeConverter.encode(endDate)
-        ]);
+        arguments: [startDate, endDate]);
+  }
+
+  @override
+  Future<int?> findStepsMax() async {
+    return _queryAdapter.query('SELECT MAX(value) FROM StepsEntity',
+        mapper: (Map<String, Object?> row) => row.values.first as int);
+  }
+
+  @override
+  Future<int?> findStepsMin() async {
+    return _queryAdapter.query('SELECT MIN(value) FROM StepsEntity',
+        mapper: (Map<String, Object?> row) => row.values.first as int);
   }
 
   @override

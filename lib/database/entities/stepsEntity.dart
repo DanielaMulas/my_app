@@ -9,6 +9,5 @@ class StepsEntity {
 
   StepsEntity({this.id, required this.value, required this.day});
 
-  
-  
+
 }

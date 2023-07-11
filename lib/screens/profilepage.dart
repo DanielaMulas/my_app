@@ -63,11 +63,11 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 78, 189, 81),
+        backgroundColor: Colors.green,
         //iconTheme: const IconThemeData(color: Color(0xFF89453C)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () {
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => BottomNavBar()));
@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
         ),
         
         title: const Text('Profile Information',
-            style: TextStyle(color: Colors.black)),
+            style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Column(

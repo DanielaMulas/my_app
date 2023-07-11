@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:my_app/screens/stats.dart';
 import 'package:my_app/screens/profilepage.dart';
 import 'package:my_app/screens/homepage.dart';
@@ -20,7 +19,7 @@ int _currentIndex = 0;
 final screens = [
   HomePage(),
   Events(),
-  stat(),
+  Stat(),
   Profile(),
 ];
   

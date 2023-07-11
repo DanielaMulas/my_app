@@ -20,12 +20,30 @@ class DatabaseRepository extends ChangeNotifier{
 
   Future<double?> findStepsMean() async{
     DateTime now=DateTime.now();
-    DateTime now_midnight=DateTime(now.year, now.month, now.day, 0, 0, 0);
-    DateTime startDate = now_midnight.subtract(const Duration(days: 7));
-    DateTime endDate = now_midnight.subtract(const Duration(days: 1));
+    DateTime nowMidnight=DateTime(now.year, now.month, now.day, 0, 0, 0);
+    DateTime nowBM=DateTime(now.year, now.month, now.day, 23, 59, 59);
+    String startDate = nowMidnight.subtract(const Duration(days: 7)).toString();
+    String endDate = nowBM.subtract(const Duration(days: 1)).toString();
 
-    final mean=await database.stepsDao.findStepsMean(startDate,endDate);
+    final mean=await database.stepsDao.findStepsMean(startDate, endDate);
+
+    /*if (mean != null) {
     return mean;
+    } else {
+      // Handle the case when the mean is null
+      return null; 
+    }*/
+    return mean;
+  }
+
+  Future<int?> findStepsMax() async{
+    final max=await database.stepsDao.findStepsMax();
+    return max;
+  }
+
+  Future<int?> findStepsMin() async{
+    final min=await database.stepsDao.findStepsMin();
+    return min;
   }
 
   Future<void> insertStep(StepsEntity step)async {
