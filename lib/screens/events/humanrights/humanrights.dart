@@ -2,18 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:my_app/screens/events/humanrights/womanrights.dart';
 import 'package:my_app/screens/events/humanrights/pride.dart';
 
-
-class HumanRights extends StatefulWidget {
+class HumanRights extends StatelessWidget {
   HumanRights({Key? key}) : super(key: key);
 
   static const route = '/humanrights/';
   static const routename = 'HumanRights';
 
-  @override
-  State<HumanRights> createState() => _HumanRights();
-}
-
-class _HumanRights extends State<HumanRights> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +16,10 @@ class _HumanRights extends State<HumanRights> {
           elevation: 0,
           backgroundColor: Color.fromARGB(255, 173, 248, 175),
           leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context),),
+            icon: const Icon(Icons.arrow_back_ios),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: GridView.count(
           primary: false,
@@ -33,15 +28,20 @@ class _HumanRights extends State<HumanRights> {
           crossAxisCount: 1,
           children: [
             MaterialButton(
-              padding: const EdgeInsets.all(8),
-              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => WomanRights()));
+              //padding: const EdgeInsets.all(8),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WomanRights()));
               },
+              color: Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
-                  decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/woman_rights.jpg'),
-                  fit: BoxFit.scaleDown)
-                ),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/woman_rights.jpg'),
+                        scale: 2.1
+                        //fit: BoxFit.scaleDown
+                        )),
                 child: const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -51,43 +51,47 @@ class _HumanRights extends State<HumanRights> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
-                        backgroundColor: Colors.white,
+                        //backgroundColor: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),              
+                ),
               ),
             ),
-            
             MaterialButton(
-              padding: const EdgeInsets.all(50),
-              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Pride()));},
+              //padding: const EdgeInsets.all(8),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Pride()));
+              },
+              color: Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
-                  decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/pride_flag.png'),
-                  fit: BoxFit.scaleDown)
-                ),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/images/pride_flag.png'),
+                  //fit: BoxFit.scaleDown
+                )),
                 child: const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "Pride Events",
+                      "Pride Events", // Disabled Education Events
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
-                        backgroundColor: Colors.white,
-                        fontSize: 22,
+                        //backgroundColor: Colors.white,
                         fontWeight: FontWeight.bold,
+                        fontSize: 22,
                       ),
                     ),
                   ),
-                ),              
+                ),
               ),
-            ),            
+            ),
           ],
         ));
   }
