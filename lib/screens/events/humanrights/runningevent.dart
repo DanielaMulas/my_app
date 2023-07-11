@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimerData extends ChangeNotifier {
-  int totalTime = 3; // Total time in seconds (mimicking hours)
+  int totalTime = 24; // Total time in seconds (mimicking hours)
   int currentTime = 0; // Current time in seconds
   bool isRunning = false; // Checking if the timer is running
   bool isTimerDisabled = false; // Checking if the timer is disabled

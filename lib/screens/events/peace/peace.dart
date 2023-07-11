@@ -6,8 +6,8 @@ import 'package:my_app/screens/events/peace/ukrainepeace.dart';
 class Peace extends StatelessWidget {
   Peace({Key? key}) : super(key: key);
 
-  static const route = '/humanrights/';
-  static const routename = 'HumanRights';
+  static const route = '/peace/';
+  static const routename = 'Peace';
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class Peace extends StatelessWidget {
               splashColor: Colors.greenAccent,
               child: Container(
                   decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage(''),
+                  image: DecorationImage(image: AssetImage('assets/images/refugees.jpg'),
                   //fit: BoxFit.scaleDown
                   )
                 ),
