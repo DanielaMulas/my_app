@@ -6,7 +6,7 @@ import 'package:my_app/models/steps.dart';
 import 'package:intl/intl.dart';
 
 class ChildrenSchoolRights extends StatefulWidget {
-  ChildrenSchoolRights({Key? key}) : super(key: key);
+  const ChildrenSchoolRights({Key? key}) : super(key: key);
 
   @override
   State<ChildrenSchoolRights> createState() => _ChildrenSchoolRights();
@@ -112,7 +112,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can make a difference in making the school accessible to every child.\nEvery step you take in our virtual events will contribute to meaningful changes: we will donate a cetain amount of money based on how many steps you make to associations which support the construction of new schools or that offer scholarships, grants, or financial aid programs to support children from economically disadvantaged backgrounds. As you participate, you will earn reward points, and by reaching milestones, you can unlock special prizes as a token of our appreciation.",
+                "With your support, we can make a difference in making the school accessible to every child.\nEvery step you take in our virtual events will contribute to meaningful changes: we will donate a certain amount of money based on how many steps you make to associations which support the construction of new schools or that offer scholarships, grants, or financial aid programs to support children from economically disadvantaged backgrounds. As you participate, you will earn reward points as a token of our appreciation.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
