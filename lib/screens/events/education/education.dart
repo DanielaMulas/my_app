@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/screens/events/education/childrenschoolrights.dart';
+import 'package:my_app/screens/events/education/accessibility.dart';
 
 
-
-class Education extends StatefulWidget {
-  Education({Key? key}) : super(key: key);
+class Education extends StatelessWidget {
+  const Education({Key? key}) : super(key: key);
 
   static const route = '/humanrights/';
   static const routename = 'HumanRights';
 
-  @override
-  State<Education> createState() => _Education();
-}
-
-class _Education extends State<Education> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +62,7 @@ class _Education extends State<Education> {
             MaterialButton(
               
               //padding: const EdgeInsets.all(8),
-              onPressed:() {
+              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Access()));
               },
               color: Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
@@ -81,7 +77,7 @@ class _Education extends State<Education> {
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "Physical Accessibility to Education",// Disabled Education Events
+                      "Accessibility to Education",// Disabled Education Events
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,

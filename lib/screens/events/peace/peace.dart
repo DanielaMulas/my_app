@@ -4,7 +4,7 @@ import 'package:my_app/screens/events/peace/ukrainepeace.dart';
 
 
 class Peace extends StatelessWidget {
-  Peace({Key? key}) : super(key: key);
+  const Peace({Key? key}) : super(key: key);
 
   static const route = '/peace/';
   static const routename = 'Peace';

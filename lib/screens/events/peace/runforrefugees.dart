@@ -7,7 +7,7 @@ class Run4Refugee extends StatelessWidget {
   static const route = '/run4Refugees/';
   static const routename = 'Run4Refugees';
 
-  var uri = Uri(
+  final uri = Uri(
     scheme: 'https',
     host: 'dona.unhcr.it',
   );
@@ -111,7 +111,7 @@ class Run4Refugee extends StatelessWidget {
                 endIndent: 15,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events about pride.",
+              const Text("Ops, you have attended to 0 events for helping refugees.",
                   style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 

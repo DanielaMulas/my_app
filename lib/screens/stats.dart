@@ -4,7 +4,7 @@ import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 
 class Stat extends StatelessWidget {
-  Stat({Key? key}) : super(key: key);
+  const Stat({Key? key}) : super(key: key);
 
   static const route = '/stats/';
   static const routename = 'Statistics';
@@ -130,7 +130,7 @@ class Stat extends StatelessWidget {
                     ]);
                   } else {
                     //A CircularProgressIndicator is shown while the mean is loading
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } //else
                 },
               ),
