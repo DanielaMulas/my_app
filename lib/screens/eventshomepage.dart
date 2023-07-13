@@ -6,7 +6,7 @@ import 'package:my_app/screens/events/education/education.dart';
 
 
 class Events extends StatelessWidget {
-  Events({Key? key}) : super(key: key);
+  const Events({Key? key}) : super(key: key);
 
   static const route = '/profilepage/';
   static const routename = 'ProfilePage';

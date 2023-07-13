@@ -71,7 +71,7 @@ class WomanRights extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can make a difference in the fight for women's rights and gender equality.\nEvery step you take in our virtual marches will contribute to meaningful change: we will donate euros 5,00 to associations dedicated to advocating for equality and supporting women who are victims of domestic violence. As you participate, you will earn reward points, and by reaching milestones, you can unlock special prizes as a token of our appreciation.",
+                "With your support, we can make a difference in the fight for women's rights and gender equality.\nEvery step you take in our virtual marches will contribute to meaningful change: we will donate an amount of money that depends on the number of steps you take to associations dedicated to advocating for equality and supporting women who are victims of domestic violence. As you participate, you will earn reward points based on the amount of stapes you take as a token of our appreciation.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
@@ -142,7 +142,7 @@ class WomanRights extends StatelessWidget {
                             width: 50.0,
                           ),
                           Text(
-                            'Date: 28/06/2023',
+                            'Date: 17/07/2023',
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -177,7 +177,7 @@ class WomanRights extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(height: 10.0),
-                                          const Text('By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to create a more inclusive society.\n\nAs a reward for your participation, you will earn 10 points.\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.', style: TextStyle(fontSize: 16)),
+                                          const Text('By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to create a more inclusive society.\n\nAs a reward for your participation, you will earn a certain amount of points based on the steps you have made, just like the money we will donate to associations that work to protect women and fight for their rights.  .\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.', style: TextStyle(fontSize: 16)),
                                           const SizedBox(height: 18.0),
                                           const Text("Your prize in case you take 9000 steps:", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),),
                                           const SizedBox(height: 10.0),

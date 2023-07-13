@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Pride extends StatelessWidget {
-  Pride({Key? key}) : super(key: key);
+class Access extends StatelessWidget {
+  Access({Key? key}) : super(key: key);
 
-  static const route = '/pride/';
-  static const routename = 'Pride';
+  static const route = '/physical_accessibility/';
+  static const routeName = 'PhysicalAccessibility';
 
   var uri = Uri(
     scheme: 'https',
-    host: 'associazionearc.eu',
+    host: 'sightsavers.org',
+    path: '/disability/education/',
   );
 
   @override
@@ -23,7 +24,7 @@ class Pride extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Pride', style: TextStyle(color: Colors.black)),
+        title: Text('Physical Accessibility to Education', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 173, 248, 175),
       ),
@@ -35,7 +36,7 @@ class Pride extends StatelessWidget {
             children: [
               //Goal
               const Text(
-                'Our goal',
+                'Our Goal',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
@@ -51,14 +52,14 @@ class Pride extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               const Text(
-                  "Our goal is to celebrate and support the LGBTQ+ community by promoting inclusivity, acceptance, and equality through our app.\nWe aim to foster awareness, understanding, and respect for all sexual orientations and gender identities\nWith your help, we can work towards creating a society that embraces diversity and stands against discrimination.",
+                  "Our goal is to ensure physical accessibility to education for all individuals, regardless of their abilities or disabilities. We strive to create an inclusive learning environment that accommodates diverse needs and empowers every student to reach their full potential. By removing barriers and providing necessary resources, we aim to promote equal educational opportunities and foster an inclusive society.",
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 15)),
               const SizedBox(height: 25.0),
 
-              //Your help
+              //Your Help
               const Text(
-                'Your help',
+                'Your Help',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -72,7 +73,7 @@ class Pride extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can make a difference in the fight for LGBTQ+ rights and equality. Every step you take in our virtual marches will contribute to meaningful change: we will donate a certain amount of money based on how many steps you've made to LGBTQ+ organizations dedicated to advocating for equality and supporting individuals who face discrimination and prejudice. As you participate, you will earn reward points as a token of our appreciation.",
+                "With your support, we can make a significant impact in improving physical accessibility to education. By advocating for accessible infrastructure, inclusive classroom designs, assistive technologies, and equal opportunities for all students, we can create an educational system that values and prioritizes physical accessibility. Together, let's ensure that no one is left behind due to physical barriers.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
@@ -87,7 +88,7 @@ class Pride extends StatelessWidget {
                   ),
                   InkWell(
                     child: const Text(
-                      "https://www.associazionearc.eu",
+                      "https://www.sightsavers.org",
                       style: TextStyle(color: Colors.blue),
                     ),
                     onTap: () => launchUrl(uri),
@@ -96,7 +97,7 @@ class Pride extends StatelessWidget {
               ),
               const SizedBox(height: 30.0),
 
-              //Attended events
+              //Ongoing Initiatives
               const Text(
                 'Here are your attended events:',
                 style: TextStyle(
@@ -111,7 +112,7 @@ class Pride extends StatelessWidget {
                 endIndent: 15,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events about pride.",
+              const Text("Ops, you have attended to 0 events about accessibility.",
                   style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 

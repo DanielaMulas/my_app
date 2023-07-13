@@ -6,7 +6,7 @@ import 'package:my_app/models/steps.dart';
 import 'package:intl/intl.dart';
 
 class UkrPeace extends StatefulWidget {
-  UkrPeace({Key? key}) : super(key: key);
+  const UkrPeace({Key? key}) : super(key: key);
 
   static const route = '/ukrpeace/';
   static const routename = 'UkrPeace';
@@ -64,7 +64,7 @@ class _UkrPeaceState extends State<UkrPeace> {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Peace', style: TextStyle(color: Colors.black)),
+        title: Text('Ukraine Support', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 173, 248, 175),
       ),
@@ -113,7 +113,7 @@ class _UkrPeaceState extends State<UkrPeace> {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can work towards a more peaceful world. By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donate euros 5 to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
+                "With your support, we can work towards a more peaceful world. By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donatea cetain amount of money based on how many steps you make to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
