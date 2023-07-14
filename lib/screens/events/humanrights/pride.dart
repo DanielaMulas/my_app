@@ -51,7 +51,7 @@ class Pride extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               const Text(
-                  "Our goal is to celebrate and support the LGBTQ+ community by promoting inclusivity, acceptance, and equality through our app.\nWe aim to foster awareness, understanding, and respect for all sexual orientations and gender identities\nWith your help, we can work towards creating a society that embraces diversity and stands against discrimination.",
+                  "Our goal is to celebrate and support the LGBTQ+ community by promoting inclusivity, acceptance, and equality through our app.\nWe aim to foster awareness, understanding, and respect for all sexual orientations and gender identities.\nWith your help, we can work towards creating a society that embraces diversity and stands against discrimination.",
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 15)),
               const SizedBox(height: 25.0),
@@ -86,8 +86,8 @@ class Pride extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   InkWell(
-                    child: const Text(
-                      "https://www.associazionearc.eu",
+                    child: Text(
+                      uri.toString(),
                       style: TextStyle(color: Colors.blue),
                     ),
                     onTap: () => launchUrl(uri),
@@ -98,7 +98,7 @@ class Pride extends StatelessWidget {
 
               //Attended events
               const Text(
-                'Here are your attended events:',
+                'Your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class Pride extends StatelessWidget {
 
               //Check available events
               const Text(
-                'Check the available events here:',
+                'Check the available events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
