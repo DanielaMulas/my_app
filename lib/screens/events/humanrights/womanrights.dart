@@ -8,7 +8,7 @@ class WomanRights extends StatelessWidget {
   static const route = '/womenrights/';
   static const routename = 'WomenRights';
 
-  var uri = Uri(
+  final uri = Uri(
     scheme: 'https',
     host: 'associazionefrida.it',
   );
@@ -142,7 +142,7 @@ class WomanRights extends StatelessWidget {
                             width: 50.0,
                           ),
                           Text(
-                            'Date: 17/07/2023',
+                            'Date: 18/07/2023',
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,

@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
+import 'package:my_app/screens/events/humanrights/runningevent.dart';
+
+class PointsData extends ChangeNotifier{
+  int points = 600;
+
+  void addPoints(int value){
+    points += value;
+    notifyListeners();
+  }
+}
 
 class Stat extends StatelessWidget {
   const Stat({Key? key}) : super(key: key);
@@ -11,7 +21,9 @@ class Stat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+      final pointsData = Provider.of<PointsData>(context);
+      final updatedPoints = pointsData.points;
+     return Scaffold(
       appBar: AppBar(
         title: const Text(
           Stat.routename,
@@ -35,13 +47,12 @@ class Stat extends StatelessWidget {
           builder: (context, db, child) {
             return ListView(children: [
               const Align(
-                
                 child: Text(
                   'INSIGHTS',
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
-                    color:Color.fromARGB(255, 32, 90, 34),
+                    color: Color.fromARGB(255, 32, 90, 34),
                     //color: Color.fromARGB(255, 49, 212, 34),
                   ),
                 ),
@@ -90,7 +101,7 @@ class Stat extends StatelessWidget {
                     ]);
                   } else {
                     //A CircularProgressIndicator is shown while the mean is loading
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } //else
                 },
               ),
@@ -170,10 +181,33 @@ class Stat extends StatelessWidget {
                     ]);
                   } else {
                     //A CircularProgressIndicator is shown while the mean is loading
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } //else
                 },
               ),
+              const SizedBox(height: 30),
+              const Text(
+                'Points', //shows how many points the person has accumulated
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 47, 149, 37),
+                ),
+              ),
+              const Divider(
+                color: Color.fromARGB(255, 47, 149, 37),
+                height: 5,
+                thickness: 3,
+                endIndent: 200,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                  'Number of points you have accumulated until now: \t${updatedPoints}',
+                  style: const TextStyle(
+                      fontSize: 20.0,
+                      //fontWeight: FontWeight.bold,
+                      color: Colors.black)),
             ]);
           },
         )),

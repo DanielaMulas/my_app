@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:my_app/models/authorization.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:my_app/screens/stats.dart';
 
 class TimerData extends ChangeNotifier {
-  int totalTime = 24; // Total time in seconds (mimicking hours)
+  int totalTime = 24; // Total time in seconds (mimicking hours: *60*60)
   int currentTime = 0; // Current time in seconds
   bool isRunning = false; // Checking if the timer is running
   bool isTimerDisabled = false; // Checking if the timer is disabled
@@ -25,6 +25,9 @@ class TimerData extends ChangeNotifier {
 
   late DateTime chosenDay;
   Timer? timer;
+
+  int points = 600;
+  //
 
   TimerData(BuildContext context, DateTime day) {
     chosenDay = day;
@@ -66,7 +69,7 @@ class TimerData extends ChangeNotifier {
         currentTime++;
         _saveTimerData();
       } else {
-        _stopTimer();
+        _stopTimer(context);
       }
 
       /*if(isSameDay(chosenDay, DateTime.now()) == false){
@@ -82,10 +85,15 @@ class TimerData extends ChangeNotifier {
         day1.day == day2.day;
   }
 
-  void _stopTimer() {
+  void addPoints(BuildContext context) {
+    final pointsData = Provider.of<PointsData>(context, listen: false);
+    pointsData.addPoints(100);
+  }
+
+  void _stopTimer(BuildContext context) {
     isRunning = false;
     isTimerDisabled = true;
-    _saveTimerData();
+    addPoints(context);
 
     timer?.cancel();
     timer = null;
@@ -132,12 +140,14 @@ class _RunEventPage extends StatelessWidget {
           timerData.maxSteps <= timerData.totalSteps!) {
         return Text(
           'Congratulations! You have completed the task by taking ${timerData.totalSteps} steps',
+          style: const TextStyle(fontSize: 19),
         );
       } else if (timerData.totalSteps != null &&
           timerData.totalSteps! < timerData.maxSteps) {
-        return Text("Sorry, you didn't make it. Try again!");
+        return const Text("Sorry, you didn't make it. Try next time!",
+            style: TextStyle(fontSize: 19));
       } else {
-        return Text('Start now!');
+        return const Text('Start now!', style: TextStyle(fontSize: 20));
       }
     }
 
@@ -157,16 +167,33 @@ class _RunEventPage extends StatelessWidget {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              Text(
-                'Time Left:',
+              const Text(
+                'Press the button to partecipate!',
                 style: TextStyle(
-                  fontSize: 25.0,
+                  fontSize: 22.0,
                   fontWeight: FontWeight.bold,
-                  color: const Color.fromARGB(255, 32, 90, 34),
+                  color: Color.fromARGB(255, 32, 90, 34),
                 ),
               ),
-              const SizedBox(height: 20),
+              const Divider(
+                color: Color.fromARGB(255, 47, 149, 37),
+                height: 5,
+                thickness: 3,
+                indent: 20,
+                endIndent: 20,
+              ),
+              const SizedBox(height: 50),
+              const Text(
+                'Time Left:',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 32, 90, 34),
+                ),
+              ),
+              const SizedBox(height: 30),
               LinearPercentIndicator(
+                padding: const EdgeInsets.only(left: 40),
                 width: 300,
                 lineHeight: 20.0,
                 percent: timerData.timeLeftPercentage(),
@@ -181,11 +208,11 @@ class _RunEventPage extends StatelessWidget {
                 progressColor: Colors.green,
                 backgroundColor: const Color.fromARGB(255, 106, 238, 113),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: timerData.isTimerDisabled ||
-                        !timerData.isSameDay(
-                            timerData.chosenDay, DateTime.now().subtract(const Duration(days: 1)))
+                        !timerData.isSameDay(timerData.chosenDay,
+                            DateTime.now().subtract(const Duration(days: 1)))
                     ? null
                     : () {
                         timerData._startTimer(context);
@@ -193,7 +220,7 @@ class _RunEventPage extends StatelessWidget {
                 child:
                     Text(timerData.isRunning ? 'Timer Running' : 'Participate'),
               ),
-              SizedBox(height: 15.0),
+              const SizedBox(height: 30.0),
               if (timerData.currentTime >= timerData.totalTime)
                 _returnStepsText(),
             ],

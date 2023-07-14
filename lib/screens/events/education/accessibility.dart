@@ -4,8 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 class Access extends StatelessWidget {
   Access({Key? key}) : super(key: key);
 
-  static const route = '/physical_accessibility/';
-  static const routeName = 'PhysicalAccessibility';
+  static const route = '/accessibility/';
+  static const routeName = 'Accessibility';
 
   var uri = Uri(
     scheme: 'https',

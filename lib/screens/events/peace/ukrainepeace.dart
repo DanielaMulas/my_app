@@ -36,22 +36,26 @@ class _UkrPeaceState extends State<UkrPeace> {
   @override
   void initState() {
     super.initState();
-    auth.requestDataPeriod(context, start_day, end_day).then((data) {
-      if (data != null) {
-        final totalSteps = data.fold<int>(0, (sum, step) => sum + step.value);
+    _initializePoints();
+}
 
-        setState(() {
-          if (totalSteps < 20000) {
-            points = 50;
-          } else if (totalSteps >= 20000 && totalSteps < 50000) {
-            points = 100;
-          } else {
-            points = 200;
-          }
-        });
-      }
-    });
-  }
+void _initializePoints() {
+  auth.requestDataPeriod(context, start_day, end_day).then((data) {
+    if (data != null) {
+      final totalSteps = data.fold<int>(0, (sum, step) => sum + step.value);
+
+      setState(() {
+        if (totalSteps < 20000) {
+          points = 50;
+        } else if (totalSteps >= 20000 && totalSteps < 50000) {
+          points = 100;
+        } else {
+          points = 200;
+        }
+      });
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +209,7 @@ class _UkrPeaceState extends State<UkrPeace> {
                                             children: [
                                               const SizedBox(height: 10.0),
                                               const Text(
-                                                  'By deciding to participate in this event, you will indirectly sustain UNFPA organization in their assistence to all the people currently affected by the war in Ukraine.\nEvery 1000 steps you make we will donate 1€ to this association.\nAs a reward for your participation, you will earn points based on how many steps you made.\n\nPlease note that this event is one week long. This means that you have 7 days to walk or run as much as you can to do your part in this donation event.',
+                                                  'By deciding to participate in this event, you will indirectly sustain UNFPA organization in their assistence to all the people currently affected by the war in Ukraine.\nEvery 1000 steps you make we will donate 1€ to this association.\nAs a reward for your participation, you will earn points based on how many steps you made.\n\nPlease note that this event is 4 days long. This means that you have 4 days to walk or run as much as you can to do your part in this donation event.',
                                                   style:
                                                       TextStyle(fontSize: 16)),
                                               const SizedBox(height: 18.0),
@@ -225,7 +229,7 @@ class _UkrPeaceState extends State<UkrPeace> {
                                               ),
                                               const SizedBox(height: 30.0),
                                               const Text(
-                                                "Points that will be assigned to you based on your achievement:\n-> 200 points if you make less than 60000 steps\n-> 500 points if you make between 60000 and 90000 steps\n-> 1000 points if you make more than 90000 steps",
+                                                "Points that will be assigned to you based on your achievement:\n-> 50 points if you make less than 20000 steps\n-> 100 points if you make between 20000 and 50000 steps\n-> 200 points if you make more than 50000 steps",
                                                 style: TextStyle(
                                                   fontSize: 16.0,
                                                 ),
