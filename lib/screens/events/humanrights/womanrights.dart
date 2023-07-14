@@ -71,7 +71,7 @@ class WomanRights extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can make a difference in the fight for women's rights and gender equality.\nEvery step you take in our virtual marches will contribute to meaningful change: we will donate an amount of money that depends on the number of steps you take to associations dedicated to advocating for equality and supporting women who are victims of domestic violence. As you participate, you will earn reward points based on the amount of stapes you take as a token of our appreciation.",
+                "With your support, we can make a difference in the fight for women's rights and gender equality.\nEvery step you take in our virtual marches will contribute to meaningful change: we will donate an amount of money that depends on the number of steps you take to associations dedicated to advocating for equality and supporting women who are victims of domestic violence. As you participate, you will earn reward points based on the amount of steps you take as a token of our appreciation.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
@@ -79,7 +79,7 @@ class WomanRights extends StatelessWidget {
               Row(children: [
                 const Text("For more information: ", style: TextStyle(fontWeight: FontWeight.w600),),
                 InkWell(
-                  child: const Text("https://www.associazionefrida.it", style: TextStyle(color: Colors.blue) ,),
+                  child: Text(uri.toString(), style: TextStyle(color: Colors.blue) ,),
                   onTap: () => launchUrl(uri),
                 )
               ],),

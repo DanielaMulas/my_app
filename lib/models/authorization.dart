@@ -135,7 +135,6 @@ class Authorization {
       } //if
 
       String formattedDayLink = DateFormat('yyyy-MM-dd').format(dayChosen);
-      //String formattedDayDisplay = DateFormat('dd-MM-yyyy').format(DayChosen);
 
       final url = Impact.baseUrl +
           '/' +
@@ -145,13 +144,13 @@ class Authorization {
       final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
 
       // Get the response
-      print('Calling: $url');
+      print('Calling url for data of the day: $url');
       final response = await http.get(Uri.parse(url), headers: headers);
 
       int cod = response.statusCode;
       String body = response.body;
       print('\nGET RESPONSE CODE: $cod\n');
-      print('\nRESPONSE BODY: $body\n');
+      print('\nRESPONSE BODY SINGLEDAY: $body\n');
 
       // If OK, parse the response; otherwise, return null
       if (response.statusCode == 200) {
@@ -160,10 +159,9 @@ class Authorization {
         final data = decodedResponse['data'];
         
         if (data is Map<String, dynamic>) {
-          //"is" is used to check the type of an object
-          /*The Map<String, dynamic> type represents a map (key-value pairs) where the keys are strings and the values can be of any type (dynamic).
-          By using is Map<String, dynamic>, we ensure that data is a map with string keys and dynamic values.
-          This check helps us safely access the date and data fields later in the code, avoiding potential errors if the structure of the response data is different than expected.*/
+          /*"is" is used to check the type of an object
+          The Map<String, dynamic> type represents a map (key-value pairs) where the keys are strings and the values can be of any type (dynamic).        
+          This check is uded to safely access the date and data fields later in the code, avoiding potential errors when the data is null.*/
           final date = data['date'];
           final stepsData = data['data'];
 
@@ -178,11 +176,6 @@ class Authorization {
           result = [Steps(time: DateTime.now(), value: 0)];
         }
 
-        /*ORIGINAL FUNCTION:
-        for (var i = 0; i < decodedResponse['data']['data'].length; i++) {
-          result.add(Steps.fromJson(decodedResponse['data']['date'],
-              decodedResponse['data']['data'][i]));
-        }*/
       } else {
         result = [Steps(time: DateTime.now(), value: 0)];
       }
@@ -197,4 +190,6 @@ class Authorization {
     //display only in case the request was not authorized
     return null;
   } //requestDataSingleDay
+
+
 } //AuthorizationPage
