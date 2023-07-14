@@ -100,7 +100,7 @@ class WomanRights extends StatelessWidget {
                 endIndent: 130,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events about women's rights.",style: TextStyle(fontSize: 15)),
+              const Text("Ops, you have attended 0 events about women's rights.",style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 
               //Check available events

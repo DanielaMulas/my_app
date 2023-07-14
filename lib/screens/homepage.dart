@@ -261,7 +261,6 @@ class _HomeState extends State<HomePage> {
                                             entry.value.toDouble()))
                                         .toList(),
                                     isCurved: false,
-                                    //colors: [Color.fromARGB(255, 74, 195, 90), Colors.purple],
                                     colors: [Colors.cyan, Colors.green, Colors.amberAccent, Colors.redAccent, Colors.purpleAccent],
                                     barWidth: 5,
                                     dotData: FlDotData(show: true),

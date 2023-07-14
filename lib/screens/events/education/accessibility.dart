@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class Access extends StatelessWidget {
   Access({Key? key}) : super(key: key);
@@ -12,6 +13,13 @@ class Access extends StatelessWidget {
     host: 'sightsavers.org',
     path: '/disability/education/',
   );
+
+  DateTime start_day = DateTime(2023, 12, 10);
+  DateTime end_day = DateTime(2023, 12, 14);
+  String formattedStartDisplay =
+      DateFormat('dd/MM/yyyy').format(DateTime(2023, 12, 10));
+  String formattedEndDisplay =
+      DateFormat('dd/MM/yyyy').format(DateTime(2023, 12, 14));
 
   @override
   Widget build(BuildContext context) {
@@ -77,29 +85,27 @@ class Access extends StatelessWidget {
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Row(
+              
+              /*Row(
                 children: [
                   const Text(
                     "For more information: ",
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                   InkWell(
-                    child: const Text(
-                      "https://www.sightsavers.org",
+                    child: Text(
+                      uri.toString(),
                       style: TextStyle(color: Colors.blue),
                     ),
                     onTap: () => launchUrl(uri),
                   )
                 ],
-              ),
+              ),*/
               const SizedBox(height: 30.0),
 
               //Ongoing Initiatives
               const Text(
-                'Here are your attended events:',
+                'Your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -109,16 +115,16 @@ class Access extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 130,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events about accessibility.",
+              const Text("Ops, you have attended 0 events about accessibility.",
                   style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 
               //Check available events
               const Text(
-                'Check the available events here:',
+                'Check the available events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -128,7 +134,7 @@ class Access extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 80,
               ),
               SizedBox(height: 7),
 
@@ -141,30 +147,124 @@ class Access extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(7.0),
                       child: Row(
                         children: [
-                          Text(
-                            "No events available yet.",
+                          const Text(
+                            "School Inclusivity",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              
                             ),
-                            textAlign: TextAlign.center,
                           ),
-                          /*SizedBox(
-                            width: 50.0,
-                          ),*/
+                          const SizedBox(
+                            width: 29.0,
+                          ),
+                          Text(
+                            'From $formattedStartDisplay to $formattedEndDisplay',
+                            style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey),
+                          ),
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.lightGreen,
                       height: 0.3,
                       thickness: 0.4,
                       indent: 100,
                       endIndent: 100,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        title: const Text(
+                                          'School Inclusivity',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        content: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              const SizedBox(height: 10.0),
+                                              const Text(
+                                                  'By deciding to participate in this event, you will indirectly sustain Unicef organization, that works towards increasing access to education for all children, especially those who are marginalized or disadvantaged.\nEvery 1000 steps you make we will donate 1€ to this association.\nAs a reward for your participation, you will earn points based on how many steps you made.\n\nPlease note that this event lasts 5 days. This means that you have 5 days to walk or run as much as you can to do your part in this donation event.',
+                                                  style:
+                                                      TextStyle(fontSize: 16)),
+                                              const SizedBox(height: 18.0),
+                                              const Text(
+                                                "For more information: ",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              InkWell(
+                                                child: Text(
+                                                  uri.toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.blue),
+                                                ),
+                                                onTap: () => launchUrl(uri),
+                                              ),
+                                              const SizedBox(height: 30.0),
+                                              const Text(
+                                                "Points that will be assigned to you based on your achievement:\n-> 50 points if you make less than 50000 steps\n-> 150 points if you make between 50000 and 75000 steps\n-> 500 points if you make more than 80000 steps",
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10.0),
+                                              
+                                       
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                //Navigator.push(context, MaterialPageRoute(builder: (context) => RunEvent1()));
+                                              },
+                                              child: Text('Back'))
+                                        ],
+                                      );
+                                    });
+                              },
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    'Description',
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.black),
+                                  ),
+                                  SizedBox(width: 4.0),
+                                  Icon(Icons.description_outlined,
+                                      size: 20, color: Colors.green),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),

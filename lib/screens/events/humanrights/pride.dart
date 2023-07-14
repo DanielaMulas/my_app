@@ -111,7 +111,7 @@ class Pride extends StatelessWidget {
                 endIndent: 15,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events about pride.",
+              const Text("Ops, you have attended 0 events about pride.",
                   style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 

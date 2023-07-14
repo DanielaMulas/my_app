@@ -127,7 +127,7 @@ void _initializePoints() {
 
               //Attended events
               const Text(
-                'Check the available events:',
+                'Your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -378,7 +378,7 @@ void _initializePoints() {
 
               //Check available events
               const Text(
-                'Your attended events:',
+                'Check the available events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,

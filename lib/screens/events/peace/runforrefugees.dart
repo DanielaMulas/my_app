@@ -111,7 +111,7 @@ class Run4Refugee extends StatelessWidget {
                 endIndent: 15,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended to 0 events for helping refugees.",
+              const Text("Ops, you have attended 0 events for helping refugees.",
                   style: TextStyle(fontSize: 15)),
               SizedBox(height: 30),
 
