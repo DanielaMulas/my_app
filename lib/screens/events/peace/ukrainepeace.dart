@@ -117,7 +117,7 @@ void _initializePoints() {
               ),
               const SizedBox(height: 5),
               const Text(
-                "With your support, we can work towards a more peaceful world. By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donatea cetain amount of money based on how many steps you make to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
+                "By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donate a cetain amount of money based on how many steps you make to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
@@ -335,7 +335,7 @@ void _initializePoints() {
                                                             color:
                                                                 Colors.amber)),
                                                     Image.asset(
-                                                      "assets/images/gold_medal.png",
+                                                      "assets/images/silver_medal.png",
                                                       width: 50.0,
                                                       height: 50.0,
                                                     )
@@ -349,13 +349,13 @@ void _initializePoints() {
                                                 Navigator.pop(context);
                                                 //Navigator.push(context, MaterialPageRoute(builder: (context) => RunEvent1()));
                                               },
-                                              child: Text('Back'))
+                                              child: const Text('Back'))
                                         ],
                                       );
                                     });
                               },
                               child: Row(
-                                children: [
+                                children: const [
                                   Text(
                                     'Review',
                                     style: TextStyle(
@@ -374,7 +374,7 @@ void _initializePoints() {
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               //Check available events
               const Text(
@@ -390,7 +390,7 @@ void _initializePoints() {
                 thickness: 3,
                 endIndent: 80,
               ),
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.lightGreen, width: 0.4),
@@ -411,9 +411,7 @@ void _initializePoints() {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          /*SizedBox(
-                            width: 50.0,
-                          ),*/
+                        
                         ],
                       ),
                     ),

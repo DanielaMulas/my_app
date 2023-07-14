@@ -44,7 +44,7 @@ class _HomeState extends State<HomePage> {
 
   int? totalSteps;
   String? name;
-  final int maxSteps = 30000;
+  final int maxSteps = 30000; //Assumption: the user take less than 30000 steps a day
 
   final Authorization auth = Authorization();
 
@@ -56,11 +56,10 @@ class _HomeState extends State<HomePage> {
   DateTime startDayWeekAgo = DateTime.now().subtract(const Duration(days: 7));
 
   Future<List<int>> calculateSums() async {
-    final weekSteps = List<int>.filled(7, 0);
+    final weekSteps = List<int>.filled(7, 0); //List of 7 int initialized to 0
 
     final dbRepository =
         Provider.of<DatabaseRepository>(context, listen: false);
-    //final stepsDatabase = dbRepository.database;
 
     final now = DateTime.now();
     final List<DateTime> weekDays = [
@@ -74,22 +73,24 @@ class _HomeState extends State<HomePage> {
     ];
 
     for (int i = 0; i < 7; i++) {
-      if (mounted) {
+      if (mounted) { //When a widget is mounted, it means that it has been inserted into the widget tree and is being displayed on the screen.
         final dayResult = await auth.requestDataSingleDay(context, weekDays[i]);
         if (dayResult != null) {
           for (final step in dayResult) {
             weekSteps[i] += step.value;
-          }
+          } //at the end weekSteps[i] contains the number of steps taken in the day i
 
           // Insert the steps into the database
           final stepsEntity =
               StepsEntity(value: weekSteps[i], day: weekDays[i].toString());
-            final daySteps=weekSteps[i];
-            final dayEntity=weekDays[i].toString();
-            print('value inserted in StepsEntity: $daySteps');
-            print('day inserted in StepsEntity: $dayEntity');
-            print('Step to add to the database: $i, $stepsEntity');
-            await dbRepository.insertStep(stepsEntity);
+            
+          //Print
+          final daySteps=weekSteps[i];
+          final dayEntity=weekDays[i].toString();
+          print('value inserted in StepsEntity: $daySteps');
+          print('day inserted in StepsEntity: $dayEntity');
+          print('Step to add to the database: $i, $stepsEntity');
+          await dbRepository.insertStep(stepsEntity);
         }
       }
     }
@@ -110,7 +111,7 @@ class _HomeState extends State<HomePage> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              //SizedBox(height: 5),
+              
               Text('Welcome, $name!',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -163,7 +164,7 @@ class _HomeState extends State<HomePage> {
                                     setState(() {
                                       day = day.subtract(const Duration(
                                           days:
-                                              1)); //update the day whose steps are requested (the previious one)
+                                              1)); //update the day whose steps are requested (the previous one)
                                       formattedDayDisplay =
                                           DateFormat('dd-MM-yyyy').format(
                                               day); //update of the text that shows me the day to which the steps displayed correspond
@@ -175,9 +176,8 @@ class _HomeState extends State<HomePage> {
                                 lineWidth: 30,
                                 percent: totalSteps / maxSteps <= 1 ? totalSteps/maxSteps : 1,
                                 center: Text(
-                                  result != null
-                                      ? '$totalSteps'
-                                      : 'Data non available yet',
+                                  totalSteps.toString(),
+                                      
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30,
@@ -235,7 +235,7 @@ class _HomeState extends State<HomePage> {
                 thickness: 3,
                 endIndent: 70,
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               
               
               FutureBuilder<List<int>>(
@@ -298,16 +298,14 @@ class _HomeState extends State<HomePage> {
                                     ),
                                   ),
 
-                                  rightTitles: SideTitles(
-                                      showTitles:
-                                          false), // Remove titles on the right side
+                                  rightTitles: SideTitles(showTitles:false), // Remove titles on the right side
                                   topTitles: SideTitles(showTitles: false),
                                 ),
                                 gridData: FlGridData(show: false),
                                 lineTouchData: LineTouchData(
                                     touchTooltipData: LineTouchTooltipData(
                                   tooltipBgColor:
-                                      Color.fromARGB(255, 193, 193, 193),
+                                      Color.fromARGB(255, 106, 214, 208),
                                   tooltipPadding: EdgeInsets.all(8),
                                   tooltipRoundedRadius: 8,
                                   getTooltipItems:

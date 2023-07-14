@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
-import 'package:my_app/screens/events/humanrights/runningevent.dart';
 
 class PointsData extends ChangeNotifier{
   int points = 600;
@@ -53,7 +52,6 @@ class Stat extends StatelessWidget {
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 32, 90, 34),
-                    //color: Color.fromARGB(255, 49, 212, 34),
                   ),
                 ),
               ),
@@ -61,10 +59,10 @@ class Stat extends StatelessWidget {
                 color: Color.fromARGB(255, 32, 90, 34),
                 height: 5,
                 thickness: 3,
-                //endIndent: 70,
-                //indent: 70,
               ),
               const SizedBox(height: 30),
+              
+              //Steps average
               FutureBuilder(
                 future: db.findStepsMean(),
                 builder: (context, snapshot) {
@@ -75,7 +73,7 @@ class Stat extends StatelessWidget {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Steps Mean', //shows me the day of which the steps are shown
+                          'Steps Mean',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 25.0,
@@ -95,7 +93,6 @@ class Stat extends StatelessWidget {
                           'Average number of steps taken in the last 7 days: \t$mean',
                           style: const TextStyle(
                               fontSize: 20.0,
-                              //fontWeight: FontWeight.bold,
                               color: Colors.black),
                           textAlign: TextAlign.left),
                     ]);
@@ -106,6 +103,8 @@ class Stat extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 30),
+
+              //Steps maximum
               FutureBuilder(
                 future: db.findStepsMax(),
                 builder: (context, snapshot) {
@@ -116,7 +115,7 @@ class Stat extends StatelessWidget {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Steps Max', //shows me the day of which the steps are shown
+                          'Steps Max', 
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 25.0,
@@ -136,16 +135,16 @@ class Stat extends StatelessWidget {
                           'Maximum number of steps taken in the last 7 days: \t$max',
                           style: const TextStyle(
                               fontSize: 20.0,
-                              //fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ]);
                   } else {
-                    //A CircularProgressIndicator is shown while the mean is loading
                     return const CircularProgressIndicator();
                   } //else
                 },
               ),
               const SizedBox(height: 30),
+
+              //Steps minimum
               FutureBuilder(
                 future: db.findStepsMin(),
                 builder: (context, snapshot) {
@@ -156,7 +155,7 @@ class Stat extends StatelessWidget {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Steps Min', //shows me the day of which the steps are shown
+                          'Steps Min',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 25.0,
@@ -176,16 +175,16 @@ class Stat extends StatelessWidget {
                           'Minimum number of steps taken in the last 7 days: \t$min',
                           style: const TextStyle(
                               fontSize: 20.0,
-                              //fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ]);
                   } else {
-                    //A CircularProgressIndicator is shown while the mean is loading
                     return const CircularProgressIndicator();
                   } //else
                 },
               ),
               const SizedBox(height: 30),
+              
+              //Points obtained from the events
               const Text(
                 'Points', //shows how many points the person has accumulated
                 textAlign: TextAlign.start,
@@ -203,10 +202,9 @@ class Stat extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                  'Number of points you have accumulated until now: \t${updatedPoints}',
+                  'Number of points you have accumulated until now: \t$updatedPoints',
                   style: const TextStyle(
                       fontSize: 20.0,
-                      //fontWeight: FontWeight.bold,
                       color: Colors.black)),
             ]);
           },

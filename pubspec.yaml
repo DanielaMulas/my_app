@@ -30,12 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #material_design_icons_flutter: ^6.0.7096
   material_design_icons_flutter: ^7.0.7296
   flutter_login: ^4.1.1
   country_picker: ^2.0.20
   fl_country_code_picker: ^0.0.4
-  #simple_circular_progress_bar: ^1.0.2
   percent_indicator: ^4.0.1
   fl_chart: ^0.41.0
   shared_preferences: ^2.0.17

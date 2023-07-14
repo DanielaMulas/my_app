@@ -14,7 +14,7 @@ class Authorization {
   Future<int?> authorize() async {
     //Request
     final url = Impact.baseUrl + '/' + Impact.tokenEndpoint;
-    //print('url authorize: $url');
+    
     final body = {'username': Impact.username, 'password': Impact.password};
 
     //Get the response
@@ -58,7 +58,7 @@ class Authorization {
 
   Future<List<Steps>?> requestDataPeriod(
       BuildContext context, DateTime startDay, DateTime endDay) async {
-    //Initialize the result
+    
     List<Steps>? result;
 
     final codeAuth = await authorize();

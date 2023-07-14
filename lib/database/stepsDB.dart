@@ -18,4 +18,3 @@ abstract class StepsDatabase extends FloorDatabase{
 }
 
 
-// flutter pub run build_runner build

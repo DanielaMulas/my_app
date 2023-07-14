@@ -69,35 +69,34 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
-            //key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Welcome',
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 TextFormField(
                   controller: _usernameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: !_passwordVisible,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     suffixIcon: IconButton(
                     icon: Icon(
-                      // Based on passwordVisible state choose the icon
+                      // Based on passwordVisible state the icon is chosen
                       _passwordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
@@ -109,22 +108,22 @@ class _LoginPageState extends State<LoginPage> {
                   )),
                   
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 ElevatedButton(
                   onPressed: _login,
-                  child: Text('Login'),
+                  child: const Text('Login'),
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 Text(
                   _errorMessage,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.red,
                   ),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: TextButton(
-                    child: Text('About us'),
+                    child: const Text('About us'),
                     onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => AboutPage())),
                   ),
                 ),

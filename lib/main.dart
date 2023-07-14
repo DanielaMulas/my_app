@@ -6,19 +6,17 @@ import 'package:provider/provider.dart';
 import 'package:my_app/screens/events/humanrights/runningevent.dart';
 import 'package:my_app/screens/stats.dart';
 
-// We modified the main
+
 
 Future<void> main() async {
-  //This is a special method that use WidgetFlutterBinding to interact with the Flutter engine.
-  //This is needed when you need to interact with the native core of the app.
-  //Here, we need it since when need to initialize the DB before running the app.
+  
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  //This opens the database.
+  
   final StepsDatabase database =
       await $FloorStepsDatabase.databaseBuilder('app_database.db').build();
-  //This creates a new DatabaseRepository from the StepDatabase instance just initialized
+  
   final databaseRepository = DatabaseRepository(database: database);
 
   final chosenDay = DateTime(2023, 7, 17);

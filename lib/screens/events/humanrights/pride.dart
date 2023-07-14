@@ -23,9 +23,9 @@ class Pride extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Pride', style: TextStyle(color: Colors.black)),
+        title: const Text('Pride', style: TextStyle(color: Colors.black)),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 173, 248, 175),
+        backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -88,7 +88,7 @@ class Pride extends StatelessWidget {
                   InkWell(
                     child: Text(
                       uri.toString(),
-                      style: TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: Colors.blue),
                     ),
                     onTap: () => launchUrl(uri),
                   )
@@ -108,12 +108,12 @@ class Pride extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 130,
               ),
               const SizedBox(height: 5),
               const Text("Ops, you have attended 0 events about pride.",
                   style: TextStyle(fontSize: 15)),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               //Check available events
               const Text(
@@ -127,9 +127,9 @@ class Pride extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 80,
               ),
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
 
               Container(
                 decoration: BoxDecoration(
@@ -142,7 +142,7 @@ class Pride extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             "No events available yet.",
                             style: TextStyle(
@@ -152,13 +152,11 @@ class Pride extends StatelessWidget {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          /*SizedBox(
-                            width: 50.0,
-                          ),*/
+                          
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.lightGreen,
                       height: 0.3,
                       thickness: 0.4,

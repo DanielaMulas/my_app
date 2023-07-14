@@ -14,9 +14,9 @@ class Education extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Education', style: TextStyle(color: Colors.black)),
+          title: const Text('Education', style: TextStyle(color: Colors.black)),
           elevation: 0,
-          backgroundColor: Color.fromARGB(255, 173, 248, 175),
+          backgroundColor: const Color.fromARGB(255, 173, 248, 175),
           leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.black,
@@ -29,7 +29,6 @@ class Education extends StatelessWidget {
           crossAxisCount: 1,
           children: [
             MaterialButton(
-              //padding: const EdgeInsets.all(8),
               onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => ChildrenSchoolRights()));
               },
               color: Color.fromARGB(255, 178, 255, 192),
@@ -37,7 +36,7 @@ class Education extends StatelessWidget {
               child: Container(
                   decoration: const BoxDecoration(
                   image: DecorationImage(image: AssetImage('assets/images/children_education.png'),
-                  //fit: BoxFit.scaleDown
+                  
                   )
                 ),
                 child: const Align(
@@ -49,7 +48,6 @@ class Education extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
-                        //backgroundColor: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -60,16 +58,13 @@ class Education extends StatelessWidget {
             ),
 
             MaterialButton(
-              
-              //padding: const EdgeInsets.all(8),
               onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Access()));
               },
-              color: Color.fromARGB(255, 178, 255, 192),
+              color: const Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
                   decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/disability_accessibility.jpg'),
-                  //fit: BoxFit.scaleDown
+                  image: DecorationImage(image: AssetImage('assets/images/disability_accessibility.jpg'),                 
                   )
                 ),
                 child: const Align(
@@ -77,11 +72,10 @@ class Education extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
-                      "Accessibility to Education",// Disabled Education Events
+                      "Accessibility to Education",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
-                        //backgroundColor: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),

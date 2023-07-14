@@ -23,9 +23,9 @@ class Run4Refugee extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Run4Refugees', style: TextStyle(color: Colors.black)),
+        title: const Text('Run4Refugees', style: TextStyle(color: Colors.black)),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 173, 248, 175),
+        backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -98,7 +98,7 @@ class Run4Refugee extends StatelessWidget {
 
               //Attended events
               const Text(
-                'Here are your attended events:',
+                'Your attended events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -108,16 +108,16 @@ class Run4Refugee extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 130,
               ),
               const SizedBox(height: 5),
               const Text("Ops, you have attended 0 events for helping refugees.",
                   style: TextStyle(fontSize: 15)),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               //Check available events
               const Text(
-                'Check the available events here:',
+                'Check the available events:',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -127,9 +127,9 @@ class Run4Refugee extends StatelessWidget {
                 color: Color.fromARGB(255, 59, 126, 62),
                 height: 5,
                 thickness: 3,
-                endIndent: 15,
+                endIndent: 80,
               ),
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
 
               Container(
                 decoration: BoxDecoration(
@@ -142,7 +142,7 @@ class Run4Refugee extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: Row(
-                        children: [
+                        children: const [
                           Text(
                             "No events available yet.",
                             style: TextStyle(
@@ -152,13 +152,10 @@ class Run4Refugee extends StatelessWidget {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          /*SizedBox(
-                            width: 50.0,
-                          ),*/
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.lightGreen,
                       height: 0.3,
                       thickness: 0.4,

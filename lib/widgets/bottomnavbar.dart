@@ -5,10 +5,9 @@ import 'package:my_app/screens/homepage.dart';
 import 'package:my_app/screens/eventshomepage.dart';
 
 class BottomNavBar extends StatefulWidget{
-  BottomNavBar({Key? key}) : super(key: key);
+  const BottomNavBar({Key? key}) : super(key: key);
 
 
-  
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -17,9 +16,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
 int _currentIndex = 0;
 final screens = [
-  HomePage(),
-  Events(),
-  Stat(),
+  const HomePage(),
+  const Events(),
+  const Stat(),
   Profile(),
 ];
   

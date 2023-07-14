@@ -1,6 +1,6 @@
 class UserProfile{
 
-  String username = "App"; // username example
-  String password = "biomedica"; // password example
+  String username = "App"; // username 
+  String password = "biomedica"; // password 
 
 }

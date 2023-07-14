@@ -64,7 +64,6 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.green,
-        //iconTheme: const IconThemeData(color: Color(0xFF89453C)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.white,
@@ -125,7 +124,7 @@ class _ProfileState extends State<Profile> {
                                   fontWeight: FontWeight.bold))),
                     ),
 
-                    //gender field
+                    //Gender field
                     const SizedBox(height: 20),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -225,9 +224,7 @@ class _ProfileState extends State<Profile> {
                               backgroundColor: Colors.white,
                               textStyle: const TextStyle(
                                   fontSize: 16, color: Colors.blueGrey),
-                              bottomSheetHeight:
-                                  500, //Country list modal height
-                              //Sets the border radius for the bottomsheet.
+                              bottomSheetHeight: 500, 
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(20.0),
                                 topRight: Radius.circular(20.0),
@@ -352,25 +349,16 @@ class _ProfileState extends State<Profile> {
                                   },
                                   child: Row(
                                     children: [
-                                      //container for the country flag
-                                      /*Container(
-                                        child: countryCode != null
-                                            ? countryCode!.flagImage
-                                            : null,
-                                      ),*/
                                       //container for the phone prefix
-                                      //const SizedBox(width: 10),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 6),
                                         decoration: BoxDecoration(
                                           color: Color.fromARGB(255, 5, 71, 7),
                                           borderRadius: BorderRadius.circular(5),
-                                          //border: Border.all(color: Colors.black)
                                         ),
                                         child: Text(
                                             chosenCode ?? "Choose prefix",
-                                            //countryCode?.dialCode ?? "Choose prefix",
                                             style: const TextStyle(
                                                 color: Colors.white)),
                                       ),
@@ -403,8 +391,6 @@ class _ProfileState extends State<Profile> {
                                   await profileData.setString('prefix', chosenCode!);
                                 }
                                 
-
-                                //print('\nCode:$chosenCode\n');
                                 setState((){});
 
                                 ScaffoldMessenger.of(context)
@@ -412,7 +398,7 @@ class _ProfileState extends State<Profile> {
                                   ..showSnackBar(
                                       const SnackBar(content: Text('Data saved!'), duration: Duration(seconds: 2),));
 
-                                //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBar()));
+                                
                               } //fine OnPressed
                             },
                             style: ElevatedButton.styleFrom(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:my_app/screens/events/humanrights/runningevent.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:my_app/models/authorization.dart';
 import 'package:my_app/models/steps.dart';
@@ -67,7 +66,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Children Rights', style: TextStyle(color: Colors.black)),
+        title: const Text('Children Rights', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 173, 248, 175),
       ),
@@ -253,16 +252,14 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                             0;
                                                     money = totalSteps ~/ 1000;
                                                     print(money);
-                                                    //If the result isn't null, totalSteps corresond to the sum of all the values returned by the function requestDataPeriod for all the days
-                                                    print(
-                                                        '\nTOTAL STEPS: $totalSteps\n');
+                                                    print('\nTOTAL STEPS: $totalSteps\n');
                                                     return SizedBox(
                                                       width: 800,
                                                       height: 150,
                                                       child: Column(
                                                         children: [
                                                           Text(
-                                                            'Steps made from $formattedStartDisplay to $formattedEndDisplay: ', //shows me the day of which the steps are shown
+                                                            'Steps made from $formattedStartDisplay to $formattedEndDisplay: ', 
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style:
@@ -299,7 +296,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                             height: 20,
                                                           ),
                                                           Text(
-                                                              'Thanks to you we will donate $money€!', //total steps done in the week
+                                                              'Thanks to you we will donate $money€!',
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -352,15 +349,14 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
-                                                //Navigator.push(context, MaterialPageRoute(builder: (context) => RunEvent1()));
                                               },
-                                              child: Text('Back'))
+                                              child: const Text('Back'))
                                         ],
                                       );
                                     });
                               },
                               child: Row(
-                                children: [
+                                children: const [
                                   Text(
                                     'Review',
                                     style: TextStyle(
@@ -379,7 +375,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               //Check available events
               const Text(
@@ -395,7 +391,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                 thickness: 3,
                 endIndent: 80,
               ),
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.lightGreen, width: 0.4),
@@ -416,9 +412,6 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          /*SizedBox(
-                            width: 50.0,
-                          ),*/
                         ],
                       ),
                     ),

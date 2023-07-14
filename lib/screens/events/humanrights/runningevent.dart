@@ -17,12 +17,7 @@ class TimerData extends ChangeNotifier {
 
   final Authorization auth = Authorization();
 
-  /*DateTime chosenDay;
-      .subtract(const Duration(days: 1)); // Initialized as "yesterday"
-  String formattedDayDisplay = DateFormat('dd-MM-yyyy');
-      .format(DateTime.now().subtract(const Duration(days: 1)));
-  */
-
+  
   late DateTime chosenDay;
   Timer? timer;
 
@@ -156,7 +151,7 @@ class _RunEventPage extends StatelessWidget {
         title: const Text("Let's start!"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
+          color: Colors.white,
           onPressed: () {
             Navigator.of(context).pop(context);
           },

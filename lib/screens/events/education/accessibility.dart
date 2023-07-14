@@ -32,9 +32,9 @@ class Access extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Physical Accessibility to Education', style: TextStyle(color: Colors.black)),
+        title: const Text('Physical Accessibility to Education', style: TextStyle(color: Colors.black)),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 173, 248, 175),
+        backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -86,21 +86,7 @@ class Access extends StatelessWidget {
                 style: TextStyle(fontSize: 15),
               ),
               
-              /*Row(
-                children: [
-                  const Text(
-                    "For more information: ",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  InkWell(
-                    child: Text(
-                      uri.toString(),
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    onTap: () => launchUrl(uri),
-                  )
-                ],
-              ),*/
+              
               const SizedBox(height: 30.0),
 
               //Ongoing Initiatives
@@ -120,7 +106,7 @@ class Access extends StatelessWidget {
               const SizedBox(height: 5),
               const Text("Ops, you have attended 0 events about accessibility.",
                   style: TextStyle(fontSize: 15)),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               //Check available events
               const Text(
@@ -136,7 +122,7 @@ class Access extends StatelessWidget {
                 thickness: 3,
                 endIndent: 80,
               ),
-              SizedBox(height: 7),
+              const SizedBox(height: 7),
 
               Container(
                 decoration: BoxDecoration(
@@ -207,7 +193,7 @@ class Access extends StatelessWidget {
                                             children: [
                                               const SizedBox(height: 10.0),
                                               const Text(
-                                                  'By deciding to participate in this event, you will indirectly sustain Unicef organization, that works towards increasing access to education for all children, especially those who are marginalized or disadvantaged.\nEvery 1000 steps you make we will donate 1€ to this association.\nAs a reward for your participation, you will earn points based on how many steps you made.\n\nPlease note that this event lasts 5 days. This means that you have 5 days to walk or run as much as you can to do your part in this donation event.',
+                                                  'By deciding to participate in this event, you will indirectly sustain Sightsavers organization, that works with schools, communities, governments and organisations of people with disabilities to ensure children with all types of disability, and particularly girls with disabilities, are able to learn alongside their peers in pre-school, through to primary and secondary school.\nEvery 1000 steps you make we will donate 1€ to this association.\nAs a reward for your participation, you will earn points based on how many steps you made.\n\nPlease note that you can partecipate once you get closer to the beginning of the event. The event lasts 5 days, that means that you have 5 days to walk or run as much as you can to do your part in this donation event.',
                                                   style:
                                                       TextStyle(fontSize: 16)),
                                               const SizedBox(height: 18.0),
@@ -227,7 +213,7 @@ class Access extends StatelessWidget {
                                               ),
                                               const SizedBox(height: 30.0),
                                               const Text(
-                                                "Points that will be assigned to you based on your achievement:\n-> 50 points if you make less than 50000 steps\n-> 150 points if you make between 50000 and 75000 steps\n-> 500 points if you make more than 80000 steps",
+                                                "Points that will be assigned to you based on your achievement:\n-> 50 points if you make less than 50000 steps\n-> 150 points if you make between 50000 and 75000 steps\n-> 500 points if you make more than 75000 steps",
                                                 style: TextStyle(
                                                   fontSize: 16.0,
                                                 ),
@@ -242,9 +228,8 @@ class Access extends StatelessWidget {
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
-                                                //Navigator.push(context, MaterialPageRoute(builder: (context) => RunEvent1()));
                                               },
-                                              child: Text('Back'))
+                                              child: const Text('Back'))
                                         ],
                                       );
                                     });

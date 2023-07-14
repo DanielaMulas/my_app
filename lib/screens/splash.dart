@@ -15,7 +15,6 @@ class Splash extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 74, 195, 80),
       body: Center(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SizedBox(height: 300),
             const Text('Step4Rights',
@@ -39,13 +38,10 @@ class Splash extends StatelessWidget {
                 Shadow(
                     color: Colors.black,
                     blurRadius: 20.0,
-                    offset: Offset(10, 0
-                    ))
+                    offset: Offset(10, 0))
               ],
             ),
-                
-              
-            
+        
           ],
         ),
       ),

@@ -1,7 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:sqflite/sqflite.dart' as sqflite;
 
 
 class Steps{
@@ -18,16 +15,7 @@ class Steps{
   String toString() {
     return 'Steps(time: $time, value: $value)';
   }//toString
+  
 }//Steps
 
 
-/*class StepProvider extends ChangeNotifier {
-  List<Steps> _stepsData = [];
-
-  List<Steps> get stepsData => _stepsData;
-
-  void updateSteps(List<Steps> steps) {
-    _stepsData = steps;
-    notifyListeners();
-  }
-}*/

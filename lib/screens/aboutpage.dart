@@ -26,14 +26,13 @@ class _AboutPage extends State<AboutPage> {
             child: const Icon(Icons.arrow_back_ios),
             onTap: () => _checkLogin(),
           ),
-          //centerTitle: true,
+          
           title: const Text("About Us"),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
             child: SingleChildScrollView(
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   
@@ -61,9 +60,7 @@ class _AboutPage extends State<AboutPage> {
                                       )),
                     )),
                   const SizedBox(height: 20.0),
-
-
-                  const SizedBox(height: 5),
+                  
                   const Center(
                     child: Text(
                       'TRAIN FOR WHAT YOU BELIEVE IN!',
@@ -91,7 +88,7 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   const SizedBox(height: 20.0),
 
-                  // How it works section
+                  // Mission section
                   const Text(
                     'Our Mission', 
                     style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Color.fromARGB(255, 59, 126, 62)),
@@ -104,13 +101,12 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'The aim of this app is to promote education about social causes thorugh physical training.\nIn particular, it aims to raise awareness about important issues while encouraging people to take action and make a positive impact in their daily lives.',// you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
+                    'The aim of this app is to promote education about social causes through physical training.\nIn particular, it aims to raise awareness about important issues while encouraging people to take action and make a positive impact in their daily lives.',// you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 15),
                   ),
                   const SizedBox(height: 20.0),
 
-                  
 
                   //EXPLANATION SECTION
                   const Text(
@@ -125,7 +121,7 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    'This app promotes physical training by counting the steps you make and donating to the causes you choose based on how many steps you do.\nFor every step counted we commit to donate a certain amount of money to the association you have chosen.\nIn this way, you can contribute to a worthy cause simply by engaging with the app while mantain a healthy lifestyle.',// you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
+                    'This app promotes physical training by counting the steps you take and donating to the causes you choose based on how many steps you do.\nFor every step counted we commit to donate a certain amount of money to the association you have chosen.\nIn this way, you can contribute to a worthy cause simply by engaging with the app while mantaining a healthy lifestyle.',// you can support different causes only by walking or running!\nIn this way we want to promote both a healthy lifestyle and more awareness about social rights.',
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 15),
                   ),
@@ -175,14 +171,14 @@ class _AboutPage extends State<AboutPage> {
                   ),
                   //Information
                   ListTile(
-                    title: Text('paola.righetto.1@studenti.unipd.it'),
+                    title: const Text('paola.righetto.1@studenti.unipd.it'),
                     leading: Icon(
                       MdiIcons.email,
                       color: Color.fromARGB(255, 59, 126, 62)
                     ),
                   ),
                   ListTile(
-                    title: Text('daniela.mulas@studenti.unipd.it'),
+                    title: const Text('daniela.mulas@studenti.unipd.it'),
                     leading: Icon(
                       MdiIcons.email,
                       color: Color.fromARGB(255, 59, 126, 62)
@@ -193,7 +189,7 @@ class _AboutPage extends State<AboutPage> {
             ),
           ),
         
-      );// WillPopScope give us control over the back button action
+      );
   }
 
   void _checkLogin() async{
