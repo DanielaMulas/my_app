@@ -7,7 +7,7 @@ class Pride extends StatelessWidget {
   static const route = '/pride/';
   static const routename = 'Pride';
 
-  var uri = Uri(
+  final uri = Uri(
     scheme: 'https',
     host: 'associazionearc.eu',
   );
@@ -148,11 +148,9 @@ class Pride extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          
                         ],
                       ),
                     ),

@@ -66,9 +66,10 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: const Text('Children Rights', style: TextStyle(color: Colors.black)),
+        title: const Text('Children Rights',
+            style: TextStyle(color: Colors.black)),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 173, 248, 175),
+        backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -252,14 +253,15 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                             0;
                                                     money = totalSteps ~/ 1000;
                                                     print(money);
-                                                    print('\nTOTAL STEPS: $totalSteps\n');
+                                                    print(
+                                                        '\nTOTAL STEPS: $totalSteps\n');
                                                     return SizedBox(
                                                       width: 800,
                                                       height: 150,
                                                       child: Column(
                                                         children: [
                                                           Text(
-                                                            'Steps made from $formattedStartDisplay to $formattedEndDisplay: ', 
+                                                            'Steps made from $formattedStartDisplay to $formattedEndDisplay: ',
                                                             textAlign:
                                                                 TextAlign.start,
                                                             style:
@@ -317,7 +319,7 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
                                                     return Text(
                                                         'There is an error: ${snapshot.error}');
                                                   } else {
-                                                    return CircularProgressIndicator();
+                                                    return const CircularProgressIndicator();
                                                   }
                                                 },
                                               ),

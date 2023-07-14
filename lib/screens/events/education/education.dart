@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:my_app/screens/events/education/childrenschoolrights.dart';
 import 'package:my_app/screens/events/education/accessibility.dart';
 
-
 class Education extends StatelessWidget {
   const Education({Key? key}) : super(key: key);
 
   static const route = '/humanrights/';
   static const routename = 'HumanRights';
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +16,10 @@ class Education extends StatelessWidget {
           elevation: 0,
           backgroundColor: const Color.fromARGB(255, 173, 248, 175),
           leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context),),
+            icon: const Icon(Icons.arrow_back_ios),
+            color: Colors.black,
+            onPressed: () => Navigator.pop(context),
+          ),
         ),
         body: GridView.count(
           primary: false,
@@ -29,16 +28,19 @@ class Education extends StatelessWidget {
           crossAxisCount: 1,
           children: [
             MaterialButton(
-              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => ChildrenSchoolRights()));
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChildrenSchoolRights()));
               },
-              color: Color.fromARGB(255, 178, 255, 192),
+              color: const Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
-                  decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/children_education.png'),
-                  
-                  )
-                ),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/images/children_education.png'),
+                )),
                 child: const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -53,20 +55,22 @@ class Education extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),              
+                ),
               ),
             ),
-
             MaterialButton(
-              onPressed:() {Navigator.push(context, MaterialPageRoute(builder: (context) => Access()));
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Access()));
               },
               color: const Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
-                  decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/images/disability_accessibility.jpg'),                 
-                  )
-                ),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image:
+                      AssetImage('assets/images/disability_accessibility.jpg'),
+                )),
                 child: const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -81,11 +85,9 @@ class Education extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),              
+                ),
               ),
             ),
-            
-                       
           ],
         ));
   }

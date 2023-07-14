@@ -12,7 +12,8 @@ class HumanRights extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Human Rights', style: TextStyle(color: Colors.black)),
+          title:
+              const Text('Human Rights', style: TextStyle(color: Colors.black)),
           elevation: 0,
           backgroundColor: const Color.fromARGB(255, 173, 248, 175),
           leading: IconButton(
@@ -38,9 +39,7 @@ class HumanRights extends StatelessWidget {
                 decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/images/woman_rights.jpg'),
-                        scale: 2.1
-                        //fit: BoxFit.scaleDown
-                        )),
+                        scale: 2.1)),
                 child: const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
@@ -63,7 +62,7 @@ class HumanRights extends StatelessWidget {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Pride()));
               },
-              color: Color.fromARGB(255, 178, 255, 192),
+              color: const Color.fromARGB(255, 178, 255, 192),
               splashColor: Colors.greenAccent,
               child: Container(
                 decoration: const BoxDecoration(

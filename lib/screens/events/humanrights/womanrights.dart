@@ -24,7 +24,8 @@ class WomanRights extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: const Text('Women Rights', style: TextStyle(color: Colors.black)),
+        title:
+            const Text('Women Rights', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
@@ -182,9 +183,8 @@ class WomanRights extends StatelessWidget {
                                           children: [
                                             const SizedBox(height: 10.0),
                                             const Text(
-                                                'By deciding to participate in this event, you will help us in the fight against gender stereotypes and contribute to create a more inclusive society.\n\nAs a reward for your participation, you will earn a certain amount of points based on the steps you have made, just like the money we will donate to associations that work to protect women and fight for their rights.  .\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.',
+                                                'By deciding to participate to this event, you will help us in the fight against gender stereotypes and contribute to create a more inclusive society.\n\nAs a reward for your participation, you will earn a certain amount of points based on the steps you have made, just like the money we will donate to associations that work to protect women and fight for their rights.  .\n\nPlease note that this event is a single-day event. This means that you have the entire day to complete this task.\nThe number of steps you must take to succeed is 9000.',
                                                 style: TextStyle(fontSize: 16)),
-                                            
                                             const SizedBox(
                                               height: 18.0,
                                             ),
@@ -201,7 +201,6 @@ class WomanRights extends StatelessWidget {
                                               ),
                                               onTap: () => launchUrl(uri),
                                             ),
-
                                             const SizedBox(height: 30.0),
                                             const Text(
                                               "Your prize in case you take 9000 steps:",
@@ -241,15 +240,15 @@ class WomanRights extends StatelessWidget {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            RunEvent1()));
+                                                            const RunEvent1()));
                                               },
-                                              child: const  Text('Confirm'))
+                                              child: const Text('Confirm'))
                                         ],
                                       );
                                     });
                               },
                               child: Row(
-                                children: [
+                                children: const [
                                   Text(
                                     'Participate',
                                     style: TextStyle(

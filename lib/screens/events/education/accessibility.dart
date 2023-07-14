@@ -8,17 +8,17 @@ class Access extends StatelessWidget {
   static const route = '/accessibility/';
   static const routeName = 'Accessibility';
 
-  var uri = Uri(
+  final uri = Uri(
     scheme: 'https',
     host: 'sightsavers.org',
     path: '/disability/education/',
   );
 
-  DateTime start_day = DateTime(2023, 12, 10);
-  DateTime end_day = DateTime(2023, 12, 14);
-  String formattedStartDisplay =
+  final DateTime start_day = DateTime(2023, 12, 10);
+  final DateTime end_day = DateTime(2023, 12, 14);
+  final String formattedStartDisplay =
       DateFormat('dd/MM/yyyy').format(DateTime(2023, 12, 10));
-  String formattedEndDisplay =
+  final String formattedEndDisplay =
       DateFormat('dd/MM/yyyy').format(DateTime(2023, 12, 14));
 
   @override
@@ -32,7 +32,8 @@ class Access extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: const Text('Physical Accessibility to Education', style: TextStyle(color: Colors.black)),
+        title: const Text('Physical Accessibility to Education',
+            style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
@@ -85,8 +86,7 @@ class Access extends StatelessWidget {
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
-              
-              
+
               const SizedBox(height: 30.0),
 
               //Ongoing Initiatives
@@ -219,8 +219,6 @@ class Access extends StatelessWidget {
                                                 ),
                                               ),
                                               const SizedBox(height: 10.0),
-                                              
-                                       
                                             ],
                                           ),
                                         ),

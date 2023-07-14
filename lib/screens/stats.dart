@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/widgets/bottomnavbar.dart';
 
-class PointsData extends ChangeNotifier{
+class PointsData extends ChangeNotifier {
   int points = 600;
 
-  void addPoints(int value){
+  void addPoints(int value) {
     points += value;
     notifyListeners();
   }
@@ -20,9 +20,9 @@ class Stat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      final pointsData = Provider.of<PointsData>(context);
-      final updatedPoints = pointsData.points;
-     return Scaffold(
+    final pointsData = Provider.of<PointsData>(context);
+    final updatedPoints = pointsData.points;
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           Stat.routename,
@@ -36,7 +36,7 @@ class Stat extends StatelessWidget {
           color: Colors.white,
           onPressed: () {
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => BottomNavBar()));
+                MaterialPageRoute(builder: (context) => const BottomNavBar()));
           },
         ),
       ),
@@ -61,7 +61,7 @@ class Stat extends StatelessWidget {
                 thickness: 3,
               ),
               const SizedBox(height: 30),
-              
+
               //Steps average
               FutureBuilder(
                 future: db.findStepsMean(),
@@ -92,8 +92,7 @@ class Stat extends StatelessWidget {
                       Text(
                           'Average number of steps taken in the last 7 days: \t$mean',
                           style: const TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black),
+                              fontSize: 20.0, color: Colors.black),
                           textAlign: TextAlign.left),
                     ]);
                   } else {
@@ -115,7 +114,7 @@ class Stat extends StatelessWidget {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Steps Max', 
+                          'Steps Max',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 25.0,
@@ -134,8 +133,7 @@ class Stat extends StatelessWidget {
                       Text(
                           'Maximum number of steps taken in the last 7 days: \t$max',
                           style: const TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black)),
+                              fontSize: 20.0, color: Colors.black)),
                     ]);
                   } else {
                     return const CircularProgressIndicator();
@@ -174,8 +172,7 @@ class Stat extends StatelessWidget {
                       Text(
                           'Minimum number of steps taken in the last 7 days: \t$min',
                           style: const TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black)),
+                              fontSize: 20.0, color: Colors.black)),
                     ]);
                   } else {
                     return const CircularProgressIndicator();
@@ -183,7 +180,7 @@ class Stat extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 30),
-              
+
               //Points obtained from the events
               const Text(
                 'Points', //shows how many points the person has accumulated
@@ -203,9 +200,7 @@ class Stat extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                   'Number of points you have accumulated until now: \t$updatedPoints',
-                  style: const TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black)),
+                  style: const TextStyle(fontSize: 20.0, color: Colors.black)),
             ]);
           },
         )),

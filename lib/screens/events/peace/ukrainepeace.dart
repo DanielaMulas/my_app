@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:my_app/screens/events/humanrights/runningevent.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:my_app/models/authorization.dart';
 import 'package:my_app/models/steps.dart';
@@ -19,7 +18,8 @@ class _UkrPeaceState extends State<UkrPeace> {
   var uri = Uri(
     scheme: 'https',
     host: 'unfpa.org',
-    path: 'donate/Ukraine-a?utm_campaign=HO-UA-22-Ukraine&utm_content=evergreen&gclid=CjwKCAiA1JGRBhBSEiwAxXblwULSSi1DDIzP6plSTz6QXYPRCsEeAlCRoHlpGFsQ4qf3-GGDL3iIeRoCJ9IQAvD_BwE',
+    path:
+        'donate/Ukraine-a?utm_campaign=HO-UA-22-Ukraine&utm_content=evergreen&gclid=CjwKCAiA1JGRBhBSEiwAxXblwULSSi1DDIzP6plSTz6QXYPRCsEeAlCRoHlpGFsQ4qf3-GGDL3iIeRoCJ9IQAvD_BwE',
   );
 
   final Authorization auth = Authorization();
@@ -37,25 +37,25 @@ class _UkrPeaceState extends State<UkrPeace> {
   void initState() {
     super.initState();
     _initializePoints();
-}
+  }
 
-void _initializePoints() {
-  auth.requestDataPeriod(context, start_day, end_day).then((data) {
-    if (data != null) {
-      final totalSteps = data.fold<int>(0, (sum, step) => sum + step.value);
+  void _initializePoints() {
+    auth.requestDataPeriod(context, start_day, end_day).then((data) {
+      if (data != null) {
+        final totalSteps = data.fold<int>(0, (sum, step) => sum + step.value);
 
-      setState(() {
-        if (totalSteps < 20000) {
-          points = 50;
-        } else if (totalSteps >= 20000 && totalSteps < 50000) {
-          points = 100;
-        } else {
-          points = 200;
-        }
-      });
-    }
-  });
-}
+        setState(() {
+          if (totalSteps < 20000) {
+            points = 50;
+          } else if (totalSteps >= 20000 && totalSteps < 50000) {
+            points = 100;
+          } else {
+            points = 200;
+          }
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +68,10 @@ void _initializePoints() {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: Text('Ukraine Support', style: TextStyle(color: Colors.black)),
+        title: const Text('Ukraine Support',
+            style: TextStyle(color: Colors.black)),
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 173, 248, 175),
+        backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -117,7 +118,7 @@ void _initializePoints() {
               ),
               const SizedBox(height: 5),
               const Text(
-                "By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donate a cetain amount of money based on how many steps you make to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
+                "By partecipating to the events promoted by our app, you contribute to the cause of peace as we will donate a certain amount of money based on how many steps you take to associations involved in providing food, assistence and medical supplies to the people affected by the war in Ukraine.\nTogether, we can make a difference and create a brighter future for everyone.",
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 15),
               ),
@@ -290,7 +291,8 @@ void _initializePoints() {
                                                                 const TextStyle(
                                                               fontSize: 18.0,
                                                               fontWeight:
-                                                                  FontWeight.bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                               color:
                                                                   Colors.black,
                                                             ),
@@ -300,12 +302,17 @@ void _initializePoints() {
                                                           ),
                                                           Text(
                                                               'Thanks to you we will donate $money€!', //total steps done in the week
-                                                              textAlign: TextAlign.center,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
                                                               style:
                                                                   const TextStyle(
                                                                 fontSize: 18.0,
-                                                                fontStyle: FontStyle.italic,
-                                                                color: Colors.black,
+                                                                fontStyle:
+                                                                    FontStyle
+                                                                        .italic,
+                                                                color: Colors
+                                                                    .black,
                                                               )),
                                                         ],
                                                       ),
@@ -315,7 +322,7 @@ void _initializePoints() {
                                                     return Text(
                                                         'There is an error: ${snapshot.error}');
                                                   } else {
-                                                    return CircularProgressIndicator();
+                                                    return const CircularProgressIndicator();
                                                   }
                                                 },
                                               ),
@@ -411,7 +418,6 @@ void _initializePoints() {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                        
                         ],
                       ),
                     ),

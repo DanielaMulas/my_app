@@ -11,9 +11,9 @@ class Impact{
 
 
 
-  static String username = 'USIGr0F8oE';
+  static String username = '';
 
-  static String password = '12345678!';
+  static String password = '';
 
   static String patientUsername = 'Jpefaq6m58';
 

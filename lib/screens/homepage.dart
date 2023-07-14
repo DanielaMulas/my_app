@@ -25,9 +25,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomeState extends State<HomePage> {
-  
-
-
   @override
   void initState() {
     super.initState();
@@ -41,10 +38,10 @@ class _HomeState extends State<HomePage> {
     setState(() {});
   }
 
-
   int? totalSteps;
   String? name;
-  final int maxSteps = 30000; //Assumption: the user take less than 30000 steps a day
+  final int maxSteps =
+      30000; //Assumption: the user take less than 30000 steps a day
 
   final Authorization auth = Authorization();
 
@@ -73,7 +70,8 @@ class _HomeState extends State<HomePage> {
     ];
 
     for (int i = 0; i < 7; i++) {
-      if (mounted) { //When a widget is mounted, it means that it has been inserted into the widget tree and is being displayed on the screen.
+      if (mounted) {
+        //When a widget is mounted, it means that it has been inserted into the widget tree and is being displayed on the screen.
         final dayResult = await auth.requestDataSingleDay(context, weekDays[i]);
         if (dayResult != null) {
           for (final step in dayResult) {
@@ -83,10 +81,10 @@ class _HomeState extends State<HomePage> {
           // Insert the steps into the database
           final stepsEntity =
               StepsEntity(value: weekSteps[i], day: weekDays[i].toString());
-            
+
           //Print
-          final daySteps=weekSteps[i];
-          final dayEntity=weekDays[i].toString();
+          final daySteps = weekSteps[i];
+          final dayEntity = weekDays[i].toString();
           print('value inserted in StepsEntity: $daySteps');
           print('day inserted in StepsEntity: $dayEntity');
           print('Step to add to the database: $i, $stepsEntity');
@@ -111,14 +109,12 @@ class _HomeState extends State<HomePage> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              
               Text('Welcome, $name!',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28.0,
                       fontStyle: FontStyle.italic)),
               const SizedBox(height: 20),
-
               FutureBuilder<List<Steps>?>(
                 future: auth.requestDataSingleDay(context, day),
                 builder: (context, snapshot) {
@@ -158,7 +154,8 @@ class _HomeState extends State<HomePage> {
                                   icon: Icon(
                                     MdiIcons.arrowLeftDropCircle,
                                     size: 30,
-                                    color: Color.fromARGB(255, 32, 90, 34),
+                                    color:
+                                        const Color.fromARGB(255, 32, 90, 34),
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -170,14 +167,14 @@ class _HomeState extends State<HomePage> {
                                               day); //update of the text that shows me the day to which the steps displayed correspond
                                     });
                                   }),
-                              
                               CircularPercentIndicator(
                                 radius: 85,
                                 lineWidth: 30,
-                                percent: totalSteps / maxSteps <= 1 ? totalSteps/maxSteps : 1,
+                                percent: totalSteps / maxSteps <= 1
+                                    ? totalSteps / maxSteps
+                                    : 1,
                                 center: Text(
                                   totalSteps.toString(),
-                                      
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 30,
@@ -186,13 +183,14 @@ class _HomeState extends State<HomePage> {
                                 ),
                                 progressColor: Colors.green,
                                 backgroundColor:
-                                    Color.fromARGB(255, 106, 238, 113),
+                                    const Color.fromARGB(255, 106, 238, 113),
                               ),
                               IconButton(
                                   icon: Icon(
                                     MdiIcons.arrowRightDropCircle,
                                     size: 30,
-                                    color: Color.fromARGB(255, 32, 90, 34),
+                                    color:
+                                        const Color.fromARGB(255, 32, 90, 34),
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -204,7 +202,6 @@ class _HomeState extends State<HomePage> {
                                               day); //update of the text that shows me the day to which the steps displayed correspond
                                     });
                                   }),
-                              
                             ],
                           ),
                         ],
@@ -213,7 +210,7 @@ class _HomeState extends State<HomePage> {
                   } else if (snapshot.hasError) {
                     return Text('There is an error: ${snapshot.error}');
                   } else {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 },
               ),
@@ -236,8 +233,6 @@ class _HomeState extends State<HomePage> {
                 endIndent: 70,
               ),
               const SizedBox(height: 30),
-              
-              
               FutureBuilder<List<int>>(
                 future: calculateSums(),
                 builder: (context, snapshot) {
@@ -261,7 +256,13 @@ class _HomeState extends State<HomePage> {
                                             entry.value.toDouble()))
                                         .toList(),
                                     isCurved: false,
-                                    colors: [Colors.cyan, Colors.green, Colors.amberAccent, Colors.redAccent, Colors.purpleAccent],
+                                    colors: [
+                                      Colors.cyan,
+                                      Colors.green,
+                                      Colors.amberAccent,
+                                      Colors.redAccent,
+                                      Colors.purpleAccent
+                                    ],
                                     barWidth: 5,
                                     dotData: FlDotData(show: true),
                                     belowBarData: BarAreaData(
@@ -298,14 +299,16 @@ class _HomeState extends State<HomePage> {
                                     ),
                                   ),
 
-                                  rightTitles: SideTitles(showTitles:false), // Remove titles on the right side
+                                  rightTitles: SideTitles(
+                                      showTitles:
+                                          false), // Remove titles on the right side
                                   topTitles: SideTitles(showTitles: false),
                                 ),
                                 gridData: FlGridData(show: false),
                                 lineTouchData: LineTouchData(
                                     touchTooltipData: LineTouchTooltipData(
                                   tooltipBgColor:
-                                      Color.fromARGB(255, 106, 214, 208),
+                                      const Color.fromARGB(255, 106, 214, 208),
                                   tooltipPadding: EdgeInsets.all(8),
                                   tooltipRoundedRadius: 8,
                                   getTooltipItems:
@@ -335,11 +338,10 @@ class _HomeState extends State<HomePage> {
                   } else if (snapshot.hasError) {
                     return Text('There is an error: ${snapshot.error}');
                   } else {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 },
               ),
-              
             ],
           ),
         ),
@@ -356,7 +358,7 @@ class _HomeState extends State<HomePage> {
               ),
               leading: const Icon(Icons.menu),
               onTap: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => BottomNavBar()),
+                MaterialPageRoute(builder: (context) => const BottomNavBar()),
               ),
             ),
             const Divider(height: 0, color: Color.fromARGB(255, 186, 172, 172)),

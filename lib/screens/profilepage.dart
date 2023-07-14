@@ -6,7 +6,7 @@ import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key? key}) : super(key: key);
+  const Profile({Key? key}) : super(key: key);
 
   static const route = '/profilepage/';
   static const routename = 'ProfilePage';
@@ -38,10 +38,11 @@ class _ProfileState extends State<Profile> {
     _retrieveVar();
   }
 
-  void _retrieveVar() async { 
+  void _retrieveVar() async {
     final profileData = await SharedPreferences.getInstance();
-    
-    nameController.text = profileData.getString('name') ?? ''; //defaulting to an empty map when the method return null
+
+    nameController.text = profileData.getString('name') ??
+        ''; //defaulting to an empty map when the method return null
     ageController.text = profileData.getString('age') ?? '';
     countryController.text = profileData.getString('country') ?? '';
     cityController.text = profileData.getString('city') ?? '';
@@ -49,13 +50,9 @@ class _ProfileState extends State<Profile> {
     phoneController.text = profileData.getString('phone') ?? '';
     RadioVal = profileData.getInt('gender');
     chosenCode = profileData.getString('prefix');
-    
-   setState((){});
-    
-    
-    
-  }
 
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,25 +66,24 @@ class _ProfileState extends State<Profile> {
           color: Colors.white,
           onPressed: () {
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => BottomNavBar()));
+                MaterialPageRoute(builder: (context) => const BottomNavBar()));
           },
         ),
-        
         title: const Text('Profile Information',
             style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height:20),
+            const SizedBox(height: 20),
             //avatar picture:
             Center(
-              child: ClipOval(
-                child: CircleAvatar(
+                child: ClipOval(
+              child: CircleAvatar(
                   radius: 60,
                   child: Image.asset('assets/images/avatar_green_pic.png')),
             )),
-            
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               //Initialization of the form with all the fields that define the profile informations
@@ -95,7 +91,6 @@ class _ProfileState extends State<Profile> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    
                     //Name field
                     const SizedBox(height: 20),
                     SizedBox(
@@ -142,12 +137,13 @@ class _ProfileState extends State<Profile> {
                         ListTile(
                           leading: Radio(
                             fillColor: MaterialStateColor.resolveWith(
-                                (states) => const Color.fromARGB(255, 21, 120, 25)),
+                                (states) =>
+                                    const Color.fromARGB(255, 21, 120, 25)),
                             toggleable: true,
                             value: 1,
                             groupValue: RadioVal,
-                            onChanged: (val)  {
-                              setState(()  {
+                            onChanged: (val) {
+                              setState(() {
                                 RadioVal = val;
                               });
                             },
@@ -160,16 +156,16 @@ class _ProfileState extends State<Profile> {
                         ListTile(
                           leading: Radio(
                               fillColor: MaterialStateColor.resolveWith(
-                                  (states) => const Color.fromARGB(255, 21, 120, 25)),
+                                  (states) =>
+                                      const Color.fromARGB(255, 21, 120, 25)),
                               toggleable: true,
                               value: 2,
                               groupValue: RadioVal,
-                              onChanged: (val)  {
+                              onChanged: (val) {
                                 setState(() {
                                   RadioVal = val;
                                 });
-                              }
-                          ),
+                              }),
                           title: const Text(
                             'FEMALE',
                             style: TextStyle(
@@ -185,21 +181,22 @@ class _ProfileState extends State<Profile> {
                     SizedBox(
                       width: 400,
                       child: TextFormField(
-                        controller: ageController,
-                        enabled: true,
-                        keyboardType: TextInputType.number,
-                        decoration:  InputDecoration(
-                            icon: Icon(MdiIcons.counter,
-                              color: const Color.fromARGB(255, 21, 120, 25)),
-                            border: const UnderlineInputBorder(),
-                            focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(255, 21, 120, 25))),
-                            labelText: 'Age',
-                            labelStyle: const TextStyle(
-                              color: Color.fromARGB(255, 21, 120, 25),
-                              fontWeight: FontWeight.bold))),
+                          controller: ageController,
+                          enabled: true,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              icon: Icon(MdiIcons.counter,
+                                  color:
+                                      const Color.fromARGB(255, 21, 120, 25)),
+                              border: const UnderlineInputBorder(),
+                              focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color: Color.fromARGB(255, 21, 120, 25))),
+                              labelText: 'Age',
+                              labelStyle: const TextStyle(
+                                  color: Color.fromARGB(255, 21, 120, 25),
+                                  fontWeight: FontWeight.bold))),
                     ),
 
                     //country scroll field
@@ -224,7 +221,7 @@ class _ProfileState extends State<Profile> {
                               backgroundColor: Colors.white,
                               textStyle: const TextStyle(
                                   fontSize: 16, color: Colors.blueGrey),
-                              bottomSheetHeight: 500, 
+                              bottomSheetHeight: 500,
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(20.0),
                                 topRight: Radius.circular(20.0),
@@ -245,12 +242,12 @@ class _ProfileState extends State<Profile> {
                           );
                         }, //fine OnTap
 
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                             icon: Icon(MdiIcons.earth,
-                                color: Color.fromARGB(255, 21, 120, 25)),
-                            border: UnderlineInputBorder(),
+                                color: const Color.fromARGB(255, 21, 120, 25)),
+                            border: const UnderlineInputBorder(),
                             focusedBorder: const UnderlineInputBorder(
-                                borderSide:  BorderSide(
+                                borderSide: BorderSide(
                                     width: 2,
                                     color: Color.fromARGB(255, 21, 120, 25))),
                             labelText: 'Country',
@@ -268,10 +265,11 @@ class _ProfileState extends State<Profile> {
                           enabled: true,
                           decoration: InputDecoration(
                               icon: Icon(MdiIcons.cityVariantOutline,
-                                  color: Color.fromARGB(255, 21, 120, 25)),
+                                  color:
+                                      const Color.fromARGB(255, 21, 120, 25)),
                               border: UnderlineInputBorder(),
                               focusedBorder: const UnderlineInputBorder(
-                                  borderSide:  BorderSide(
+                                  borderSide: BorderSide(
                                       width: 2,
                                       color: Color.fromARGB(255, 5, 71, 7))),
                               labelText: 'City',
@@ -287,7 +285,8 @@ class _ProfileState extends State<Profile> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your email';
-                            } else if (!value.contains('@') || !value.contains('.')) {
+                            } else if (!value.contains('@') ||
+                                !value.contains('.')) {
                               return 'Please enter a valid email address';
                             }
                             return null;
@@ -295,9 +294,10 @@ class _ProfileState extends State<Profile> {
                           controller: emailController,
                           enabled: true,
                           keyboardType: TextInputType.emailAddress,
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                               icon: Icon(MdiIcons.emailOutline,
-                                  color: Color.fromARGB(255, 21, 120, 25)),
+                                  color:
+                                      const Color.fromARGB(255, 21, 120, 25)),
                               border: const UnderlineInputBorder(),
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -312,63 +312,63 @@ class _ProfileState extends State<Profile> {
                     //phone number field
                     const SizedBox(height: 20),
                     SizedBox(
-                      child: TextFormField(
-                        controller: phoneController,
-                        enabled: true,
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          icon: Icon(MdiIcons.phoneDial,
-                            color: Color.fromARGB(255, 21, 120, 25)),
-                          border: const UnderlineInputBorder(),
-                          focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(255, 5, 71, 7))),
-                          labelText: 'Phone number',
-                          labelStyle: const TextStyle(
-                              color: Color.fromARGB(255, 5, 71, 7),
-                              fontWeight: FontWeight.bold),
-                          prefixIcon: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 2, vertical: 2
-                                ),
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    final code = await countryPicker.showPicker(context: context);
-                                    setState(() {
-                                      countryCode = code;
-                                      if(countryCode!=null){
-                                      chosenCode=countryCode!.dialCode;
-                                      }
-                                    });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      //container for the phone prefix
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16, vertical: 6),
-                                        decoration: BoxDecoration(
-                                          color: Color.fromARGB(255, 5, 71, 7),
-                                          borderRadius: BorderRadius.circular(5),
-                                        ),
-                                        child: Text(
-                                            chosenCode ?? "Choose prefix",
-                                            style: const TextStyle(
-                                                color: Colors.white)),
+                        child: TextFormField(
+                      controller: phoneController,
+                      enabled: true,
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        icon: Icon(MdiIcons.phoneDial,
+                            color: const Color.fromARGB(255, 21, 120, 25)),
+                        border: const UnderlineInputBorder(),
+                        focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 2,
+                                color: Color.fromARGB(255, 5, 71, 7))),
+                        labelText: 'Phone number',
+                        labelStyle: const TextStyle(
+                            color: Color.fromARGB(255, 5, 71, 7),
+                            fontWeight: FontWeight.bold),
+                        prefixIcon: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 2),
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  final code = await countryPicker.showPicker(
+                                      context: context);
+                                  setState(() {
+                                    countryCode = code;
+                                    if (countryCode != null) {
+                                      chosenCode = countryCode!.dialCode;
+                                    }
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    //container for the phone prefix
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 6),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            const Color.fromARGB(255, 5, 71, 7),
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
-                                    ],
-                                  ),
+                                      child: Text(chosenCode ?? "Choose prefix",
+                                          style: const TextStyle(
+                                              color: Colors.white)),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
+                      ),
                     )),
 
                     Row(
@@ -377,36 +377,43 @@ class _ProfileState extends State<Profile> {
                         ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                final profileData = await SharedPreferences.getInstance();
-                                await profileData.setString('name', nameController.text);
-                                await profileData.setString('age', ageController.text);
-                                await profileData.setString('country', countryController.text);
-                                await profileData.setString('city', cityController.text);
-                                await profileData.setString('email', emailController.text);
-                                await profileData.setString('phone', phoneController.text);
-                                if (RadioVal!=null){
+                                final profileData =
+                                    await SharedPreferences.getInstance();
+                                await profileData.setString(
+                                    'name', nameController.text);
+                                await profileData.setString(
+                                    'age', ageController.text);
+                                await profileData.setString(
+                                    'country', countryController.text);
+                                await profileData.setString(
+                                    'city', cityController.text);
+                                await profileData.setString(
+                                    'email', emailController.text);
+                                await profileData.setString(
+                                    'phone', phoneController.text);
+                                if (RadioVal != null) {
                                   await profileData.setInt('gender', RadioVal!);
                                 }
-                                if(countryCode != null){
-                                  await profileData.setString('prefix', chosenCode!);
+                                if (countryCode != null) {
+                                  await profileData.setString(
+                                      'prefix', chosenCode!);
                                 }
-                                
-                                setState((){});
+
+                                setState(() {});
 
                                 ScaffoldMessenger.of(context)
                                   ..removeCurrentSnackBar()
-                                  ..showSnackBar(
-                                      const SnackBar(content: Text('Data saved!'), duration: Duration(seconds: 2),));
-
-                                
+                                  ..showSnackBar(const SnackBar(
+                                    content: Text('Data saved!'),
+                                    duration: Duration(seconds: 2),
+                                  ));
                               } //fine OnPressed
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                    Color.fromARGB(255, 33, 163, 57),
+                                    const Color.fromARGB(255, 33, 163, 57),
                                 shape: const CircleBorder()),
-                            child: const Icon(Icons.check)
-                        ),
+                            child: const Icon(Icons.check)),
                       ],
                     ),
                   ],

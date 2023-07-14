@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:core';
-//import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/steps.dart';
 import 'package:my_app/utils/impact.dart';
@@ -14,7 +13,7 @@ class Authorization {
   Future<int?> authorize() async {
     //Request
     final url = Impact.baseUrl + '/' + Impact.tokenEndpoint;
-    
+
     final body = {'username': Impact.username, 'password': Impact.password};
 
     //Get the response
@@ -58,7 +57,6 @@ class Authorization {
 
   Future<List<Steps>?> requestDataPeriod(
       BuildContext context, DateTime startDay, DateTime endDay) async {
-    
     List<Steps>? result;
 
     final codeAuth = await authorize();
@@ -157,7 +155,7 @@ class Authorization {
         final decodedResponse = jsonDecode(response.body);
         result = [];
         final data = decodedResponse['data'];
-        
+
         if (data is Map<String, dynamic>) {
           /*"is" is used to check the type of an object
           The Map<String, dynamic> type represents a map (key-value pairs) where the keys are strings and the values can be of any type (dynamic).        
@@ -175,7 +173,6 @@ class Authorization {
         if (result.isEmpty) {
           result = [Steps(time: DateTime.now(), value: 0)];
         }
-
       } else {
         result = [Steps(time: DateTime.now(), value: 0)];
       }
@@ -190,6 +187,4 @@ class Authorization {
     //display only in case the request was not authorized
     return null;
   } //requestDataSingleDay
-
-
 } //AuthorizationPage

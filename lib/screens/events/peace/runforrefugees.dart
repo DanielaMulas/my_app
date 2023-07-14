@@ -23,7 +23,8 @@ class Run4Refugee extends StatelessWidget {
           ),
           onTap: () => Navigator.pop(context),
         ),
-        title: const Text('Run4Refugees', style: TextStyle(color: Colors.black)),
+        title:
+            const Text('Run4Refugees', style: TextStyle(color: Colors.black)),
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 173, 248, 175),
       ),
@@ -111,7 +112,8 @@ class Run4Refugee extends StatelessWidget {
                 endIndent: 130,
               ),
               const SizedBox(height: 5),
-              const Text("Ops, you have attended 0 events for helping refugees.",
+              const Text(
+                  "Ops, you have attended 0 events for helping refugees.",
                   style: TextStyle(fontSize: 15)),
               const SizedBox(height: 30),
 
@@ -148,7 +150,6 @@ class Run4Refugee extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              
                             ),
                             textAlign: TextAlign.center,
                           ),

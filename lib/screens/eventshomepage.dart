@@ -64,7 +64,7 @@ class Events extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HumanRights()));
+                  MaterialPageRoute(builder: (context) => const HumanRights()));
             },
           ),
           MaterialButton(
@@ -135,8 +135,8 @@ class Events extends StatelessWidget {
             ),
             // ),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Peace()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Peace()));
             },
           ),
         ],

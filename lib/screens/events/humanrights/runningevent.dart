@@ -9,15 +9,14 @@ import 'package:my_app/screens/stats.dart';
 class TimerData extends ChangeNotifier {
   int totalTime = 24; // Total time in seconds (mimicking hours: *60*60)
   int currentTime = 0; // Current time in seconds
-  bool isRunning = false; // Checking if the timer is running
-  bool isTimerDisabled = false; // Checking if the timer is disabled
+  bool isRunning = false; // To check if the timer is running
+  bool isTimerDisabled = false; // To check if the timer is disabled
 
   int? totalSteps;
   final int maxSteps = 9000; // StepGoal
 
   final Authorization auth = Authorization();
 
-  
   late DateTime chosenDay;
   Timer? timer;
 
@@ -58,7 +57,7 @@ class TimerData extends ChangeNotifier {
         notifyListeners();
       });
     }
-    ;
+
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (currentTime < totalTime) {
         currentTime++;
@@ -67,9 +66,6 @@ class TimerData extends ChangeNotifier {
         _stopTimer(context);
       }
 
-      /*if(isSameDay(chosenDay, DateTime.now()) == false){
-        _stopTimer();
-      }*/
       notifyListeners();
     });
   } //_startTimer
