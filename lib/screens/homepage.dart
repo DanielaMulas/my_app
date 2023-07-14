@@ -27,15 +27,11 @@ class HomePage extends StatefulWidget {
 class _HomeState extends State<HomePage> {
   
 
-  
-  //late Future<int?> codeAuth;
-
 
   @override
   void initState() {
     super.initState();
     _retrieveName();
-    //codeAuth=auth.authorize(); // Fetch name saved in the profile page information when the widget is initialized
   }
 
   void _retrieveName() async {
@@ -92,7 +88,7 @@ class _HomeState extends State<HomePage> {
             final dayEntity=weekDays[i].toString();
             print('value inserted in StepsEntity: $daySteps');
             print('day inserted in StepsEntity: $dayEntity');
-            print('Step to add to the database: $stepsEntity');
+            print('Step to add to the database: $i, $stepsEntity');
             await dbRepository.insertStep(stepsEntity);
         }
       }
@@ -157,7 +153,6 @@ class _HomeState extends State<HomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              //const SizedBox(width: 50),
                               IconButton(
                                   icon: Icon(
                                     MdiIcons.arrowLeftDropCircle,
@@ -174,11 +169,11 @@ class _HomeState extends State<HomePage> {
                                               day); //update of the text that shows me the day to which the steps displayed correspond
                                     });
                                   }),
-                              //const SizedBox(width: 140),
+                              
                               CircularPercentIndicator(
                                 radius: 85,
                                 lineWidth: 30,
-                                percent: totalSteps / maxSteps,
+                                percent: totalSteps / maxSteps <= 1 ? totalSteps/maxSteps : 1,
                                 center: Text(
                                   result != null
                                       ? '$totalSteps'
@@ -209,7 +204,7 @@ class _HomeState extends State<HomePage> {
                                               day); //update of the text that shows me the day to which the steps displayed correspond
                                     });
                                   }),
-                              //const SizedBox(width: 50),
+                              
                             ],
                           ),
                         ],
@@ -266,7 +261,8 @@ class _HomeState extends State<HomePage> {
                                             entry.value.toDouble()))
                                         .toList(),
                                     isCurved: false,
-                                    colors: [Color.fromARGB(255, 74, 195, 90)],
+                                    //colors: [Color.fromARGB(255, 74, 195, 90), Colors.purple],
+                                    colors: [Colors.cyan, Colors.green, Colors.amberAccent, Colors.redAccent, Colors.purpleAccent],
                                     barWidth: 5,
                                     dotData: FlDotData(show: true),
                                     belowBarData: BarAreaData(
@@ -284,7 +280,6 @@ class _HomeState extends State<HomePage> {
                                     showTitles: true,
                                     getTitles: (value) {
                                       if (value % 1 == 0) {
-                                        //return (value.toInt() + 1).toString();
                                         DateTime dateTime = startDayWeekAgo
                                             .add(Duration(days: value.toInt()));
                                         String formattedDate =
@@ -347,50 +342,6 @@ class _HomeState extends State<HomePage> {
                   }
                 },
               ),
-              /*Center(child: Consumer<DatabaseRepository>(
-                  builder: (context, db, child) {
-                    return FutureBuilder(
-                      future: db.findStepsMean(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          final mean = snapshot.data;
-              
-                          return Column(children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Media di boh passi:', //shows me the day of which the steps are shown
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 32, 90, 34),
-                                ),
-                              ),
-                            ),
-                            const Divider(
-                              color: Color.fromARGB(255, 32, 90, 34),
-                              height: 5,
-                              thickness: 3,
-                              endIndent: 70,
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              'Steps Mean of the last 7 days: $mean',
-                              style: const TextStyle(
-                                  fontSize: 18.0,
-                                  //fontWeight: FontWeight.bold,
-                                  color: Colors.black)
-                            ),
-                          ]);
-                        } else {
-                          //A CircularProgressIndicator is shown while the mean is loading
-                          return CircularProgressIndicator();
-                        } //else
-                      },
-                    );
-                  },
-                )),*/
               
             ],
           ),

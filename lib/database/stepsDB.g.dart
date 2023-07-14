@@ -69,7 +69,7 @@ class _$StepsDatabase extends StepsDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -85,7 +85,7 @@ class _$StepsDatabase extends StepsDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `value` INTEGER NOT NULL, `day` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `StepsEntity` (`day` TEXT NOT NULL, `value` INTEGER NOT NULL, PRIMARY KEY (`day`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -107,29 +107,20 @@ class _$StepsDao extends StepsDao {
         _stepsEntityInsertionAdapter = InsertionAdapter(
             database,
             'StepsEntity',
-            (StepsEntity item) => <String, Object?>{
-                  'id': item.id,
-                  'value': item.value,
-                  'day': item.day
-                }),
+            (StepsEntity item) =>
+                <String, Object?>{'day': item.day, 'value': item.value}),
         _stepsEntityUpdateAdapter = UpdateAdapter(
             database,
             'StepsEntity',
-            ['id'],
-            (StepsEntity item) => <String, Object?>{
-                  'id': item.id,
-                  'value': item.value,
-                  'day': item.day
-                }),
+            ['day'],
+            (StepsEntity item) =>
+                <String, Object?>{'day': item.day, 'value': item.value}),
         _stepsEntityDeletionAdapter = DeletionAdapter(
             database,
             'StepsEntity',
-            ['id'],
-            (StepsEntity item) => <String, Object?>{
-                  'id': item.id,
-                  'value': item.value,
-                  'day': item.day
-                });
+            ['day'],
+            (StepsEntity item) =>
+                <String, Object?>{'day': item.day, 'value': item.value});
 
   final sqflite.DatabaseExecutor database;
 
@@ -146,10 +137,8 @@ class _$StepsDao extends StepsDao {
   @override
   Future<List<StepsEntity>> findAllSteps() async {
     return _queryAdapter.queryList('SELECT * FROM StepsEntity',
-        mapper: (Map<String, Object?> row) => StepsEntity(
-            id: row['id'] as int?,
-            value: row['value'] as int,
-            day: row['day'] as String));
+        mapper: (Map<String, Object?> row) =>
+            StepsEntity(day: row['day'] as String, value: row['value'] as int));
   }
 
   @override
