@@ -33,6 +33,10 @@ class _ChildrenSchoolRights extends State<ChildrenSchoolRights> {
   @override
   void initState() {
     super.initState();
+    _initializePoints();
+  }
+
+  void _initializePoints() {
     auth.requestDataPeriod(context, start_day, end_day).then((data) {
       /*The callback function (data) {...} will be invoked with the result of the Future when it becomes available. 
       The result is passed as an argument to the callback function, and in this case, it is named "data"*/
