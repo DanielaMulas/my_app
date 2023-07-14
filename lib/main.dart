@@ -3,6 +3,9 @@ import 'package:my_app/repository/stepsDBrepository.dart';
 import 'package:my_app/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:my_app/screens/events/humanrights/runningevent.dart';
+import 'package:my_app/screens/stats.dart';
+
 
 // We modified the main 
 
@@ -19,11 +22,22 @@ Future<void> main() async {
   //This creates a new DatabaseRepository from the StepDatabase instance just initialized
   final databaseRepository = DatabaseRepository(database: database);
 
+  final chosenDay = DateTime(2023, 7, 17);
 
   //Here, we run the app and we provide to the whole widget tree the instance of the DatabaseRepository. 
   //That instance will be then shared through the platform and will be unique.
-  runApp(ChangeNotifierProvider<DatabaseRepository>(
-    create: (context) => databaseRepository,
+  runApp(MultiProvider(
+    providers:[
+      ChangeNotifierProvider<DatabaseRepository>(
+      create: (context) => databaseRepository,
+    ),
+    ChangeNotifierProvider<TimerData>(
+      create: (context) => TimerData(context, chosenDay),
+    ),
+    ChangeNotifierProvider<PointsData>(
+          create: (context) => PointsData(),
+    ),
+    ],
     child: const MyApp(),
   ));
 
